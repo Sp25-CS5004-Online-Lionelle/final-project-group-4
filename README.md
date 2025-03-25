@@ -8,7 +8,7 @@ Emilio Sanchez-Harris -
 
 [App]()
 
-[Design Document](/DesignDocuments)
+[Design Document](/DesignDocuments)  
 [Manual](/Manual)
 
 * The group member's names and link to their personal githubs
