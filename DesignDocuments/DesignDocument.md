@@ -4,7 +4,7 @@ Llink to tools that can help you create a class diagram: [Class Resources: Class
 
 ```mermaid
 ---
-title: Domain Name Information
+title: Home Maintenance
 ---
 
 classDiagram
@@ -15,9 +15,9 @@ classDiagram
     FileUtils <-- Model : uses
     Model <-- Controller : instantiates
     View <-- Controller : instantiates
-    MaintenanceItem <|-- ElectricalUnit : inherits
-    MaintenanceItem <|-- PlumbingUnit : inherits
-    MaintenanceItem <|-- ApplianceUnit : inherits
+    AbstractUnit <|-- ElectricalUnit : inherits
+    AbstractUnit <|-- PlumbingUnit : inherits
+    AbstractUnit <|-- ApplianceUnit : inherits
     ElectricalUnit *-- Home : composes
     PlumbingUnit *-- Home : composes
     ApplianceUnit *-- Home : composes
@@ -29,27 +29,33 @@ classDiagram
         + readFile():void
     }
 
-    class MaintenanceItem {
-        + category : String
-        + itemName : String
-        + initialInstallDate : String
-        + lastMaintainedDate : String
-        + lifeSpane : int
-        + roomLocation : String
+    class AbstractUnit {
+        - category : String
+        - itemName : String
+        - initialInstallDate : String
+        - lastMaintainedDate : String
+        - lifeSpane : int
+        - roomLocation : String
+        + AbstractUnit():
     }
 
     class ElectricalUnit {
         - homeId : int
-
+        + ElectricalUnit()
+        + setRoomLocation():void
     }
 
     class PlumbingUnit {
         - homeId : int
+        + PlumbingUnit()
+        + setRoomLocation():void
 
     }
 
     class ApplianceUnit {
         - homeId : int
+        + ApplianceUnit()
+        + setRoomLocation():void
 
     }
 
