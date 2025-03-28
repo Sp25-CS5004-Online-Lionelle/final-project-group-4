@@ -39,7 +39,7 @@ classDiagram
         - standardLifeSpan : int
         - lifeSpanMeasure : String
         - roomLocation : String
-        + AbstractUnit():
+        + AbstractUnit()
         + setRoomLocation():void
     }
 
