@@ -1,4 +1,4 @@
-# Final Project for CS 5004 - (APPLICATION NAME/Update)
+# Final Project for CS 5004 - (Home Maintenance/Update)
 
 ###
 (remove this and add your sections/elements)
