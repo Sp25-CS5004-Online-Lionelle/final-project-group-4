@@ -57,9 +57,12 @@ classDiagram
     }
 
     class ApplianceUnit {
-        + dimensions : String
+        + height : int
+        + width : int
+        + depth : int
         + ApplianceUnit()
         + getUnitType() : String
+        + getDimension() : String
     }
 
     class User {
