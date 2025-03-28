@@ -25,50 +25,57 @@ classDiagram
     User <-- Model : instantiates
 
     class FileUtils {
-        + saveFile():void
-        + readFile():void
+        <<final>>
+        + saveFile(List~String~):void
+        + readFile(String):List~String~
     }
 
     class AbstractUnit {
+        - homeId : int
         - category : String
         - itemName : String
-        - initialInstallDate : String
-        - lastMaintainedDate : String
-        - lifeSpane : int
+        - installDate : String
+        - maintainedDate : String
+        - standardLifeSpan : int
+        - lifeSpanMeasure : String
         - roomLocation : String
         + AbstractUnit():
+        + setRoomLocation():void
     }
 
     class ElectricalUnit {
-        - homeId : int
+        + electricWatt : int
         + ElectricalUnit()
-        + setRoomLocation():void
+        + getUnitType() : String
     }
 
     class PlumbingUnit {
-        - homeId : int
+        + waterFlow : int
         + PlumbingUnit()
-        + setRoomLocation():void
+        + getUnitType() : String
 
     }
 
     class ApplianceUnit {
-        - homeId : int
+        + size : String
         + ApplianceUnit()
-        + setRoomLocation():void
-
+        + getUnitType() : String
     }
 
     class User {
         - userId : int
+        - homeIds : List~int~
         - name : String
         - email : String
+        + User(int, List~int~, String, String)
     }
 
     class Home {
-        - homeId : int
         - userId : int
         - address : String
+        - units : List~int~
+        + Home(int, String, List~int~)
+
     }
 ```
 
