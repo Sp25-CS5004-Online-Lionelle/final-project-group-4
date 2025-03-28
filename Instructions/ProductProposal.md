@@ -7,7 +7,7 @@ Your internship team having spent time talking about your goals and plans, now i
 ## Proposal Expectations
 The proposal does not have to be a formal presentation. Though if that helps the team keep their thoughts organized, that is fine. Every team member should be present to talk about the proposal. The proposal should include the following:
 
-* What are you building?
+* What are you building? Home Maintenance app
 * What are the initial features for the application?
 * What are the *minimum* additional features you plan to implement?
 * What are your stretch goals (features beyond the minimum)?

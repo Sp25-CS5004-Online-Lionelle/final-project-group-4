@@ -13,20 +13,56 @@ classDiagram
     IView <|.. View : realizes
     IModel <|.. Model : realizes
     FileUtils <-- Model : uses
-    Factory <-- Model : uses
     Model <-- Controller : instantiates
     View <-- Controller : instantiates
-    MaintenanceItem <-- Factory : instantiates
-    Home <-- Model : instantiates
+    MaintenanceItem <|-- ElectricalUnit : inherits
+    MaintenanceItem <|-- PlumbingUnit : inherits
+    MaintenanceItem <|-- ApplianceUnit : inherits
+    ElectricalUnit *-- Home : composes
+    PlumbingUnit *-- Home : composes
+    ApplianceUnit *-- Home : composes
+    Home <-- User : association
     User <-- Model : instantiates
 
     class FileUtils {
-        - saveFile
-        - inputFile
+        + saveFile():void
+        + readFile():void
     }
 
     class MaintenanceItem {
-        - Category
+        + category : String
+        + itemName : String
+        + initialInstallDate : String
+        + lastMaintainedDate : String
+        + lifeSpane : int
+        + roomLocation : String
+    }
+
+    class ElectricalUnit {
+        - homeId : int
+
+    }
+
+    class PlumbingUnit {
+        - homeId : int
+
+    }
+
+    class ApplianceUnit {
+        - homeId : int
+
+    }
+
+    class User {
+        - userId : int
+        - name : String
+        - email : String
+    }
+
+    class Home {
+        - homeId : int
+        - userId : int
+        - address : String
     }
 ```
 
