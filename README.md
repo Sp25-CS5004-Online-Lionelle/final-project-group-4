@@ -16,7 +16,7 @@ Lori Kim - [lkim016](https://github.com/lkim016)
 Emilio Sanchez-Harris - 
 
 ## App/Document Links
-[App]()
+Home Maintenance App - An app that helps a homeowner or property manager keep track of or manage home units that need scheduled maintenance/upgrades/fixing.
 
 [Design Document](/DesignDocuments)
  
