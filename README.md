@@ -3,7 +3,7 @@
 (remove this and add your sections/elements)
 This readme should contain the following information: 
 
-Lori Kim - [lkim016](https://github.com/lkim016)
+Lori Kim - [lkim016](https://github.com/lkim016)  
 Emilio Sanchez-Harris - 
 
 [App]()
