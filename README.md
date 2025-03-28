@@ -11,7 +11,7 @@ This readme should contain the following information:
 
 Ask yourself, if you started here in the readme, would you have what you need to work on this project and/or use the application?
 
-## Group Member Information:
+## Group Member Information
 Lori Kim - [lkim016](https://github.com/lkim016)  
 Emilio Sanchez-Harris - 
 
