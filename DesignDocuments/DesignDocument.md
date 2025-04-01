@@ -35,13 +35,13 @@ classDiagram
     }
 
     class AbstractUnit {
-        - homeId : int
-        - category : String
+        - unitId : int
         - itemName : String
+        - mapKeyword : String
         - installDate : String
         - maintainedDate : String
-        - standardLifeSpan : int
-        - lifeSpanMeasure : String
+        - maintenanceFrequency : int
+        - frequencyMeasure : String
         - roomLocation : String
         + AbstractUnit()
         + setRoomLocation():void
@@ -51,12 +51,14 @@ classDiagram
         + electricWatt : int
         + ElectricalUnit()
         + getUnitType() : String
+        + setMapKeyword():void
     }
 
     class PlumbingUnit {
         + waterFlow : int
         + PlumbingUnit()
         + getUnitType() : String
+        + setMapKeyword():void
 
     }
 
@@ -67,6 +69,7 @@ classDiagram
         + ApplianceUnit()
         + getUnitType() : String
         + getDimension() : String
+        + setMapCategory():void
     }
 
     class User {
