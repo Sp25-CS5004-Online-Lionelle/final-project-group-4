@@ -71,7 +71,7 @@ classDiagram
         + ApplianceUnit()
         + getUnitType() : String
         + getDimension() : String
-        + setMapCategory():void
+        + setMapKeyword():void
     }
 
     class User {
