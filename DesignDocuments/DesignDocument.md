@@ -1,5 +1,5 @@
 ## (EXTRA): Design Questions
-1. Should there be a room object to hold the unitItems?
+1. Should there be a room object to hold the unitItems? No, don't need as there is no further action that will be taken for an instance of a room under the purpose of this application.
 
 ## (INITIAL DESIGN): Class Diagram
 
@@ -22,6 +22,8 @@ classDiagram
     AbstractUnit <|-- ElectricalUnit : inherits
     AbstractUnit <|-- PlumbingUnit : inherits
     AbstractUnit <|-- ApplianceUnit : inherits
+    ElectricalUnit *-- ApplianceUnit : composes
+    PlumbingUnit *-- ApplianceUnit : composes
     ElectricalUnit *-- Home : composes
     PlumbingUnit *-- Home : composes
     ApplianceUnit *-- Home : composes
