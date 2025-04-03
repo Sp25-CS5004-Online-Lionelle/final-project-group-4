@@ -9,4 +9,7 @@ public class Home {
     private int homeId;
     private String address;
     private List<Object> unitItems; // change datatype
+
+    
+
 }
