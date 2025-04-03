@@ -1,5 +1,5 @@
 ## (EXTRA): Design Questions
-1. Should there be a room object to hold the unitItems?
+1. Should there be a room object to hold the unitItems? No, don't need as there is no further action that will be taken for an instance of a room under the purpose of this application.
 
 ## (INITIAL DESIGN): Class Diagram
 
@@ -22,6 +22,8 @@ classDiagram
     AbstractUnit <|-- ElectricalUnit : inherits
     AbstractUnit <|-- PlumbingUnit : inherits
     AbstractUnit <|-- ApplianceUnit : inherits
+    ElectricalUnit *-- ApplianceUnit : composes
+    PlumbingUnit *-- ApplianceUnit : composes
     ElectricalUnit *-- Home : composes
     PlumbingUnit *-- Home : composes
     ApplianceUnit *-- Home : composes
@@ -35,13 +37,13 @@ classDiagram
     }
 
     class AbstractUnit {
-        - homeId : int
-        - category : String
+        - unitId : int
         - itemName : String
+        - mapKeyword : String
         - installDate : String
         - maintainedDate : String
-        - standardLifeSpan : int
-        - lifeSpanMeasure : String
+        - maintenanceFrequency : int
+        - frequencyMeasure : String
         - roomLocation : String
         + AbstractUnit()
         + setRoomLocation():void
@@ -51,12 +53,14 @@ classDiagram
         + electricWatt : int
         + ElectricalUnit()
         + getUnitType() : String
+        + setMapKeyword():void
     }
 
     class PlumbingUnit {
         + waterFlow : int
         + PlumbingUnit()
         + getUnitType() : String
+        + setMapKeyword():void
 
     }
 
@@ -67,6 +71,7 @@ classDiagram
         + ApplianceUnit()
         + getUnitType() : String
         + getDimension() : String
+        + setMapKeyword():void
     }
 
     class User {
