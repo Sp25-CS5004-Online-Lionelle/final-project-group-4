@@ -11,6 +11,8 @@ https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-
 https://medium.com/@ravipatel.it/creating-a-git-pull-request-using-the-command-line-a-detailed-guide-4ef1ea017fe2  
 
 **Git Pull-Request**  
+https://github.com/git-guides/git-pull
+
 https://github.blog/developer-skills/github/beginners-guide-to-github-creating-a-pull-request/  
 https://www.delftstack.com/howto/git/create-pull-request-from-command-line/  
 https://medium.com/@ravipatel.it/creating-a-git-pull-request-using-the-command-line-a-detailed-guide-4ef1ea017fe2  
@@ -22,3 +24,4 @@ https://stackoverflow.com/questions/46897033/how-to-revert-pushed-commits
 https://linearb.io/blog/code-review-on-github  
 
 **JavaFX**  
+

@@ -1,5 +1,7 @@
 package maintainhome.model.Home;
 
+import maintainhome.model.Home.IUnit;
+
 import java.util.List;
 
 /**
@@ -8,8 +10,10 @@ import java.util.List;
 public class Home {
     private int homeId;
     private String address;
-    private List<Object> unitItems; // change datatype
+    private List<IUnit> unitItems; // change datatype
 
-    
+    public Home(int homeId, String address, List<IUnit>unitItems) {
+        
+    }
 
 }

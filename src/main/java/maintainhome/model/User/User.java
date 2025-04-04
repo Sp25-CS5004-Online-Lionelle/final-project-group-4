@@ -1,5 +1,7 @@
 package maintainhome.model.User;
 
+import maintainhome.model.Home.Home;
+
 import java.util.List;
 
 /**
@@ -8,6 +10,13 @@ import java.util.List;
 public class User {
     private int userId;
     private String email;
-    private List<Object> homes;
+    private List<Home> homes;
 
+    public User(int userId, String email, List<Home> homes) {
+
+    };
+
+    public List<Home> getHomes() {
+        return homes;
+    }
 }

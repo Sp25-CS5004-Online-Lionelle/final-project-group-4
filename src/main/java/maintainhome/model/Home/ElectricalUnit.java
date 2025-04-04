@@ -1,5 +1,7 @@
 package maintainhome.model.Home;
 
+import java.util.Date;
+
 /*
  * + electricWatt : int
 
@@ -22,9 +24,9 @@ public class ElectricalUnit extends AbstractUnit {
         return unitType;
     }
 
-    public ElectricalUnit(int homeId, String category, String itemName, String installDate, String maintainedDate,
+    public ElectricalUnit(int unitId, String category, String itemName, Date installDate, Date maintainedDate,
         int standardLifeSpan, String lifeSpanMeasure, String roomLocation, int electricWatt) {
-        super(homeId, category, itemName, installDate, maintainedDate, standardLifeSpan, lifeSpanMeasure, roomLocation);
+        super(unitId, category, itemName, installDate, maintainedDate, standardLifeSpan, lifeSpanMeasure, roomLocation);
         this.electricWatt = electricWatt;
     }
 

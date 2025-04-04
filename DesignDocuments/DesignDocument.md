@@ -40,13 +40,14 @@ classDiagram
         - unitId : int
         - itemName : String
         - mapKeyword : String
-        - installDate : String
-        - maintainedDate : String
+        - installDate : Date
+        - maintainedDate : Date
         - maintenanceFrequency : int
         - frequencyMeasure : String
         - roomLocation : String
         + AbstractUnit()
-        + setRoomLocation():void
+        + setRoomLocation() : void
+        + getDateFromString(String) : Date
     }
 
     class ElectricalUnit {
@@ -71,7 +72,7 @@ classDiagram
         + ApplianceUnit()
         + getUnitType() : String
         + getDimension() : String
-        + setMapKeyword():void
+        + setMapKeyword() : void
     }
 
     class User {
@@ -80,6 +81,7 @@ classDiagram
         - name : String
         - email : String
         + User(int, List~int~, String, String)
+        + getHome() : IHome
     }
 
     class Home {
@@ -87,7 +89,15 @@ classDiagram
         - address : String
         - units : List~int~
         + Home(int, String, List~int~)
+        + getUnit() : IUnit
+        + getUnits() : IUnit
 
+    }
+
+    class View {
+        + View(String)
+        - setFrame() : void
+        + setListener(ActionListener, KeyListener) : void
     }
 ```
 

@@ -1,5 +1,9 @@
 package maintainhome.model.Home;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.text.ParseException;
+
 /* 
  * 
  * - homeId : int
@@ -25,42 +29,42 @@ package maintainhome.model.Home;
 */
 
 public abstract class AbstractUnit {
-    private int homeId;
-    private String category;
+    private int unitId;
     private String itemName;
-    private String installDate;
-    private String maintainedDate;
-    private int standardLifeSpan;
-    private String lifeSpanMeasure;
+    private String mapKeyword;
+    private Date installDate;
+    private Date maintainedDate;
+    private int maintenanceFrequency;
+    private String frequencyMeasure;
     private String roomLocation;
 
-    public AbstractUnit(int homeId, String category, String itemName, String installDate, String maintainedDate,
-            int standardLifeSpan, String lifeSpanMeasure, String roomLocation) {
-        this.homeId = homeId;
-        this.category = category;
+    public AbstractUnit(int unitId, String mapKeyword, String itemName, Date installDate, Date maintainedDate,
+            int maintenanceFrequency, String frequencyMeasure, String roomLocation) {
+        this.unitId = unitId;
+        this.mapKeyword = mapKeyword;
         this.itemName = itemName;
         this.installDate = installDate;
         this.maintainedDate = maintainedDate;
-        this.standardLifeSpan = standardLifeSpan;
-        this.lifeSpanMeasure = lifeSpanMeasure;
+        this.maintenanceFrequency = maintenanceFrequency;
+        this.frequencyMeasure = frequencyMeasure;
         this.roomLocation = roomLocation;
     }
 
 
     public int getHomeId() {
-        return homeId;
+        return unitId;
     }
 
-    public void setHomeId(int homeId) {
-        this.homeId = homeId;
+    public void setHomeId(int unitId) {
+        this.unitId = unitId;
     }
 
-    public String getCategory() {
-        return category;
+    public String getMapKeyword() {
+        return mapKeyword;
     }
 
-    public void setCategory(String category) {
-        this.category = category;
+    public void setMapKeyword(String mapKeyword) {
+        this.mapKeyword = mapKeyword;
     }
 
     public String getItemName() {
@@ -71,35 +75,35 @@ public abstract class AbstractUnit {
         this.itemName = itemName;
     }
 
-    public String getInstallDate() {
+    public Date getInstallDate() {
         return installDate;
     }
 
-    public void setInstallDate(String installDate) {
+    public void setInstallDate(Date installDate) {
         this.installDate = installDate;
     }
 
-    public String getMaintainedDate() {
+    public Date getMaintainedDate() {
         return maintainedDate;
     }
 
-    public void setMaintainedDate(String maintainedDate) {
+    public void setMaintainedDate(Date maintainedDate) {
         this.maintainedDate = maintainedDate;
     }
 
-    public int getStandardLifeSpan() {
-        return standardLifeSpan;
+    public int getMaintenanceFrequency() {
+        return maintenanceFrequency;
     }
 
-    public void setStandardLifeSpan(int standardLifeSpan) {
-        this.standardLifeSpan = standardLifeSpan;
+    public void setMaintenanceFrequency(int maintenanceFrequency) {
+        this.maintenanceFrequency = maintenanceFrequency;
     }
 
-    public String getLifeSpanMeasure() {
-        return lifeSpanMeasure;
+    public String getFrequencyMeasure() {
+        return frequencyMeasure;
     }
-    public void setLifeSpanMeasure(String lifeSpanMeasure) {
-        this.lifeSpanMeasure = lifeSpanMeasure;
+    public void setFrequencyMeasure(String frequencyMeasure) {
+        this.frequencyMeasure = frequencyMeasure;
     }
 
     public String getRoomLocation() {
@@ -108,6 +112,16 @@ public abstract class AbstractUnit {
 
     public void setRoomLocation(String roomLocation) {
         this.roomLocation = roomLocation;
+    }
+
+    public Date getDateFromString(String strDate) {
+        Date date = null;
+        try {
+            date = new SimpleDateFormat().parse(strDate);
+        } catch(ParseException e) {
+            System.out.println(e);
+        }
+        return date;
     }
 
 }
