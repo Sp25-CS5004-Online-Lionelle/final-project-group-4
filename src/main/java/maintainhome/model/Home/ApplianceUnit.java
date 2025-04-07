@@ -10,13 +10,10 @@ public class ApplianceUnit extends AbstractUnit {
         return unitType;
     }
 
-    public ApplianceUnit(int unitId, String category, String itemName, Date installDate, Date maintainedDate,
+    public ApplianceUnit(int homeId, String category, String itemName, Date installDate, Date maintainedDate,
             int standardLifeSpan, String lifeSpanMeasure, String roomLocation, int electricWatt) {
-            super(unitId, category, itemName, installDate, maintainedDate, standardLifeSpan, lifeSpanMeasure, roomLocation);
+            super(homeId, category, itemName, installDate, maintainedDate, standardLifeSpan, lifeSpanMeasure, roomLocation);
             this.electricWatt = electricWatt;
         }
-        
-    
-    }
-    
-    
+}
+

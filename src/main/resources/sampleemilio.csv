@@ -1,0 +1,2 @@
+ObjectName, UnitType, ItemName, InstallDate, MaintainedDate, StandardLifeSpan, LifeSpanMeasure, RoomLocation, ElectricWatt
+KitchenSink, PlumbingUnit, Sink1, 2/2/2023, 2/2/2024, 10, Year, Kitchen, 50
