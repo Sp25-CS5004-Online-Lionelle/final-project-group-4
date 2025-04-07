@@ -1,8 +1,8 @@
 package maintainhome.model.Home;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.text.ParseException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 /* 
  * 
@@ -32,13 +32,16 @@ public abstract class AbstractUnit {
     private int unitId;
     private String itemName;
     private String mapKeyword;
-    private Date installDate;
-    private Date maintainedDate;
+    private LocalDate installDate;
+    private LocalDate maintainedDate;
     private int maintenanceFrequency;
     private String frequencyMeasure;
     private String roomLocation;
 
-    public AbstractUnit(int unitId, String mapKeyword, String itemName, Date installDate, Date maintainedDate,
+    private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("M/d/yyyy");
+
+
+    public AbstractUnit(int unitId, String mapKeyword, String itemName, LocalDate installDate, LocalDate maintainedDate,
             int maintenanceFrequency, String frequencyMeasure, String roomLocation) {
         this.unitId = unitId;
         this.mapKeyword = mapKeyword;
@@ -75,19 +78,19 @@ public abstract class AbstractUnit {
         this.itemName = itemName;
     }
 
-    public Date getInstallDate() {
+    public LocalDate getInstallDate() {
         return installDate;
     }
 
-    public void setInstallDate(Date installDate) {
+    public void setInstallDate(LocalDate installDate) {
         this.installDate = installDate;
     }
 
-    public Date getMaintainedDate() {
+    public LocalDate getMaintainedDate() {
         return maintainedDate;
     }
 
-    public void setMaintainedDate(Date maintainedDate) {
+    public void setMaintainedDate(LocalDate maintainedDate) {
         this.maintainedDate = maintainedDate;
     }
 
@@ -114,14 +117,30 @@ public abstract class AbstractUnit {
         this.roomLocation = roomLocation;
     }
 
-    public Date getDateFromString(String strDate) {
-        Date date = null;
+/**
+     * Converts a string (e.g. "2/2/2024") into a LocalDate.
+     *
+     * @param strDate a date string in M/d/yyyy format
+     * @return LocalDate or null if parsing fails
+     */
+    public static LocalDate parseDate(String strDate) {
         try {
-            date = new SimpleDateFormat().parse(strDate);
-        } catch(ParseException e) {
-            System.out.println(e);
+            return LocalDate.parse(strDate, DATE_FORMATTER);
+        } catch (DateTimeParseException e) {
+            System.err.println("Error parsing date: " + strDate + " (" + e.getMessage() + ")");
+            return null;
         }
-        return date;
     }
+
+/**
+     * Converts a LocalDate into a string using M/d/yyyy format.
+     *
+     * @param date the LocalDate to format
+     * @return a formatted date string like "2/2/2024"
+     */
+    public static String formatDate(LocalDate date) {
+        return date != null ? date.format(DATE_FORMATTER) : "";
+    }
+    
 
 }

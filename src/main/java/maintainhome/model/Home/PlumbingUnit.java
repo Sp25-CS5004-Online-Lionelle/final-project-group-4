@@ -1,8 +1,8 @@
 package maintainhome.model.Home;
 
-import java.util.Date;
+import java.time.LocalDate;
 
-public class PlumbingUnit extends AbstractUnit{
+public class PlumbingUnit extends AbstractUnit implements IUnit {
     private int plumbingGallon;
 
     String unitType = "PlumbingUnit";
@@ -11,7 +11,7 @@ public class PlumbingUnit extends AbstractUnit{
         return unitType;
     }
 
-    public PlumbingUnit(int unitId, String category, String itemName, Date installDate, Date maintainedDate,
+    public PlumbingUnit(int unitId, String category, String itemName, LocalDate installDate, LocalDate maintainedDate,
     int standardLifeSpan, String lifeSpanMeasure, String roomLocation, int plumbingGallon) {
     super(unitId, category, itemName, installDate, maintainedDate, standardLifeSpan, lifeSpanMeasure, roomLocation);
     this.plumbingGallon = plumbingGallon;
@@ -20,5 +20,19 @@ public class PlumbingUnit extends AbstractUnit{
     public int getPlumbingGallon() {
         return plumbingGallon;
     }
+
+    public void setPlumbingGallon(int plumbingGallon) {
+        this.plumbingGallon = plumbingGallon;
+    }
+
+    public String getRoomLocation() {
+        return super.getRoomLocation();
+    }
+
+    public LocalDate getInstallDate() {
+        return super.getInstallDate();
+    }
+
+
     
 }
