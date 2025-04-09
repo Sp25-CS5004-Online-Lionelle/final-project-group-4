@@ -21,12 +21,12 @@ classDiagram
     View <-- Controller : instantiates
     IUnit *-- AbstractUnit : realizes
     AbstractUnit <|-- ElectricUnit : inherits
-    AbstractUnit <|-- PlumbingUnit : inherits
     AbstractUnit <|-- ApplianceUnit : inherits
-    IElectricUnit *-- ElectricUnit : realizes
-    IPlumbingUnit *-- PlumbingUnit : realizes
+    AbstractUnit <|-- PlumbingUnit : inherits
     IElectricUnit *-- ApplianceUnit : realizes
     IPlumbingUnit *-- ApplianceUnit : realizes
+    IElectricUnit *-- ElectricUnit : realizes
+    IPlumbingUnit *-- PlumbingUnit : realizes
     ElectricalUnit *-- Home : composes
     PlumbingUnit *-- Home : composes
     ApplianceUnit *-- Home : composes
