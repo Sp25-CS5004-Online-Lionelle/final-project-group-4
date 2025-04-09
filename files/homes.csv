@@ -1,2 +1,2 @@
-homeId,address
-1, "2514 E Harrison St. Carson, CA 90810"
+homeId,address, zipCode
+1, "2514 E Harrison St. Carson, CA", 90810

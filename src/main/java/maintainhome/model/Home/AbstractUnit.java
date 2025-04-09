@@ -2,7 +2,6 @@ package maintainhome.model.Home;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 
 /* 
  * 
@@ -28,48 +27,42 @@ import java.time.format.DateTimeParseException;
  * 
 */
 
-public abstract class AbstractUnit {
+public abstract class AbstractUnit implements IUnit {
     private int unitId;
     private String itemName;
-    private String mapKeyword;
+    private RoomType roomType;
+    private String roomName;
     private LocalDate installDate;
     private LocalDate maintainedDate;
     private int maintenanceFrequency;
     private String frequencyMeasure;
-    private String roomLocation;
+    /*
+    private String currentIssue;
+    private String issueKeyword;
+    */
 
-    private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("M/d/yyyy");
 
-
-    public AbstractUnit(int unitId, String mapKeyword, String itemName, LocalDate installDate, LocalDate maintainedDate,
-            int maintenanceFrequency, String frequencyMeasure, String roomLocation) {
+    public AbstractUnit(int unitId, String itemName, RoomType roomType, String roomName, LocalDate installDate, LocalDate maintainedDate,
+            int maintenanceFrequency, String frequencyMeasure) {
         this.unitId = unitId;
-        this.mapKeyword = mapKeyword;
         this.itemName = itemName;
+        this.roomName = roomName;
+        this.roomType = roomType;
         this.installDate = installDate;
         this.maintainedDate = maintainedDate;
         this.maintenanceFrequency = maintenanceFrequency;
         this.frequencyMeasure = frequencyMeasure;
-        this.roomLocation = roomLocation;
     }
 
-
-    public int getHomeId() {
+    @Override
+    public int getUnitId() {
         return unitId;
     }
 
-    public void setHomeId(int unitId) {
+    public void setUnitId(int unitId) {
         this.unitId = unitId;
     }
-
-    public String getMapKeyword() {
-        return mapKeyword;
-    }
-
-    public void setMapKeyword(String mapKeyword) {
-        this.mapKeyword = mapKeyword;
-    }
-
+    @Override
     public String getItemName() {
         return itemName;
     }
@@ -77,7 +70,24 @@ public abstract class AbstractUnit {
     public void setItemName(String itemName) {
         this.itemName = itemName;
     }
+    
+    public void setRoomType(RoomType roomType) {
+        this.roomType = roomType;
+    }
 
+    public RoomType getRoomType() {
+        return roomType;
+    }
+
+    public String getRoomName() {
+        return roomName;
+    }
+
+    public void setRoomName(String roomName) {
+        this.roomName = roomName;
+    }
+
+    @Override
     public LocalDate getInstallDate() {
         return installDate;
     }
@@ -109,38 +119,26 @@ public abstract class AbstractUnit {
         this.frequencyMeasure = frequencyMeasure;
     }
 
-    public String getRoomLocation() {
-        return roomLocation;
+    /*
+    private String issuePriority = ;
+    public String getIssueKeyword() {
+        return issueKeyword;
     }
 
-    public void setRoomLocation(String roomLocation) {
-        this.roomLocation = roomLocation;
+    public void setIssueKeyword(String issueKeyword) {
+        this.issueKeyword = issueKeyword;
     }
-
-/**
-     * Converts a string (e.g. "2/2/2024") into a LocalDate.
-     *
-     * @param strDate a date string in M/d/yyyy format
-     * @return LocalDate or null if parsing fails
+    */  
+    /**
+     * Converts the unit item to a CSV string.
+     * 
+     * @return the unit item as a CSV string
      */
-    public static LocalDate parseDate(String strDate) {
-        try {
-            return LocalDate.parse(strDate, DATE_FORMATTER);
-        } catch (DateTimeParseException e) {
-            System.err.println("Error parsing date: " + strDate + " (" + e.getMessage() + ")");
-            return null;
-        }
-    }
-
-/**
-     * Converts a LocalDate into a string using M/d/yyyy format.
-     *
-     * @param date the LocalDate to format
-     * @return a formatted date string like "2/2/2024"
-     */
-    public static String formatDate(LocalDate date) {
-        return date != null ? date.format(DATE_FORMATTER) : "";
-    }
     
-
+    @Override
+    public String toCSV() {
+        return getUnitId() + "," + getItemName() + "," + getRoomType().toString() + "," + getRoomName()
+             + "," + IUnit.dateToString(getInstallDate()) + "," + IUnit.dateToString(getMaintainedDate()) + "," + getMaintenanceFrequency()
+             + "," + getMaintenanceFrequency() + "," + getFrequencyMeasure();
+    }
 }

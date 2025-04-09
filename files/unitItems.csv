@@ -1,7 +1,6 @@
-﻿homeId,unitItem,itemName,installDate,maintainedDate,maintenanceFreq,frequencyMeas,roomLoc,issue
-1,1,stove,,,,,
-1,2,fridge,,,,,
-1,3,sink,,,,,kitchen
-1,4,,,,,,
-1,5,,,,,,
-1,6,,,,,,
+﻿homeIde,unitId,itemName,roomType,roomName,installDate,maintainedDate,maintenanceFreq,frequencyMeas
+1, 1,stove,KITCHEN,Kitchen,1/6/2012,1/6/2022,10,YEAR
+1, 2,sink,BEDROOM,Master Bedroom,1/5/2012,1/5/2017,3,YEAR
+1, 3,sink,KITCHEN,Kitchen,1/5/2012,5/6/2024,3,YEAR
+1,4,water heater,GARAGE,Garage,5/20/2001,5/20/2024,1,YEAR
+1,5,bathtub,BATHROOM,2nd Bathroom,1/5/2012,1/5/2019,2,YEAR

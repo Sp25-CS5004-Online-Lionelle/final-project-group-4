@@ -2,22 +2,20 @@ package maintainhome.model.Home;
 
 
 /** A list of room type types allowed for the rooms. */
-public enum RoomType {
+public enum UnitType {
     /** Different room type options. */
-    KITCHEN("Kitchen"), LIVING_ROOM("Living Room"), DINING_ROOM("Dining Room")
-    , BEDROOM("Bedroom"), BATHROOM("Bathroom"), GARAGE("Garage"), BASEMENT("Basement")
-    , UTILITY_ROOM("Utility Room");
+    ELECTRIC_UNIT("Electrical Unit"), PLUMBING_UNIT("Plumbing Unit"), APPLIANCE("Appliance");
 
     /** The room type. */
-    private String roomType;
+    private String unitType;
 
     /**
      * Constructor for the room type.
      * 
      * @param format The room type.
      */
-    RoomType(String roomType) {
-        this.roomType = roomType;
+    UnitType(String unitType) {
+        this.unitType = unitType;
     }
 
     /**
@@ -25,23 +23,23 @@ public enum RoomType {
      * 
      * @return The room type.
      */
-    public String getRoomType() {
-        return roomType;
+    public String getUnitType() {
+        return unitType;
     }
 
     /**
      * Get the room type from the string room type.
      * 
-     * @param roomType The room type.
+     * @param unitType The room type.
      * @return The room type.
      */
-    public static RoomType toRoomType(String roomType) {
-        for (RoomType type : RoomType.values()) {
-            if (type.getRoomType().equalsIgnoreCase(roomType)) {
+    public static UnitType toUnitType(String unitType) {
+        for (UnitType type : UnitType.values()) {
+            if (type.getUnitType().equalsIgnoreCase(unitType)) {
                 return type;
             }
         }
-        throw new IllegalArgumentException("No room type with name " + roomType);
+        throw new IllegalArgumentException("No room type with name " + unitType);
     }
 
     /**

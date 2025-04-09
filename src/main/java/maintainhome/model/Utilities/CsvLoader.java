@@ -1,8 +1,8 @@
-package maintainhome.model;
+package maintainhome.model.Utilities;
 
 import maintainhome.model.Home.AbstractUnit;
 import maintainhome.model.Home.ApplianceUnit;
-import maintainhome.model.Home.ElectricalUnit;
+import maintainhome.model.Home.ElectricUnit;
 import maintainhome.model.Home.PlumbingUnit;
 import maintainhome.model.Home.IUnit;
 
@@ -45,7 +45,7 @@ public class CsvLoader {
                 int id = objectName.hashCode();
 
                 if (unitType.equalsIgnoreCase("ElectricalUnit")) {
-                    units.add(new ElectricalUnit(id, unitType, itemName, installDate,
+                    units.add(new ElectricUnit(id, unitType, itemName, installDate,
                             maintainedDate, lifeSpan, lifeSpanMeasure, room, electricWatt));
                 } else if (unitType.equalsIgnoreCase("PlumbingUnit")) {
                     units.add(new PlumbingUnit(id, unitType, itemName, installDate,

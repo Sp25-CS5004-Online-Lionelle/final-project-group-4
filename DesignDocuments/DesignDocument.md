@@ -19,11 +19,14 @@ classDiagram
     FileUtils <-- Model : uses
     Model <-- Controller : instantiates
     View <-- Controller : instantiates
-    AbstractUnit <|-- ElectricalUnit : inherits
+    IUnit *-- AbstractUnit : realizes
+    AbstractUnit <|-- ElectricUnit : inherits
     AbstractUnit <|-- PlumbingUnit : inherits
     AbstractUnit <|-- ApplianceUnit : inherits
-    ElectricalUnit *-- ApplianceUnit : composes
-    PlumbingUnit *-- ApplianceUnit : composes
+    IElectricUnit *-- ElectricUnit : realizes
+    IPlumbingUnit *-- PlumbingUnit : realizes
+    IElectricUnit *-- ApplianceUnit : realizes
+    IPlumbingUnit *-- ApplianceUnit : realizes
     ElectricalUnit *-- Home : composes
     PlumbingUnit *-- Home : composes
     ApplianceUnit *-- Home : composes
