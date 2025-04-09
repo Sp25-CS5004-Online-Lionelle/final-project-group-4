@@ -39,25 +39,62 @@ classDiagram
         + readFile(String):List~String~
     }
 
+    class IUnit {
+        <<interface>>
+        + getUnitId():int
+        + getItemName():String
+        + getUnitType():UnitType
+        + getRoomType():RoomType
+        + getInstallDate():LocalDate
+        + parseDate(String)$:LocalDate
+        + dateToString()$:String
+        + toCSV():String
+    }
+
     class AbstractUnit {
         - unitId : int
         - itemName : String
-        - mapKeyword : String
+        - roomType : RoomType
+        - roomName : String
         - installDate : Date
         - maintainedDate : Date
         - maintenanceFrequency : int
         - frequencyMeasure : String
-        - roomLocation : String
-        + AbstractUnit()
-        + setRoomLocation() : void
-        + getDateFromString(String) : Date
+        + AbstractUnit(int, String, RoomType, String, Date, Date, int, String)
+        + getUnitId() : int
+        + setUnitId(int) : void
+        + getItemName():String
+        + setItemName(String):void
+        + setRoomType(RoomType):void
+        + getRoomType():RoomType
+        + getRoomName():String
+        + setRoomName(String):void
+        + getInstallDate():LocalDate
+        + setInstallDate(LocalDate):void
+        + getMaintainedDate():LocalDate
+        + setMaintainedDate(LocalDate):void
+        + getMaintenanceFrequency():int
+        + setMaintenanceFrequency(int):void
+        + getFrequencyMeasure():String
+        + setFrequencyMeasure(String):void
+        + toCSV():String
     }
 
-    class ElectricalUnit {
+    class IElectricUnit {
+        <<interface>>
+        + getElectricWatt():int
+    }
+
+    class ElectricUnit {
         + electricWatt : int
         + ElectricalUnit()
         + getUnitType() : String
         + setMapKeyword():void
+    }
+
+    class IPlumbingUnit {
+        <<interface>>
+        + getPlumbingGallon():int
     }
 
     class PlumbingUnit {
