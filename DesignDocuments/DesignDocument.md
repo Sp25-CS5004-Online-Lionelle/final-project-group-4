@@ -88,8 +88,7 @@ classDiagram
     class ElectricUnit {
         + electricWatt : int
         + ElectricalUnit()
-        + getUnitType() : String
-        + setMapKeyword():void
+        + getUnitType() : UnitType
     }
 
     class IPlumbingUnit {
@@ -100,8 +99,7 @@ classDiagram
     class PlumbingUnit {
         + waterFlow : int
         + PlumbingUnit()
-        + getUnitType() : String
-        + setMapKeyword():void
+        + getUnitType() : UnitType
 
     }
 
@@ -110,9 +108,9 @@ classDiagram
         + width : int
         + depth : int
         + ApplianceUnit()
-        + getUnitType() : String
+        + getUnitType() : UnitType
         + getDimension() : String
-        + setMapKeyword() : void
+        + getElectricWatt():int
     }
 
     class User {
