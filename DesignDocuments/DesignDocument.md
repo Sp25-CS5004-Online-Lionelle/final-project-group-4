@@ -27,7 +27,7 @@ classDiagram
     IPlumbingUnit *-- ApplianceUnit : realizes
     IElectricUnit *-- ElectricUnit : realizes
     IPlumbingUnit *-- PlumbingUnit : realizes
-    ElectricalUnit *-- Home : composes
+    ElectricUnit *-- Home : composes
     PlumbingUnit *-- Home : composes
     ApplianceUnit *-- Home : composes
     Home <-- User : association
