@@ -12,6 +12,7 @@ import maintainhome.model.User.User;
 import maintainhome.model.UnitFilters;
 import maintainhome.model.UnitSorters;
 import java.util.List;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Set;
 
@@ -19,6 +20,9 @@ import java.util.Set;
  * Main driver for the program.
  */
 public final class HomeUpkeep {
+    private static String filePath = new File("").getAbsolutePath()
+        .concat("\\src\\main\\resources\\files\\");
+
     /** Private constructor to prevent instantiation. */
     private HomeUpkeep() {
         // empty
@@ -34,11 +38,11 @@ public final class HomeUpkeep {
         IView view = new View("Home Maintenance App");
         Controller controller = new Controller(model, view);
         
-        Set<User> user = CsvUserLoader.loadFile();
+        Set<User> user = CsvUserLoader.loadFile(filePath);
         List<User> userList = new ArrayList<>(user);
         System.out.println(userList.get(0).getuserId());
 
-        List<IUnit> units = CsvUnitItemsLoader.loadFile();
+        List<IUnit> units = CsvUnitItemsLoader.loadFile(filePath);
         System.out.println(units.get(1).getInstallDate());
 
         

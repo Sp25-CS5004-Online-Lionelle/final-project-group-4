@@ -28,8 +28,6 @@ public class CsvUserLoader {
     /** Standard csv delim. */
     private static final String DELIMITER = ",";
     private static String filename = FileType.USER.getFileName();
-    private static String filePath = new File("").getAbsolutePath()
-        .concat("\\src\\main\\resources\\files\\" + filename);
     
     /**
      * Converts a line from the csv file into a User object.
@@ -86,7 +84,8 @@ public class CsvUserLoader {
      * @param filename the name of the file to load
      * @return a set of User objects
      */
-    public static Set<User> loadFile() {
+    public static Set<User> loadFile(String filePath) {
+        filePath = filePath.concat(filename);
         Set<User> users = new HashSet<>();
         //File file = new File("C:\\path\\to\\your\\file.txt");
         //System.out.println(filePath);

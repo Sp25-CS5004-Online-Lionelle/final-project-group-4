@@ -34,8 +34,6 @@ public class CsvUnitItemsLoader {
     /** Standard csv delim. */
     private static final String DELIMITER = ",";
     private static String filename = FileType.UNIT_ITEMS.getFileName();
-    private static String filePath = new File("").getAbsolutePath()
-        .concat("\\src\\main\\resources\\files\\" + filename);
 
     /**
      * Converts a line from the csv file into a User object.
@@ -157,7 +155,8 @@ public class CsvUnitItemsLoader {
      * @param filename the name of the file to load
      * @return a set of User objects
      */
-    public static List<IUnit> loadFile() {
+    public static List<IUnit> loadFile(String filePath) {
+        filePath = filePath.concat(filename);
         List<IUnit> units = new ArrayList<>();
         //File file = new File("C:\\path\\to\\your\\file.txt");
         //System.out.println(filePath);
