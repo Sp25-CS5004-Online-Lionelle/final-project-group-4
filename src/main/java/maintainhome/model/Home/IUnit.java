@@ -7,7 +7,7 @@ import java.time.format.DateTimeParseException;
 public interface IUnit {
     static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("M/d/yyyy");
 
-    int getUnitId();
+    String getUnitId();
     String getItemName();
     UnitType getUnitType();
     RoomType getRoomType();

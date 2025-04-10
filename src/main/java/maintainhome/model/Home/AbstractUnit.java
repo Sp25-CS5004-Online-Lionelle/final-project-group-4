@@ -28,7 +28,7 @@ import java.time.format.DateTimeFormatter;
 */
 
 public abstract class AbstractUnit implements IUnit {
-    private int unitId;
+    private String unitId;
     private String itemName;
     private RoomType roomType;
     private String roomName;
@@ -42,7 +42,7 @@ public abstract class AbstractUnit implements IUnit {
     */
 
 
-    public AbstractUnit(int unitId, String itemName, RoomType roomType, String roomName, LocalDate installDate, LocalDate maintainedDate,
+    public AbstractUnit(String unitId, String itemName, RoomType roomType, String roomName, LocalDate installDate, LocalDate maintainedDate,
             int maintenanceFrequency, String frequencyMeasure) {
         this.unitId = unitId;
         this.itemName = itemName;
@@ -55,11 +55,11 @@ public abstract class AbstractUnit implements IUnit {
     }
 
     @Override
-    public int getUnitId() {
+    public String getUnitId() {
         return unitId;
     }
 
-    public void setUnitId(int unitId) {
+    public void setUnitId(String unitId) {
         this.unitId = unitId;
     }
     @Override

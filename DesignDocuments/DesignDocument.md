@@ -1,5 +1,5 @@
-## (EXTRA): Design Questions
-1. Should there be a room object to hold the unitItems? No, don't need as there is no further action that will be taken for an instance of a room under the purpose of this application.
+## (EXTRA): Design Questions/Thoughts
+
 
 ## (INITIAL DESIGN): Class Diagram
 
@@ -41,7 +41,7 @@ classDiagram
 
     class IUnit {
         <<interface>>
-        + getUnitId():int
+        + getUnitId():String
         + getItemName():String
         + getUnitType():UnitType
         + getRoomType():RoomType
@@ -52,7 +52,7 @@ classDiagram
     }
 
     class AbstractUnit {
-        - unitId : int
+        - unitId : String
         - itemName : String
         - roomType : RoomType
         - roomName : String
@@ -61,7 +61,7 @@ classDiagram
         - maintenanceFrequency : int
         - frequencyMeasure : String
         + AbstractUnit(int, String, RoomType, String, Date, Date, int, String)
-        + getUnitId() : int
+        + getUnitId() : String
         + setUnitId(int) : void
         + getItemName():String
         + setItemName(String):void

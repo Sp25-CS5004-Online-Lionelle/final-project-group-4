@@ -9,7 +9,7 @@ public class PlumbingUnit extends AbstractUnit implements IUnit, IPlumbingUnit {
     private int pipeCount;
     private UnitType unitType;
 
-    public PlumbingUnit(int unitId, String itemName, RoomType roomType, String roomName, LocalDate installDate, LocalDate maintainedDate,
+    public PlumbingUnit(String unitId, String itemName, RoomType roomType, String roomName, LocalDate installDate, LocalDate maintainedDate,
     int maintenanceFrequency, String frequencyMeasure, int plumbingGallon) {
         super(unitId, itemName, roomType, roomName, installDate, maintainedDate, maintenanceFrequency, frequencyMeasure);
         this.plumbingGallon = plumbingGallon;

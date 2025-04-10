@@ -4,7 +4,7 @@ package maintainhome.model.Home;
 /** A list of room type types allowed for the rooms. */
 public enum UnitType {
     /** Different room type options. */
-    ELECTRIC_UNIT("Electrical Unit"), PLUMBING_UNIT("Plumbing Unit"), APPLIANCE("Appliance");
+    ELECTRIC_UNIT("Electric Unit"), PLUMBING_UNIT("Plumbing Unit"), APPLIANCE("Appliance"), HVAC("HVAC Unit");
 
     /** The room type. */
     private String unitType;
