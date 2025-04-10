@@ -8,9 +8,9 @@ public class ApplianceUnit extends AbstractUnit implements IElectricUnit {
     private Integer width;
     private Integer depth;
 
-    public ApplianceUnit(String unitId, String itemName, RoomType roomType, String roomName, LocalDate installDate, LocalDate maintainedDate,
+    public ApplianceUnit(String unitId, String itemName, UnitType unitType, RoomType roomType, String roomName, LocalDate installDate, LocalDate maintainedDate,
         int maintenanceFrequency, String frequencyMeasure, int electricWatt, int height, int width, int depth) {
-        super(unitId, itemName, roomType, roomName, installDate, maintainedDate, maintenanceFrequency, frequencyMeasure);
+        super(unitId, itemName, unitType, roomType, roomName, installDate, maintainedDate, maintenanceFrequency, frequencyMeasure);
         this.electricWatt = electricWatt;
         this.height = height;
         this.width = width;

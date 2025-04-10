@@ -6,11 +6,11 @@ public enum UnitItemData {
      * 
      * name and id are used for unit uniqueness.
      */
-    NAME("item_name"), ID("id")
+    NAME("item_name"), ID("unit_id")
     /** Enums that are based on double values in the csv file. */
     , UNIT_TYPE("unit_type"), ROOM_TYPE("room_type")
     , ROOM_NAME("room_name"), INSTALL_DATE("install_date")
-    , MAINTAINED_DATE("maintained_date"), MAINTAIN_FREQ("maintenance_frequency")
+    , MAINTAINED_DATE("maintained_date"), MAINTAIN_FREQ("maintenance_freq")
     , FREQ_MEAS("frequency_meas");
 
     /** stores the original csv name in the enum. */

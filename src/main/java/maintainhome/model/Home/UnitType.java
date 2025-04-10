@@ -4,7 +4,8 @@ package maintainhome.model.Home;
 /** A list of room type types allowed for the rooms. */
 public enum UnitType {
     /** Different room type options. */
-    ELECTRIC_UNIT("Electric Unit"), PLUMBING_UNIT("Plumbing Unit"), APPLIANCE("Appliance"), HVAC("HVAC Unit");
+    ELECTRIC_UNIT("Electric Unit"), PLUMBING_UNIT("Plumbing Unit")
+    , APPLIANCE("Appliance"); // , HVAC("HVAC Unit");
 
     /** The room type. */
     private String unitType;
@@ -39,7 +40,7 @@ public enum UnitType {
                 return type;
             }
         }
-        throw new IllegalArgumentException("No room type with name " + unitType);
+        throw new IllegalArgumentException("No unit type with name " + unitType);
     }
 
     /**
@@ -48,7 +49,7 @@ public enum UnitType {
      * @param value the value to check
      * @return the room type if found, null otherwise
      */
-    /*
+    
     public static RoomType containsValues(String value) {
         for (RoomType roomType : RoomType.values()) {
             if (roomType.toString().equalsIgnoreCase(value)) {
@@ -57,5 +58,5 @@ public enum UnitType {
         }
         return null;
     }
-    */
+    
 }

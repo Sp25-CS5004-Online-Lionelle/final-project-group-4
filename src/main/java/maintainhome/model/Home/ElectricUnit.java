@@ -21,9 +21,9 @@ public class ElectricUnit extends AbstractUnit implements IElectricUnit {
     private boolean hasBattery;
     private UnitType unitType;
 
-    public ElectricUnit(String unitId, String itemName, RoomType roomType, String roomName, LocalDate installDate, LocalDate maintainedDate,
+    public ElectricUnit(String unitId, String itemName, UnitType unitType, RoomType roomType, String roomName, LocalDate installDate, LocalDate maintainedDate,
     int maintenanceFrequency, String frequencyMeasure, int electricWatt) {
-        super(unitId, itemName, roomType, roomName, installDate, maintainedDate, maintenanceFrequency, frequencyMeasure);
+        super(unitId, itemName, unitType, roomType, roomName, installDate, maintainedDate, maintenanceFrequency, frequencyMeasure);
         this.electricWatt = electricWatt;
     }
 

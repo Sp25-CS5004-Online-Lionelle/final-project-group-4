@@ -30,6 +30,7 @@ import java.time.format.DateTimeFormatter;
 public abstract class AbstractUnit implements IUnit {
     private String unitId;
     private String itemName;
+    private UnitType unitType;
     private RoomType roomType;
     private String roomName;
     private LocalDate installDate;
@@ -42,10 +43,11 @@ public abstract class AbstractUnit implements IUnit {
     */
 
 
-    public AbstractUnit(String unitId, String itemName, RoomType roomType, String roomName, LocalDate installDate, LocalDate maintainedDate,
+    public AbstractUnit(String unitId, String itemName, UnitType unitType, RoomType roomType, String roomName, LocalDate installDate, LocalDate maintainedDate,
             int maintenanceFrequency, String frequencyMeasure) {
         this.unitId = unitId;
         this.itemName = itemName;
+        this.unitType = unitType;
         this.roomName = roomName;
         this.roomType = roomType;
         this.installDate = installDate;
@@ -69,6 +71,14 @@ public abstract class AbstractUnit implements IUnit {
 
     public void setItemName(String itemName) {
         this.itemName = itemName;
+    }
+
+    public UnitType getUnitType() {
+        return unitType;
+    }
+
+    public void setUnitType(UnitType unitType) {
+        this.unitType = unitType;
     }
     
     public void setRoomType(RoomType roomType) {

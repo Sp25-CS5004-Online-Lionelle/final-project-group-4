@@ -55,6 +55,7 @@ public enum UserData {
      * @param name the name of the enum.
      * @return the enum that matches the name.
      */
+    
     public static UserData fromString(String name) {
         for (UserData col : UserData.values()) {
             if (col.name().equalsIgnoreCase(name) || col.getColumnName().equalsIgnoreCase(name)) {

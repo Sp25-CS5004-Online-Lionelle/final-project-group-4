@@ -1,10 +1,5 @@
 package maintainhome.model.Utilities;
 
-import maintainhome.model.Home.AbstractUnit;
-import maintainhome.model.Home.ApplianceUnit;
-import maintainhome.model.Home.ElectricUnit;
-import maintainhome.model.Home.PlumbingUnit;
-import maintainhome.model.Home.IUnit;
 import maintainhome.model.User.User;
 
 import java.io.BufferedReader;
@@ -28,11 +23,14 @@ import java.util.stream.Collectors;
  * Loads IUnit objects from a CSV file.
  * Supports unit types: ElectricUnit, PlumbingUnit, ApplianceUnit.
  */
-public class CsvLoader {
+public class CsvUserLoader {
 
     /** Standard csv delim. */
     private static final String DELIMITER = ",";
-
+    private static String filename = FileType.USER.getFileName();
+    private static String filePath = new File("").getAbsolutePath()
+        .concat("\\src\\main\\resources\\files\\" + filename);
+    
     /**
      * Converts a line from the csv file into a User object.
      * 
@@ -88,12 +86,9 @@ public class CsvLoader {
      * @param filename the name of the file to load
      * @return a set of User objects
      */
-    public static Set<User> loadFile(String filename) {
-
+    public static Set<User> loadFile() {
         Set<User> users = new HashSet<>();
-        String filePath = new File("").getAbsolutePath();
         //File file = new File("C:\\path\\to\\your\\file.txt");
-        filePath = filePath.concat("\\src\\main\\resources\\files\\" + filename);
         //System.out.println(filePath);
         List<String> lines;
         try {
@@ -121,50 +116,6 @@ public class CsvLoader {
         return users;
 
     }
-    /*
-    public static List<IUnit> loadUnits(String csvPath) throws IOException {
-        List<IUnit> units = new ArrayList<>();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("M/d/yyyy");
-
-        try (BufferedReader reader = new BufferedReader(new InputStreamReader(
-                CsvLoader.class.getResourceAsStream(csvPath)))) {
-            String line;
-            reader.readLine(); // Skip header
-
-            while ((line = reader.readLine()) != null) {
-                String[] fields = line.split(",");
-
-                String objectName = fields[0];
-                String unitType = fields[1];
-                String itemName = fields[2];
-                LocalDate installDate = LocalDate.parse(fields[3], formatter);
-                LocalDate maintainedDate = LocalDate.parse(fields[4], formatter);
-                int lifeSpan = Integer.parseInt(fields[5]);
-                String lifeSpanMeasure = fields[6];
-                String room = fields[7];
-                int electricWatt = Integer.parseInt(fields[8]);
-                int plumbingGallon = Integer.parseInt(fields[9]);
-
-                int id = objectName.hashCode();
-                
-                if (unitType.equalsIgnoreCase("ElectricalUnit")) {
-                    units.add(new ElectricUnit(id, unitType, itemName, installDate,
-                            maintainedDate, lifeSpan, lifeSpanMeasure, room, electricWatt));
-                } else if (unitType.equalsIgnoreCase("PlumbingUnit")) {
-                    units.add(new PlumbingUnit(id, unitType, itemName, installDate,
-                            maintainedDate, lifeSpan, lifeSpanMeasure, room, plumbingGallon));
-                } else if (unitType.equalsIgnoreCase("ApplianceUnit")) {
-                    units.add(new ApplianceUnit(id, unitType, itemName, installDate,
-                            maintainedDate, lifeSpan, lifeSpanMeasure, room, electricWatt));
-                } else {
-                    System.err.println("Unknown unit type: " + unitType);
-                }
-            
-            }
-        }
-
-        return units;
-    }
-    */
+    
 
 }

@@ -17,7 +17,7 @@ public class TestObjects {
     /**
      * Executed before every tests, resets the values of the unit objects.
      * 
-     * employee_type,name,ID,payRate,pretaxDeductions,YTDEarnings,YTDTaxesPaid
+     * User: 
      */
     /*
     @BeforeEach

@@ -6,7 +6,8 @@ import maintainhome.view.IView;
 import maintainhome.view.View;
 
 import maintainhome.model.Home.IUnit;
-import maintainhome.model.Utilities.CsvLoader;
+import maintainhome.model.Utilities.CsvUnitItemsLoader;
+import maintainhome.model.Utilities.CsvUserLoader;
 import maintainhome.model.User.User;
 import maintainhome.model.UnitFilters;
 import maintainhome.model.UnitSorters;
@@ -33,19 +34,22 @@ public final class HomeUpkeep {
         IView view = new View("Home Maintenance App");
         Controller controller = new Controller(model, view);
         
-        Set<User> user = CsvLoader.loadFile("user.csv");
+        Set<User> user = CsvUserLoader.loadFile();
         List<User> userList = new ArrayList<>(user);
         System.out.println(userList.get(0).getuserId());
 
-        /*
-        //testing the filter and sort functionality
-        List<IUnit> allUnits = CsvLoader.loadUnits("/sampleemilio.csv");
+        List<IUnit> units = CsvUnitItemsLoader.loadFile();
+        System.out.println(units.get(1).getInstallDate());
 
-        List<IUnit> filtered = UnitFilters.filterByRoom(allUnits, "Kitchen");
+        
+        //testing the filter and sort functionality
+        //List<IUnit> allUnits = CsvLoader.loadUnits("/sampleemilio.csv");
+
+        List<IUnit> filtered = UnitFilters.filterByRoom(units, "Kitchen");
         filtered.sort(UnitSorters.BY_INSTALL_DATE);
 
         filtered.forEach(System.out::println);
-        */
+    
 
     }
 }
