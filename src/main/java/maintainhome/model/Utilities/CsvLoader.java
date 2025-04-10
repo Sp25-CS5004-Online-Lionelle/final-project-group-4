@@ -116,7 +116,7 @@ public class CsvLoader {
         Map<UserData, Integer> columnMap = processHeader(lines.remove(0));
 
         users = lines.stream().map(line -> toUser(line, columnMap))
-                .filter(game -> game != null).collect(Collectors.toSet());
+                .filter(user -> user != null).collect(Collectors.toSet());
 
         return users;
 

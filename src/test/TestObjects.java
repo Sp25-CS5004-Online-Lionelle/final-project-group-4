@@ -1,4 +1,19 @@
-public class TestApplianceUnit {
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+
+
+/*
+ * Class to test the User, Home, unitItems classes.
+ * 
+ */
+public class TestObjects {
     /**
      * Executed before every tests, resets the values of the unit objects.
      * 
