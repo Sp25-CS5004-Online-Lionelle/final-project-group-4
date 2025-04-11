@@ -60,15 +60,7 @@ private static String[] trimValues(String[] values) {
         // set the list of homes for the user
         Set<String> homeIds = loadUserHomesFile(userId);
         CsvLoader.loadHomesFile(homeIds);
-        // List<Home> homes = CsvLoader.loadHomesFile(homeIds);
-        
-        for (String id : homeIds) {
-            System.out.println(id);
-        }
-        
-        Home home = new Home("1", "123 starcrest", "91050");
-        List<Home> homes = new ArrayList<>();
-        homes.add(home);
+        List<Home> homes = CsvLoader.loadHomesFile(homeIds);
         
         try {
             User user = new User(
@@ -364,7 +356,7 @@ private static String[] trimValues(String[] values) {
         
         homes = lines.stream().map(line -> toHome(line, columnMap))
                 .filter(home -> 
-                //ids.contains(home.getHomeId()) &&
+                ids.contains(home.getHomeId()) &&
                 home != null).collect(Collectors.toList());
 
         return homes;
