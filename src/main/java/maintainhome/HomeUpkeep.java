@@ -4,7 +4,7 @@ import maintainhome.controller.Controller;
 import maintainhome.model.Model;
 import maintainhome.view.IView;
 import maintainhome.view.View;
-
+import maintainhome.model.Home.Home;
 import maintainhome.model.Home.IUnit;
 import maintainhome.model.Utilities.CsvLoader;
 import maintainhome.model.User.User;
@@ -18,6 +18,7 @@ import java.util.Set;
  * Main driver for the program.
  */
 public final class HomeUpkeep {
+
     /** Private constructor to prevent instantiation. */
     private HomeUpkeep() {
         // empty
@@ -33,14 +34,43 @@ public final class HomeUpkeep {
         IView view = new View("Home Maintenance App");
         Controller controller = new Controller(model, view);
         
-        Set<User> user = CsvLoader.loadFile("user.csv");
-        List<User> userList = new ArrayList<>(user);
-        System.out.println(userList.get(0).getuserId());
+        User user = null;
+        try {
+            user = CsvLoader.loadUserFile("js1");
+            System.out.println(user.getUserId());
+        } catch(Exception e) {
+            // NullPointerException
+            System.out.println(e);
+            System.out.println("No User Found.");
+        }
+        
+         try {
+             List<Home> homes = CsvLoader.loadHomesFile(user.getUserId());
+             user.setHomes(homes);
+         } catch(Exception e) {
+             // throw new NullPointerException("User has no homes");
+             System.out.println(e);
+         }
+        
+         Home h1 = null;
+        try {
+            h1 = user.getHomes().get(0);
+            System.out.println(h1.getAddress());
+        } catch(Exception e) {
+            // NullPointerException
+            System.out.println("User has no homes listed.");
+        }
 
+        List<IUnit> units = CsvLoader.loadUnitItemsFile(user.getUserId(), h1.getHomeId());
+        for (IUnit unit : units) {
+            System.out.println(unit.getItemName());
+        }
+
+        
         //testing the filter and sort functionality
-        List<IUnit> allUnits = CsvLoader.loadUnits("/sampleemilio.csv");
+        //List<IUnit> allUnits = CsvLoader.loadUnits("/sampleemilio.csv");
 
-        List<IUnit> filtered = UnitFilters.filterByRoom(allUnits, "Kitchen");
+        List<IUnit> filtered = UnitFilters.filterByRoom(units, "Kitchen");
         filtered.sort(UnitSorters.BY_INSTALL_DATE);
 
         filtered.forEach(System.out::println);

@@ -1,17 +1,14 @@
-package maintainhome.model.Utilities;
+package maintainhome.model.Utilities.Types;
 
-public enum UnitItemData {
+public enum HomeData {
     /**
      * Enums matching CODE(cvsname) pattern.
      * 
-     * name and id are used for unit uniqueness.
+     * name and id are used for user uniqueness.
      */
-    NAME("item_name"), ID("id")
+    ADDRESS("address"), ID("user_id"),
     /** Enums that are based on double values in the csv file. */
-    , UNIT_TYPE("unit_type"), ROOM_TYPE("room_type")
-    , ROOM_NAME("room_name"), INSTALL_DATE("install_date")
-    , MAINTAINED_DATE("maintained_date"), MAINTAIN_FREQ("maintenance_frequency")
-    , FREQ_MEAS("frequency_meas");
+    ZIP("zip");
 
     /** stores the original csv name in the enum. */
     private final String columnName;
@@ -21,7 +18,7 @@ public enum UnitItemData {
      * 
      * @param columnName the name of the column in the CSV file.
      */
-    UnitItemData(String columnName) {
+    HomeData(String columnName) {
         this.columnName = columnName;
     }
 
@@ -40,8 +37,8 @@ public enum UnitItemData {
      * @param columnName the name of the column in the CSV file.
      * @return the enum that matches the column name.
      */
-    public static UnitItemData fromColumnName(String columnName) {
-        for (UnitItemData col : UnitItemData.values()) {
+    public static HomeData fromColumnName(String columnName) {
+        for (HomeData col : HomeData.values()) {
             if (col.getColumnName().equals(columnName)) {
                 return col;
             }
@@ -58,8 +55,9 @@ public enum UnitItemData {
      * @param name the name of the enum.
      * @return the enum that matches the name.
      */
-    public static UnitItemData fromString(String name) {
-        for (UnitItemData col : UnitItemData.values()) {
+    
+    public static HomeData fromString(String name) {
+        for (HomeData col : HomeData.values()) {
             if (col.name().equalsIgnoreCase(name) || col.getColumnName().equalsIgnoreCase(name)) {
                 return col;
             }

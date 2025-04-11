@@ -1,7 +1,7 @@
-package maintainhome.model.Home;
+package maintainhome.model.Home.Types;
 
 
-/** A list of room type types allowed for the rooms. */
+/** A list of room types allowed for the rooms. */
 public enum RoomType {
     /** Different room type options. */
     KITCHEN("Kitchen"), LIVING_ROOM("Living Room"), DINING_ROOM("Dining Room")

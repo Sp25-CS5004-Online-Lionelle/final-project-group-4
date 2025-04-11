@@ -1,6 +1,9 @@
 package maintainhome.model.Home;
 
 import java.time.LocalDate;
+import maintainhome.model.Home.Types.PriorityType;
+import maintainhome.model.Home.Types.RoomType;
+import maintainhome.model.Home.Types.UnitType;
 
 public class ApplianceUnit extends AbstractUnit implements IElectricUnit {
     private int electricWatt;
@@ -8,9 +11,9 @@ public class ApplianceUnit extends AbstractUnit implements IElectricUnit {
     private Integer width;
     private Integer depth;
 
-    public ApplianceUnit(String unitId, String itemName, RoomType roomType, String roomName, LocalDate installDate, LocalDate maintainedDate,
-        int maintenanceFrequency, String frequencyMeasure, int electricWatt, int height, int width, int depth) {
-        super(unitId, itemName, roomType, roomName, installDate, maintainedDate, maintenanceFrequency, frequencyMeasure);
+    public ApplianceUnit(String userId, String homeId, String unitId, String itemName, UnitType unitType, RoomType roomType, String roomName, LocalDate installDate, LocalDate maintainedDate,
+        int maintenanceFrequency, String frequencyMeasure, String issue, PriorityType priority, int electricWatt, int height, int width, int depth) {
+        super(userId, homeId, unitId, itemName, unitType, roomType, roomName, installDate, maintainedDate, maintenanceFrequency, frequencyMeasure, issue, priority);
         this.electricWatt = electricWatt;
         this.height = height;
         this.width = width;

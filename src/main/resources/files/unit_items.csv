@@ -1,8 +1,5 @@
-unit_id,item_name,unit_type,room_type,room_name,install_date,maintained_date,maintenance_freq,frequency_meas
-js1h1u1,stove,APPLIANCE, KITCHEN,Kitchen,1/6/2012,1/6/2022,10,YEAR
-js1h1u2,sink, PLUMBING_UNIT, BEDROOM,Master Bedroom,1/5/2012,1/5/2017,3,YEAR
-js1h1u3,sink, PLUMBING_UNIT, KITCHEN,Kitchen,1/5/2012,5/6/2024,3,YEAR
-js1h1u4,water heater, APPLIANCE, GARAGE,Garage,5/20/2001,5/20/2024,1,YEAR
-js1h1u5,bathtub, PLUMBING_UNIT, BATHROOM,2nd Bathroom,1/5/2012,1/5/2019,2,YEAR
-js1h1u6, electrical panel, ELECTRIC_UNIT, GARAGE, Garage, 1/6/2012, 2/10/2024,3, YEAR
-js1h1u7, Air Filter, HVAC_UNIT, LIVING_ROOM, Living Room,1/8/2025,4/8/2025,3, MONTH
+user_id,home_id,unit_id,item_name,unit_type,room_type,room_name,install_date,maintained_date,maintenance_freq,frequency_meas,issue,priority
+js1,1,js1h1u1,stove,Appliance,KITCHEN,Kitchen,1/6/2012,1/6/2022,10,YEAR,stove button for top-right not working,LOW
+js1,1,js1h1u2,sink,Plumbing Unit,BATHROOM,Master Bathroom,1/5/2012,1/5/2017,3,YEAR,sink is leaking,IMPORTANT
+js1,1,js1h1u3,sink,Plumbing Unit,BATHROOM,2nd Bathroom,1/6/2010,8/10/2024,3,YEAR,hot water not working,LOW
+js1,1,js1h1u4,electric panel,Electric Unit,GARAGE,Garage,1/20/2010,5/15/2024,3,YEAR,breaker for 2nd bedroom not working,URGENT

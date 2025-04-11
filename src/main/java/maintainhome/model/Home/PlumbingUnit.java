@@ -1,6 +1,9 @@
 package maintainhome.model.Home;
 
 import java.time.LocalDate;
+import maintainhome.model.Home.Types.PriorityType;
+import maintainhome.model.Home.Types.RoomType;
+import maintainhome.model.Home.Types.UnitType;
 
 public class PlumbingUnit extends AbstractUnit implements IUnit, IPlumbingUnit {
     private int plumbingGallon;
@@ -9,9 +12,9 @@ public class PlumbingUnit extends AbstractUnit implements IUnit, IPlumbingUnit {
     private int pipeCount;
     private UnitType unitType;
 
-    public PlumbingUnit(String unitId, String itemName, RoomType roomType, String roomName, LocalDate installDate, LocalDate maintainedDate,
-    int maintenanceFrequency, String frequencyMeasure, int plumbingGallon) {
-        super(unitId, itemName, roomType, roomName, installDate, maintainedDate, maintenanceFrequency, frequencyMeasure);
+    public PlumbingUnit(String userId, String homeId, String unitId, String itemName, UnitType unitType, RoomType roomType, String roomName, LocalDate installDate, LocalDate maintainedDate,
+    int maintenanceFrequency, String frequencyMeasure, String issue, PriorityType priority, int plumbingGallon) {
+        super(userId, homeId, unitId, itemName, unitType, roomType, roomName, installDate, maintainedDate, maintenanceFrequency, frequencyMeasure, issue, priority);
         this.plumbingGallon = plumbingGallon;
     }
 

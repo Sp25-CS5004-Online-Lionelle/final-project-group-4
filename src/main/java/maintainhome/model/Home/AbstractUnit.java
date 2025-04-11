@@ -1,57 +1,57 @@
 package maintainhome.model.Home;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
+import maintainhome.model.Home.Types.RoomType;
+import maintainhome.model.Home.Types.UnitType;
+import maintainhome.model.Home.Types.PriorityType;
 
-/* 
- * 
- * - homeId : int
-
-- category : String
-
-- itemName : String
-
-- installDate : String
-
-- maintainedDate : String
-
-- standardLifeSpan : int
-
-- lifeSpanMeasure : String
-
-- roomLocation : String
-
-+ AbstractUnit()
-
-+ setRoomLocation() : :void
- * 
-*/
 
 public abstract class AbstractUnit implements IUnit {
+    private String userId;
+    private String homeId;
     private String unitId;
     private String itemName;
+    private UnitType unitType;
     private RoomType roomType;
     private String roomName;
     private LocalDate installDate;
     private LocalDate maintainedDate;
     private int maintenanceFrequency;
     private String frequencyMeasure;
-    /*
-    private String currentIssue;
-    private String issueKeyword;
-    */
+    private String issue;
+    private PriorityType priority;
 
 
-    public AbstractUnit(String unitId, String itemName, RoomType roomType, String roomName, LocalDate installDate, LocalDate maintainedDate,
-            int maintenanceFrequency, String frequencyMeasure) {
+    public AbstractUnit(String userId, String homeId, String unitId, String itemName, UnitType unitType, RoomType roomType, String roomName, LocalDate installDate, LocalDate maintainedDate,
+            int maintenanceFrequency, String frequencyMeasure, String issue, PriorityType priority) {
+        this.userId = userId;
+        this.homeId = homeId;
         this.unitId = unitId;
         this.itemName = itemName;
+        this.unitType = unitType;
         this.roomName = roomName;
         this.roomType = roomType;
         this.installDate = installDate;
         this.maintainedDate = maintainedDate;
         this.maintenanceFrequency = maintenanceFrequency;
         this.frequencyMeasure = frequencyMeasure;
+        this.issue = issue;
+        this.priority = priority;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+    public String getHomeId() {
+        return homeId;
+    }
+
+    public void setHomeId(String homeId) {
+        this.homeId = homeId;
     }
 
     @Override
@@ -62,6 +62,7 @@ public abstract class AbstractUnit implements IUnit {
     public void setUnitId(String unitId) {
         this.unitId = unitId;
     }
+
     @Override
     public String getItemName() {
         return itemName;
@@ -69,6 +70,14 @@ public abstract class AbstractUnit implements IUnit {
 
     public void setItemName(String itemName) {
         this.itemName = itemName;
+    }
+
+    public UnitType getUnitType() {
+        return unitType;
+    }
+
+    public void setUnitType(UnitType unitType) {
+        this.unitType = unitType;
     }
     
     public void setRoomType(RoomType roomType) {
@@ -119,16 +128,20 @@ public abstract class AbstractUnit implements IUnit {
         this.frequencyMeasure = frequencyMeasure;
     }
 
-    /*
-    private String issuePriority = ;
-    public String getIssueKeyword() {
-        return issueKeyword;
+    public String getIssue() {
+        return issue;
+    }
+    public void setIssue(String issue) {
+        this.issue = issue;
     }
 
-    public void setIssueKeyword(String issueKeyword) {
-        this.issueKeyword = issueKeyword;
+    public PriorityType getPriority() {
+        return priority;
     }
-    */  
+    public void setPriority(PriorityType priority) {
+        this.priority = priority;
+    }
+
     /**
      * Converts the unit item to a CSV string.
      * 
