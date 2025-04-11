@@ -38,10 +38,15 @@ public class TestObjects {
     assertEquals("2514 E Harrison St. Carson", h1.getAddress());
 
     // check result for when user is not found
+    NumberFormatException exceptionH1 = Assertions.assertThrows(NullPointerException.class, () -> {
+        CsvLoader.loadUserFile("js5");
+    });
+    Assertions.assertEquals("User Not Found.", exceptionH1.getMessage());
     // check exception for when home is not found in csv - will just not trigger this or load into object
     // check exception for when user has no homes listed
     // check for when no unitItems - will just not trigger this or load into object
     }
+
 
     /**
      * Tests to make sure the unit id is returned properly.

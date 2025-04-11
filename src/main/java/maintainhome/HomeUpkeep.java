@@ -36,17 +36,15 @@ public final class HomeUpkeep {
         
         User user = null;
         try {
-            user = CsvLoader.loadUserFile("js2");;
+            user = CsvLoader.loadUserFile("js5");
             System.out.println(user.getUserId());
         } catch(Exception e) {
+            System.out.println(e);
             System.out.println("No User Found.");
         }
         
          try {
              List<Home> homes = CsvLoader.loadHomesFile(user.getUserId());
-             for (Home home : homes) {
-                System.out.println(home.getAddress());
-             }
              user.setHomes(homes);
          } catch(Exception e) {
              // throw new NullPointerException("User has no homes");

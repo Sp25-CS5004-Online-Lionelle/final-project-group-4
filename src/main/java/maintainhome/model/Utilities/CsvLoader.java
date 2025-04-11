@@ -55,7 +55,6 @@ private static String[] trimValues(String[] values) {
         if (columns.length < columnMap.values().stream().max(Integer::compareTo).get()) {
             return null;
         }
-
         
         User user = new User(
             columns[columnMap.get(ColumnData.USER_ID)]
@@ -97,8 +96,9 @@ private static String[] trimValues(String[] values) {
 
         Map<ColumnData, Integer> columnMap = processHeader(lines.remove(0));
         for (String line:lines) {
-            user = toUser(line, columnMap);
-            if (user.getUserId().equalsIgnoreCase(userId)) {
+            User checkuser = toUser(line, columnMap);
+            if (checkuser.getUserId().equals(userId)) {
+                user = checkuser;
                 return user;
             }
         }
