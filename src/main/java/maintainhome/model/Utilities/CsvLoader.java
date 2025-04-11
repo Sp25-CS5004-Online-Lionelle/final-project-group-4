@@ -4,6 +4,8 @@ import maintainhome.model.Home.AbstractUnit;
 import maintainhome.model.Home.ApplianceUnit;
 import maintainhome.model.Home.ElectricUnit;
 import maintainhome.model.Home.PlumbingUnit;
+import maintainhome.model.Home.RoomType;
+import maintainhome.model.Home.UnitType;
 import maintainhome.model.Home.IUnit;
 import maintainhome.model.User.User;
 
@@ -121,50 +123,68 @@ public class CsvLoader {
         return users;
 
     }
-    /*
-    public static List<IUnit> loadUnits(String csvPath) throws IOException {
-        List<IUnit> units = new ArrayList<>();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("M/d/yyyy");
+    public static List<IUnit> loadUnits(String filename) {
+    List<IUnit> units = new ArrayList<>();
+    String filePath = new File("").getAbsolutePath() + "/src/main/resources/files/" + filename;
 
-        try (BufferedReader reader = new BufferedReader(new InputStreamReader(
-                CsvLoader.class.getResourceAsStream(csvPath)))) {
-            String line;
-            reader.readLine(); // Skip header
+    try (BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream(filePath), StandardCharsets.UTF_8))) {
+        // Read all lines from the CSV file
+        List<String> lines = reader.lines().collect(Collectors.toList());
+        if (lines.isEmpty()) return units;
 
-            while ((line = reader.readLine()) != null) {
-                String[] fields = line.split(",");
+        // Extract header and use it to build a map of column name -> index
+        String header = lines.remove(0);
+        String[] headers = header.split(DELIMITER);
+        Map<UnitItemData, Integer> columnMap = new HashMap<>();
+        for (int i = 0; i < headers.length; i++) {
+            try {
+                columnMap.put(UnitItemData.fromColumnName(headers[i]), i);
+            } catch (IllegalArgumentException ignored) {}
+            // Skip unrecognized columns
+        }
 
-                String objectName = fields[0];
-                String unitType = fields[1];
-                String itemName = fields[2];
-                LocalDate installDate = LocalDate.parse(fields[3], formatter);
-                LocalDate maintainedDate = LocalDate.parse(fields[4], formatter);
-                int lifeSpan = Integer.parseInt(fields[5]);
-                String lifeSpanMeasure = fields[6];
-                String room = fields[7];
-                int electricWatt = Integer.parseInt(fields[8]);
-                int plumbingGallon = Integer.parseInt(fields[9]);
+        // Parse each remaining line into a specific unit type
+        for (String line : lines) {
 
-                int id = objectName.hashCode();
-                
-                if (unitType.equalsIgnoreCase("ElectricalUnit")) {
-                    units.add(new ElectricUnit(id, unitType, itemName, installDate,
-                            maintainedDate, lifeSpan, lifeSpanMeasure, room, electricWatt));
-                } else if (unitType.equalsIgnoreCase("PlumbingUnit")) {
-                    units.add(new PlumbingUnit(id, unitType, itemName, installDate,
-                            maintainedDate, lifeSpan, lifeSpanMeasure, room, plumbingGallon));
-                } else if (unitType.equalsIgnoreCase("ApplianceUnit")) {
-                    units.add(new ApplianceUnit(id, unitType, itemName, installDate,
-                            maintainedDate, lifeSpan, lifeSpanMeasure, room, electricWatt));
-                } else {
-                    System.err.println("Unknown unit type: " + unitType);
-                }
-            
+            String[] fields = line.split(DELIMITER);
+            String id = fields[columnMap.get(UnitItemData.ID)];
+            String name = fields[columnMap.get(UnitItemData.NAME)];
+            String unitTypeStr = fields[columnMap.get(UnitItemData.UNIT_TYPE)];
+            String roomTypeStr = fields[columnMap.get(UnitItemData.ROOM_TYPE)];
+            String roomName = fields[columnMap.get(UnitItemData.ROOM_NAME)];
+            String installDateStr = fields[columnMap.get(UnitItemData.INSTALL_DATE)];
+            String maintainedDateStr = fields[columnMap.get(UnitItemData.MAINTAINED_DATE)];
+            int freq = Integer.parseInt(fields[columnMap.get(UnitItemData.MAINTAIN_FREQ)]);
+            String freqMeas = fields[columnMap.get(UnitItemData.FREQ_MEAS)];
+
+            // Parse the date strings to LocalDate objects
+            LocalDate installDate = IUnit.parseDate(installDateStr);
+            LocalDate maintainedDate = IUnit.parseDate(maintainedDateStr);
+            RoomType roomType = RoomType.toRoomType(roomTypeStr);
+
+            // Create the correct unit subclass based on UnitType
+            UnitType unitType = UnitType.toUnitType(unitTypeStr);
+            switch (unitType) {
+                case APPLIANCE:
+                    units.add(new ApplianceUnit(id, name, roomType, roomName, installDate, maintainedDate, freq, freqMeas, 1000, 20, 20, 20));
+                    break;
+                case ELECTRIC_UNIT:
+                    units.add(new ElectricUnit(id, name, roomType, roomName, installDate, maintainedDate, freq, freqMeas, 500));
+                    break;
+                case PLUMBING_UNIT:
+                    units.add(new PlumbingUnit(id, name, roomType, roomName, installDate, maintainedDate, freq, freqMeas, 200));
+                    break;
+                default:
+                    System.err.println("Unknown unit type: " + unitTypeStr);
             }
         }
 
-        return units;
+    } catch (IOException e) {
+        System.err.println("Error loading units CSV: " + e.getMessage());
     }
-    */
+
+    return units;
+}
+
 
 }

@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import maintainhome.model.Home.IUnit;
-import maintainhome.model.Home.RoomType;
 
 public class UnitFilters {
     public static List<IUnit> filterByType(List<IUnit> units, String type) {

@@ -37,7 +37,6 @@ public final class HomeUpkeep {
         List<User> userList = new ArrayList<>(user);
         System.out.println(userList.get(0).getuserId());
 
-        /*
         //testing the filter and sort functionality
         List<IUnit> allUnits = CsvLoader.loadUnits("/sampleemilio.csv");
 
@@ -45,7 +44,7 @@ public final class HomeUpkeep {
         filtered.sort(UnitSorters.BY_INSTALL_DATE);
 
         filtered.forEach(System.out::println);
-        */
+        
 
     }
 }
