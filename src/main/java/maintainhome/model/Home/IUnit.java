@@ -9,10 +9,18 @@ import maintainhome.model.Home.Types.UnitType;
 public interface IUnit {
     static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("M/d/yyyy");
 
+    String getUserId();
+
+    String getHomeId();
+
     String getUnitId();
+
     String getItemName();
+
     UnitType getUnitType();
+
     RoomType getRoomType();
+    
     LocalDate getInstallDate();
 
     /**

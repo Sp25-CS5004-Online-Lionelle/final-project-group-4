@@ -36,9 +36,10 @@ public final class HomeUpkeep {
         
         User user = null;
         try {
-            user = CsvLoader.loadUserFile("js5");
+            user = CsvLoader.loadUserFile("js1");
             System.out.println(user.getUserId());
         } catch(Exception e) {
+            // NullPointerException
             System.out.println(e);
             System.out.println("No User Found.");
         }
@@ -51,16 +52,19 @@ public final class HomeUpkeep {
              System.out.println(e);
          }
         
+         Home h1 = null;
         try {
-            Home h1 = user.getHomes().get(0);
+            h1 = user.getHomes().get(0);
             System.out.println(h1.getAddress());
         } catch(Exception e) {
+            // NullPointerException
             System.out.println("User has no homes listed.");
         }
 
-        /*
-        List<IUnit> units = CsvLoader.loadUnitItemsFile();
-        System.out.println(units.get(1).getInstallDate());
+        List<IUnit> units = CsvLoader.loadUnitItemsFile(user.getUserId(), h1.getHomeId());
+        for (IUnit unit : units) {
+            System.out.println(unit.getItemName());
+        }
 
         
         //testing the filter and sort functionality
@@ -70,7 +74,6 @@ public final class HomeUpkeep {
         filtered.sort(UnitSorters.BY_INSTALL_DATE);
 
         filtered.forEach(System.out::println);
-        */
 
     }
 }

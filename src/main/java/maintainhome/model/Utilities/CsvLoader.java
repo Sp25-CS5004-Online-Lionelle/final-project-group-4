@@ -258,7 +258,7 @@ private static String[] trimValues(String[] values) {
         String userId = columns[columnMap.get(ColumnData.USER_ID)].trim();
         String homeId = columns[columnMap.get(ColumnData.HOME_ID)].trim();
         String itemId = columns[columnMap.get(ColumnData.UNIT_ID)].trim();
-        String itemName = columns[columnMap.get(ColumnData.NAME)].trim();
+        String itemName = columns[columnMap.get(ColumnData.ITEM_NAME)].trim();
         UnitType type = UnitType.toUnitType(columns[columnMap
             .get(ColumnData.UNIT_TYPE)].trim());
         String roomType = columns[columnMap.get(ColumnData.ROOM_TYPE)].trim();
@@ -268,7 +268,7 @@ private static String[] trimValues(String[] values) {
         String maintainFreq = columns[columnMap.get(ColumnData.MAINTAIN_FREQ)].trim();
         String freqMeas = columns[columnMap.get(ColumnData.FREQ_MEAS)].trim();
         String issue = columns[columnMap.get(ColumnData.ISSUE)].trim();
-        int priority = Integer.parseInt(columns[columnMap.get(ColumnData.PRIORITY)].trim());
+        int priority = PriorityType.containsValues(columns[columnMap.get(ColumnData.PRIORITY)].trim()).getPriorityType();
         
         String electricWatt = "0";
         String plumbingGallon = "0";
@@ -354,7 +354,7 @@ private static String[] trimValues(String[] values) {
      * @param filename the name of the file to load
      * @return a set of User objects
      */
-    public static List<IUnit> loadUnitItemsFile() {
+    public static List<IUnit> loadUnitItemsFile(String userId, String homeId) {
         String path = filePath.concat(FileType.UNIT_ITEMS.getFileName());
         List<IUnit> units = new ArrayList<>();
 
@@ -378,8 +378,8 @@ private static String[] trimValues(String[] values) {
         Map<ColumnData, Integer> columnMap = processHeader(lines.remove(0));
         
         units = lines.stream().map(line -> toUnitItems(line, columnMap))
-                .filter(unit -> unit != null).collect(Collectors.toList());
-        
+                .filter(unit -> unit.getUserId().equals(userId) && unit.getHomeId().equals(homeId)
+                && unit != null).collect(Collectors.toList());
 
         return units;
 

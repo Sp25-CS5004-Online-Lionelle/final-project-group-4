@@ -31,11 +31,21 @@ public class Home {
         return address;
     }
 
-    /**
-     * Adds a room to the home.
-     */
-    public void addUnitItem(IUnit unitItem) {
+    public String getZip() {
+        return zip;
+    }
+
+    public void setUnitItem(IUnit unitItem) {
         unitItems.add(unitItem);
+    }
+
+    /**
+     * Adds a user home's unit item to the unit items list.
+     */
+    public void setUnitItems(List<IUnit> unitItems) {
+        for (IUnit unitItem:unitItems) {
+            setUnitItem(unitItem);
+        }
         // by default add kitchen, dining room, living room, bedroom, bathroom, 
     }
 
