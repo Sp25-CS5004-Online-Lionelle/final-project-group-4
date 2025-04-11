@@ -4,15 +4,13 @@ import maintainhome.controller.Controller;
 import maintainhome.model.Model;
 import maintainhome.view.IView;
 import maintainhome.view.View;
-
+import maintainhome.model.Home.Home;
 import maintainhome.model.Home.IUnit;
-import maintainhome.model.Utilities.CsvUnitItemsLoader;
-import maintainhome.model.Utilities.CsvUserLoader;
+import maintainhome.model.Utilities.CsvLoader;
 import maintainhome.model.User.User;
 import maintainhome.model.UnitFilters;
 import maintainhome.model.UnitSorters;
 import java.util.List;
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Set;
 
@@ -20,8 +18,6 @@ import java.util.Set;
  * Main driver for the program.
  */
 public final class HomeUpkeep {
-    private static String filePath = new File("").getAbsolutePath()
-        .concat("\\src\\main\\resources\\files\\");
 
     /** Private constructor to prevent instantiation. */
     private HomeUpkeep() {
@@ -38,11 +34,15 @@ public final class HomeUpkeep {
         IView view = new View("Home Maintenance App");
         Controller controller = new Controller(model, view);
         
-        Set<User> user = CsvUserLoader.loadFile(filePath);
-        List<User> userList = new ArrayList<>(user);
-        System.out.println(userList.get(0).getuserId());
+        Set<User> users = CsvLoader.loadUserFile("js1");
+        User user = new ArrayList<>(users).get(0);
+        System.out.println(user.getUserId());
 
-        List<IUnit> units = CsvUnitItemsLoader.loadFile(filePath);
+        Home h1 = user.getHomes().get(0);
+        System.out.println(h1.getAddress());
+        
+        /*
+        List<IUnit> units = CsvLoader.loadUnitItemsFile();
         System.out.println(units.get(1).getInstallDate());
 
         
@@ -53,7 +53,7 @@ public final class HomeUpkeep {
         filtered.sort(UnitSorters.BY_INSTALL_DATE);
 
         filtered.forEach(System.out::println);
-    
+        */
 
     }
 }

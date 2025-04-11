@@ -1,4 +1,4 @@
-package maintainhome.model.Utilities;
+package maintainhome.model.Utilities.Types;
 
 public enum FileType {
     /**
@@ -7,6 +7,7 @@ public enum FileType {
      * name and id are used for user uniqueness.
      */
     USER("user.csv"), HOMES("homes.csv"),
+    USER_HOMES("user_homes.csv"),
     /** Enums that are based on double values in the csv file. */
     UNIT_ITEMS("unit_items.csv");
 

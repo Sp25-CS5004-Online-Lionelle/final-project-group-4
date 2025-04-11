@@ -1,7 +1,6 @@
 package maintainhome.model.User;
 
 import maintainhome.model.Home.Home;
-
 import java.util.List;
 
 /**
@@ -13,13 +12,14 @@ public class User {
     private String email;
     private List<Home> homes;
 
-    public User(String userId, String name, String email) {
+    public User(String userId, String name, String email, List<Home> homes) {
         this.userId = userId;
         this.name = name;
         this.email = email;
+        this.homes = homes;
     }
 
-    public String getuserId() {
+    public String getUserId() {
         return userId;
     }
 
@@ -34,4 +34,9 @@ public class User {
     public List<Home> getHomes() {
         return homes;
     }
+
+    public void setHome(Home home) {
+        homes.add(home);
+    }
+
 }

@@ -3,6 +3,8 @@ package maintainhome.model.Home;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import maintainhome.model.Home.Types.RoomType;
+import maintainhome.model.Home.Types.UnitType;
 
 public interface IUnit {
     static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("M/d/yyyy");

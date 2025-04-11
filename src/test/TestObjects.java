@@ -1,12 +1,10 @@
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import java.math.BigDecimal;
-import java.math.RoundingMode;
-
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import maintainhome.model.Home.Home;
 
 
 /*
@@ -19,24 +17,33 @@ public class TestObjects {
      * 
      * User: 
      */
-    /*
+    private List<User> user;
+
     @BeforeEach
     public void setUp() {
-        hEmp = Builder.buildEmployeeFromCSV("HOURLY,Alphonse Elric,f104,20.00,0,8000,1812");
-        sEmp = Builder.buildEmployeeFromCSV("SALARY,Mikasa Ackerman,a106,120000,300,10000,2333");
-        hEmp1 = new HourlyEmployee("Alphonse Elric","f104",20.00,8000,1812,0);
-        sEmp1 = new SalaryEmployee("Mikasa Ackerman","a106",120000,10000,2333,300);
-
+        Set<User> user = CsvLoader.loadUserFile("js1");
+        user = new ArrayList<>(user);
+        System.out.println(userList.get(0).getUserId());
     }
-    */
+    
     /**
      * Tests to make sure the unit id is returned properly.
      */
-    /*
     @Test
-    public void testGetID() {
-    assertEquals("Alphonse Elric", hEmp.getName());
-    assertEquals("Mikasa Ackerman", sEmp.getName());
+    public void testGetFunctions() {
+    // check IDs
+    assertEquals("js1", user.getUserId);
+    Home h1 = user.getHomes().get(0);
+    assertEquals("1", h1.getHomeId());
+    assertEquals("2514 E Harrison St. Carson", h1.getAddress());
     }
-    */
+
+    /**
+     * Tests to make sure the unit id is returned properly.
+     */
+    @Test
+    public void testSetFunctions() {
+        
+    }
+    
 }

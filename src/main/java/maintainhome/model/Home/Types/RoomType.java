@@ -1,22 +1,23 @@
-package maintainhome.model.Home;
+package maintainhome.model.Home.Types;
 
 
-/** A list of room type types allowed for the rooms. */
-public enum UnitType {
+/** A list of room types allowed for the rooms. */
+public enum RoomType {
     /** Different room type options. */
-    ELECTRIC_UNIT("Electric Unit"), PLUMBING_UNIT("Plumbing Unit")
-    , APPLIANCE("Appliance"); // , HVAC("HVAC Unit");
+    KITCHEN("Kitchen"), LIVING_ROOM("Living Room"), DINING_ROOM("Dining Room")
+    , BEDROOM("Bedroom"), BATHROOM("Bathroom"), GARAGE("Garage"), BASEMENT("Basement")
+    , UTILITY_ROOM("Utility Room");
 
     /** The room type. */
-    private String unitType;
+    private String roomType;
 
     /**
      * Constructor for the room type.
      * 
      * @param format The room type.
      */
-    UnitType(String unitType) {
-        this.unitType = unitType;
+    RoomType(String roomType) {
+        this.roomType = roomType;
     }
 
     /**
@@ -24,23 +25,23 @@ public enum UnitType {
      * 
      * @return The room type.
      */
-    public String getUnitType() {
-        return unitType;
+    public String getRoomType() {
+        return roomType;
     }
 
     /**
      * Get the room type from the string room type.
      * 
-     * @param unitType The room type.
+     * @param roomType The room type.
      * @return The room type.
      */
-    public static UnitType toUnitType(String unitType) {
-        for (UnitType type : UnitType.values()) {
-            if (type.getUnitType().equalsIgnoreCase(unitType)) {
+    public static RoomType toRoomType(String roomType) {
+        for (RoomType type : RoomType.values()) {
+            if (type.getRoomType().equalsIgnoreCase(roomType)) {
                 return type;
             }
         }
-        throw new IllegalArgumentException("No unit type with name " + unitType);
+        throw new IllegalArgumentException("No room type with name " + roomType);
     }
 
     /**
@@ -49,7 +50,7 @@ public enum UnitType {
      * @param value the value to check
      * @return the room type if found, null otherwise
      */
-    
+    /*
     public static RoomType containsValues(String value) {
         for (RoomType roomType : RoomType.values()) {
             if (roomType.toString().equalsIgnoreCase(value)) {
@@ -58,5 +59,5 @@ public enum UnitType {
         }
         return null;
     }
-    
+    */
 }
