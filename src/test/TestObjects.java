@@ -36,6 +36,11 @@ public class TestObjects {
     Home h1 = user.getHomes().get(0);
     assertEquals("1", h1.getHomeId());
     assertEquals("2514 E Harrison St. Carson", h1.getAddress());
+
+    // check result for when user is not found
+    // check exception for when home is not found in csv - will just not trigger this or load into object
+    // check exception for when user has no homes listed
+    // check for when no unitItems - will just not trigger this or load into object
     }
 
     /**

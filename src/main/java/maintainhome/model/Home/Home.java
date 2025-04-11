@@ -1,6 +1,7 @@
 package maintainhome.model.Home;
 
 import java.util.List;
+import java.util.ArrayList;
 
 /**
  * The Home class to store the user's home and relevant information.
@@ -9,7 +10,7 @@ public class Home {
     private String homeId;
     private String address;
     private String zip;
-    private List<IUnit> unitItems; // change datatype
+    private List<IUnit> unitItems = new ArrayList<>(); // change datatype
 
     /**
      * Default Home Constructor.

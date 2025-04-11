@@ -2,6 +2,7 @@ package maintainhome.model.User;
 
 import maintainhome.model.Home.Home;
 import java.util.List;
+import java.util.ArrayList;
 
 /**
  * The User class to store the user object that will maintain home(s).
@@ -10,13 +11,12 @@ public class User {
     private String userId;
     private String name;
     private String email;
-    private List<Home> homes;
+    private List<Home> homes = new ArrayList<>();
 
-    public User(String userId, String name, String email, List<Home> homes) {
+    public User(String userId, String name, String email) {
         this.userId = userId;
         this.name = name;
         this.email = email;
-        this.homes = homes;
     }
 
     public String getUserId() {
@@ -37,6 +37,12 @@ public class User {
 
     public void setHome(Home home) {
         homes.add(home);
+    }
+
+    public void setHomes(List<Home> homes) {
+        for (Home home:homes) {
+            setHome(home);
+        }
     }
 
 }

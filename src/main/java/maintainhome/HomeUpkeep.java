@@ -34,13 +34,32 @@ public final class HomeUpkeep {
         IView view = new View("Home Maintenance App");
         Controller controller = new Controller(model, view);
         
-        Set<User> users = CsvLoader.loadUserFile("js1");
-        User user = new ArrayList<>(users).get(0);
-        System.out.println(user.getUserId());
-
-        Home h1 = user.getHomes().get(0);
-        System.out.println(h1.getAddress());
+        User user = null;
+        try {
+            user = CsvLoader.loadUserFile("js2");;
+            System.out.println(user.getUserId());
+        } catch(Exception e) {
+            System.out.println("No User Found.");
+        }
         
+         try {
+             List<Home> homes = CsvLoader.loadHomesFile(user.getUserId());
+             for (Home home : homes) {
+                System.out.println(home.getAddress());
+             }
+             user.setHomes(homes);
+         } catch(Exception e) {
+             // throw new NullPointerException("User has no homes");
+             System.out.println(e);
+         }
+        
+        try {
+            Home h1 = user.getHomes().get(0);
+            System.out.println(h1.getAddress());
+        } catch(Exception e) {
+            System.out.println("User has no homes listed.");
+        }
+
         /*
         List<IUnit> units = CsvLoader.loadUnitItemsFile();
         System.out.println(units.get(1).getInstallDate());
