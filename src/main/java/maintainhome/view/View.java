@@ -14,18 +14,16 @@ import java.awt.*;
 public class View extends JFrame implements IView {
 
     /** view's panel to hold the components. */
-    private JPanel leftPanel = new JPanel(new GridBagLayout());
-    GridBagConstraints constraints = new GridBagConstraints();
+    private ButtonPanel leftPanel;
     private JPanel container = new JPanel(new CardLayout()); // user info - viewing and modifying will be on same page // user icon, homes list - will have Jlist to select and JTextArea - will incorporate a tab for adding
-    private JPanel main1 = new JPanel(new GridBagLayout()); // login button?
-    private JButton loginBtn = new JButton("Login");
+    private LoginPanel login;
+    private JPanel main1; // login panel
     private JPanel main2 = new JPanel(new BorderLayout());
     private JPanel rightPanel = new JPanel(new CardLayout());
     private JPanel panel2 = new JPanel(new BorderLayout()); 
     private JPanel panel3 = new JPanel(new BorderLayout()); // when a home is selected
     private JPanel panel4 = new JPanel(new BorderLayout()); // when a home is selected
     GridBagConstraints gbc = new GridBagConstraints();
-    private JButton sideBtns[] = new JButton[3];
     private int inset20 = 20;
 
     /** view's GridBagConstraints inset . */
@@ -54,65 +52,18 @@ public class View extends JFrame implements IView {
 
     }
 
-    public void setLeftPanel() {
-        /* LEFT panel */
-        constraints.insets = new Insets(inset20, inset20, inset20, inset20);
-        constraints.anchor = GridBagConstraints.WEST;
-        
-        //this.add(mainPanel);
-        constraints.gridx = 0;
-        constraints.gridy = 0;
-        
-        //gbc.gridheight = 3;
-        //gbc.fill = GridBagConstraints.VERTICAL;
-        //sidePanel.setBounds(50,50, 500, 500);
-        constraints.anchor = GridBagConstraints.CENTER;
-        setSideBtns();
-        /* END */
+    private void setLoginPanel() {
+        login = new LoginPanel();
+        main1 = login.getLoginPanel();
     }
 
-    public void setLoginPanel() {
-        GridBagConstraints loggbc = new GridBagConstraints();
-        loggbc.anchor = GridBagConstraints.CENTER;
-        loggbc.gridx = 0;
-
-    
-        JLabel userLabel = new JLabel("Username:");
-        loggbc.gridx = 0;
-        loggbc.gridy = 0;
-        loggbc.insets = new Insets(5, 0, 5, inset20);
-        main1.add(userLabel, loggbc);
-        
-        JTextField userInput = new JTextField("", 15);
-        userInput.setPreferredSize(new Dimension(15, 22));
-        userInput.setMinimumSize(userInput.getPreferredSize());
-        loggbc.gridx = 1;
-        loggbc.gridy = 0;
-        loggbc.insets = new Insets(5, 0, 5, 0);
-        main1.add(userInput, loggbc);
-        
-        JLabel passLabel = new JLabel("Password:");
-        loggbc.gridx = 0;
-        loggbc.gridy = 1;
-        loggbc.insets = new Insets(5, 0, 5, inset20);
-        main1.add(passLabel, loggbc);
-
-        JPasswordField passInput = new JPasswordField("", 15);   
-        passInput.setPreferredSize(new Dimension(15, 22));
-        passInput.setMinimumSize(passInput.getPreferredSize());
-        loggbc.gridx = 1;
-        loggbc.gridy = 1;
-        loggbc.insets = new Insets(5, 0, 5, 0);
-        main1.add(passInput, loggbc);
-
-        loggbc.gridx = 1;
-        loggbc.gridy = 2;
-        loggbc.insets = new Insets(5, 0, 0, 0);
-        main1.add(loginBtn, loggbc);
+    private void setLeftPanel() {
+        leftPanel = new ButtonPanel(3);
     }
 
     public JPanel setHomesAdd() {
         JPanel homesAddPanel = new JPanel(new GridBagLayout());
+
         return homesAddPanel;
     }
 
@@ -127,7 +78,6 @@ public class View extends JFrame implements IView {
         
         constraints1.gridx = 0;
         constraints1.gridy = 0;
-        constraints.gridwidth = 2;
         constraints1.insets = new Insets(50, 0, 0, 0);
         String labelTxt = "Homes" + ":";
         JLabel listLabel = new JLabel(labelTxt);
@@ -140,7 +90,7 @@ public class View extends JFrame implements IView {
         constraints1.insets = new Insets(50, inset20, 0, 0);
         topPanel.add(listDisplay, constraints1);
 
-        constraints.anchor = GridBagConstraints.NORTH;
+
         String[][] tableData = new String[][] { {"1", "23", "26"}, {"2", "2", "3"} };
         String[] tableHeading = new String[] {"home", "Address", "Zip"};
         JTable homeTable = new JTable(tableData, tableHeading);
@@ -174,11 +124,11 @@ public class View extends JFrame implements IView {
 
     }
 
-    public void addToFrame() {
+    private void addToFrame() {
         
+        setLoginPanel();
         setLeftPanel();
         /* RIGHT panel */
-        setLoginPanel();
         /* ADD tab */
         setRightPanel();
         /* END */
@@ -192,16 +142,8 @@ public class View extends JFrame implements IView {
 
     }
 
-    public void setSideBtns() {
-        String[] btnText = {"User", "Homes", "Units"};
-        for (int i = 0; i < sideBtns.length; i++) {
-            sideBtns[i] = new JButton(btnText[i]);
-            constraints.gridy = i + 1;
-            leftPanel.add(sideBtns[i], constraints);
-        }
-    }
 
-    public void setBorder() {
+    private void setBorder() {
         leftPanel.setBorder(BorderFactory.createLineBorder(Color.black));
         container.setBorder(BorderFactory.createLineBorder(Color.black));
     }
@@ -209,26 +151,25 @@ public class View extends JFrame implements IView {
     @Override
     public void switchRightPanel(String cardNum) {
         CardLayout card = (CardLayout) rightPanel.getLayout();
-        
         card.show(rightPanel, cardNum);
     }
     
     @Override
     public void switchMainPanel(String cardNum) {
         CardLayout card = (CardLayout) container.getLayout();
-        
         card.show(container, cardNum);
     }
 
     @Override
     public void setListener(ActionListener listener, KeyListener keys) {
-        loginBtn.addActionListener(listener);
-        for (int i = 0; i < sideBtns.length; i++) {
-            sideBtns[i].addActionListener(listener);
+        login.getLoginBtn().addActionListener(listener);
+
+        for (int i = 0; i < leftPanel.getButtons().length; i++) {
+            leftPanel.getButtons()[i].addActionListener(listener);
         }
     }
 
-    public void display() {
+    private void display() {
         setVisible(true);
     }
 
