@@ -1,9 +1,10 @@
 package maintainhome.model.Home;
 
 import java.time.LocalDate;
+
+import maintainhome.model.Home.Types.PriorityType;
 import maintainhome.model.Home.Types.RoomType;
 import maintainhome.model.Home.Types.UnitType;
-import maintainhome.model.Home.Types.PriorityType;
 
 
 public abstract class AbstractUnit implements IUnit {
@@ -154,4 +155,11 @@ public abstract class AbstractUnit implements IUnit {
              + "," + IUnit.dateToString(getInstallDate()) + "," + IUnit.dateToString(getMaintainedDate()) + "," + getMaintenanceFrequency()
              + "," + getMaintenanceFrequency() + "," + getFrequencyMeasure();
     }
+
+    @Override
+    public String toString() {
+        return String.format("Unit: %s, Room: %s, Item: %s, Install Date: %s, Maintained Date: %s, Priority: %s",
+                         getUnitId(), getRoomType(), getItemName(), getInstallDate(), getMaintainedDate(), getPriority());
+    }
+
 }
