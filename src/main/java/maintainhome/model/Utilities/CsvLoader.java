@@ -27,7 +27,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
- * Loads IUnit objects from a CSV file.
+ * Loads this apps objects from a CSV file.
  * Supports unit types: ElectricUnit, PlumbingUnit, ApplianceUnit.
  */
 public class CsvLoader implements ICsvLoader {
@@ -384,6 +384,6 @@ private static String[] trimValues(String[] values) {
 
         return units;
     }
-    */
+
 
 }
