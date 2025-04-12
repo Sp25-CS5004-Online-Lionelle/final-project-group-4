@@ -34,7 +34,7 @@ public class View extends JFrame implements IView {
     public View(String caption) {
         super(caption);
 
-        setFramePanels();
+        setFramePanel();
         addToFrame();
         setBorder();
         display();
@@ -43,7 +43,7 @@ public class View extends JFrame implements IView {
     /**
      * Sets the JFrame.
      */
-    private void setFramePanels() {
+    private void setFramePanel() {
         this.setSize(640, 500);
         this.setLocation(200, 100);
         
@@ -75,6 +75,39 @@ public class View extends JFrame implements IView {
         GridBagConstraints loggbc = new GridBagConstraints();
         loggbc.anchor = GridBagConstraints.CENTER;
         loggbc.gridx = 0;
+
+    
+        JLabel userLabel = new JLabel("Username:");
+        loggbc.gridx = 0;
+        loggbc.gridy = 0;
+        loggbc.insets = new Insets(5, 0, 5, inset20);
+        main1.add(userLabel, loggbc);
+        
+        JTextField userInput = new JTextField("", 15);
+        userInput.setPreferredSize(new Dimension(15, 22));
+        userInput.setMinimumSize(userInput.getPreferredSize());
+        loggbc.gridx = 1;
+        loggbc.gridy = 0;
+        loggbc.insets = new Insets(5, 0, 5, 0);
+        main1.add(userInput, loggbc);
+        
+        JLabel passLabel = new JLabel("Password:");
+        loggbc.gridx = 0;
+        loggbc.gridy = 1;
+        loggbc.insets = new Insets(5, 0, 5, inset20);
+        main1.add(passLabel, loggbc);
+
+        JPasswordField passInput = new JPasswordField("", 15);   
+        passInput.setPreferredSize(new Dimension(15, 22));
+        passInput.setMinimumSize(passInput.getPreferredSize());
+        loggbc.gridx = 1;
+        loggbc.gridy = 1;
+        loggbc.insets = new Insets(5, 0, 5, 0);
+        main1.add(passInput, loggbc);
+
+        loggbc.gridx = 1;
+        loggbc.gridy = 2;
+        loggbc.insets = new Insets(5, 0, 0, 0);
         main1.add(loginBtn, loggbc);
     }
 
