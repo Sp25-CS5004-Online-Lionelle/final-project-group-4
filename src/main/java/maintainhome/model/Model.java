@@ -24,8 +24,7 @@ public class Model {
         // set user
         try {
             this.user = CsvLoader.loadUserFile(user);
-        } catch(Exception e) {
-            // NullPointerException
+        } catch(Exception e) { // NullPointerException
             //System.out.println(e);
             System.out.println("No User Found.");
         };

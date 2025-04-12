@@ -16,16 +16,14 @@ public class View extends JFrame implements IView {
     /** view's panel to hold the components. */
     private JPanel leftPanel = new JPanel(new GridBagLayout());
     GridBagConstraints constraints = new GridBagConstraints();
-    private JPanel rightPanel = new JPanel();
-    private JPanel viewPanel = new JPanel(new GridBagLayout());
-    private JPanel addPanel = new JPanel(new GridBagLayout());
-    private GridBagConstraints constraints2 = new GridBagConstraints();
-    private JPanel container = new JPanel(new CardLayout());
-    private JPanel panel1 = new JPanel(new GridBagLayout()); // login button?
+    private JPanel container = new JPanel(new CardLayout()); // user info - viewing and modifying will be on same page // user icon, homes list - will have Jlist to select and JTextArea - will incorporate a tab for adding
+    private JPanel main1 = new JPanel(new GridBagLayout()); // login button?
     private JButton loginBtn = new JButton("Login");
-    private JPanel panel2 = new JPanel(new GridBagLayout()); // user info - viewing and modifying will be on same page // user icon, homes list - will have Jlist to select and JTextArea - will incorporate a tab for adding
-    private JPanel panel3 = new JPanel(); // when a home is selected
-    private JPanel panel4 = new JPanel(); // when a home is selected
+    private JPanel main2 = new JPanel(new BorderLayout());
+    private JPanel rightPanel = new JPanel(new CardLayout());
+    private JPanel panel2 = new JPanel(new BorderLayout()); 
+    private JPanel panel3 = new JPanel(new BorderLayout()); // when a home is selected
+    private JPanel panel4 = new JPanel(new BorderLayout()); // when a home is selected
     GridBagConstraints gbc = new GridBagConstraints();
     private JButton sideBtns[] = new JButton[3];
 
@@ -36,9 +34,6 @@ public class View extends JFrame implements IView {
         super(caption);
 
         setFramePanels();
-        setLeftPanel();
-        setLoginPanel();
-        setHomesPanel();
         addToFrame();
         setBorder();
         display();
@@ -79,10 +74,16 @@ public class View extends JFrame implements IView {
         GridBagConstraints loggbc = new GridBagConstraints();
         loggbc.anchor = GridBagConstraints.CENTER;
         loggbc.gridx = 0;
-        panel1.add(loginBtn, loggbc);
+        main1.add(loginBtn, loggbc);
     }
 
-    public void setHomesPanel() {
+    public JPanel setHomesAdd() {
+        JPanel homesAddPanel = new JPanel(new GridBagLayout());
+        return homesAddPanel;
+    }
+
+    public JPanel setHomesView() {
+        JPanel homeVwPanel = new JPanel(new GridBagLayout());
         GridBagConstraints constraints1 = new GridBagConstraints();
         // VIEW tab
         constraints1.anchor = GridBagConstraints.NORTH;
@@ -91,46 +92,57 @@ public class View extends JFrame implements IView {
         constraints1.gridy = 0;
         String labelTxt = "Homes" + ":";
         JLabel listLabel = new JLabel(labelTxt);
-        viewPanel.add(listLabel, constraints1);
+        homeVwPanel.add(listLabel, constraints1);
 
         constraints1.insets = new Insets(50,50, 50, 50);
         String[] mylist = new String[] {"hello world", "2", "3", "4"};
         JList<String> listDisplay = new JList<String>(mylist);
         constraints1.gridy = 1;
-        viewPanel.add(listDisplay, constraints1);
+        homeVwPanel.add(listDisplay, constraints1);
 
         String[][] tableData = new String[][] { {"1", "23", "26"}, {"2", "2", "3"} };
         String[] tableHeading = new String[] {"home", "Address", "Zip"};
         JTable homeTable = new JTable(tableData, tableHeading);
         homeTable.getTableHeader().setReorderingAllowed(false);
         constraints1.gridy = 3;
-        viewPanel.add(homeTable.getTableHeader(), constraints1);
-        viewPanel.add(homeTable, constraints1);
+        homeVwPanel.add(homeTable.getTableHeader(), constraints1);
+        homeVwPanel.add(homeTable, constraints1);
+        return homeVwPanel;
         /* END */
     }
 
-    public void addToFrame() {
-
-        /* RIGHT panel */
-        /* ADD tab */
-
-        /* END */
+    public void setRightPanel() {
         
         JTabbedPane tabPane = new JTabbedPane();
+        JPanel viewPanel = setHomesView();
+        JPanel addPanel = setHomesAdd();
         tabPane.add("View", viewPanel);
         tabPane.add("Add", addPanel);
 
-        panel2.add(tabPane);
+        panel3.add(tabPane, BorderLayout.CENTER);
 
-        container.add(panel1, "2");
-        container.add(panel2, "3");
-        container.add(panel3, "4");
-        container.add(panel4, "5");
-        //this.add(card);
-        this.add(leftPanel, BorderLayout.WEST);
+        rightPanel.add(panel2, "2");
+        rightPanel.add(panel3, "3");
+        rightPanel.add(panel4, "4");
+        main2.add(rightPanel);
+
+    }
+
+    public void addToFrame() {
+        
+        setLeftPanel();
+        /* RIGHT panel */
+        setLoginPanel();
+        /* ADD tab */
+        setRightPanel();
+        /* END */
+        
+        main2.add(leftPanel, BorderLayout.WEST);
+        main2.add(rightPanel, BorderLayout.CENTER);
+        container.add(main1, "2");
+        container.add(main2, "3");
         //this.add(rightPanel);
-        this.add(container);
-
+        this.add(container, BorderLayout.CENTER);
 
     }
 
@@ -145,10 +157,18 @@ public class View extends JFrame implements IView {
 
     public void setBorder() {
         leftPanel.setBorder(BorderFactory.createLineBorder(Color.black));
-        viewPanel.setBorder(BorderFactory.createLineBorder(Color.black));
+        container.setBorder(BorderFactory.createLineBorder(Color.black));
     }
+
     @Override
-    public void switchCard(String cardNum) {
+    public void switchRightPanel(String cardNum) {
+        CardLayout card = (CardLayout) rightPanel.getLayout();
+        
+        card.show(rightPanel, cardNum);
+    }
+    
+    @Override
+    public void switchMainPanel(String cardNum) {
         CardLayout card = (CardLayout) container.getLayout();
         
         card.show(container, cardNum);

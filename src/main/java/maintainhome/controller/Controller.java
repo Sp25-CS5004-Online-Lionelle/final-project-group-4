@@ -46,12 +46,11 @@ public class Controller implements ActionListener, KeyListener {
                     // throw new NullPointerException("User has no homes");
                     System.out.println("User has no homes listed yet.");
                 }
-                view.switchCard("3");
+                view.switchMainPanel("3");
                 break;
             case Commands.homesButton:
-                if (model.getUser() != null) {
-                    view.switchCard("3");
-                }
+                view.switchRightPanel("3");
+                
                 break;
             case Commands.fileOpen:
                 break;

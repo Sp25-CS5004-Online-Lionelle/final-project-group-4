@@ -14,7 +14,8 @@ public interface IView {
    */
   void setListener(ActionListener clicks, KeyListener keys);
 
-  void switchCard(String cardNum);
+  void switchRightPanel(String cardNum);
+  void switchMainPanel(String cardNum);
 
   void setLeftPanel();
 
