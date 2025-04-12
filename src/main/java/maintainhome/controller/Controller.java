@@ -1,11 +1,13 @@
 package maintainhome.controller;
 import maintainhome.view.IView;
 import maintainhome.model.Model;
-
+import maintainhome.model.Home.Home;
+import maintainhome.model.Utilities.CsvLoader;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.List;
 
 /**
  * A controller to manage incoming requests from the view and processed outgoing data from the model.
@@ -27,12 +29,29 @@ public class Controller implements ActionListener, KeyListener {
         model = m;
         v.setListener(this, this);
     }
+
+    // need to set 
     
     @Override
     public void actionPerformed(ActionEvent e) {
         switch (Commands.toCommand(e.getActionCommand())) {
-            case Commands.searchButton:
+            case Commands.loginButton:
+                String sampleUser = "js1";
+                model.setUser(sampleUser);
                 
+                try {
+                    List<Home> homes = CsvLoader.loadHomesFile(model.getUser().getUserId());
+                    model.getUser().setHomes(homes);
+                } catch(Exception err) {
+                    // throw new NullPointerException("User has no homes");
+                    System.out.println("User has no homes listed yet.");
+                }
+                view.switchCard("3");
+                break;
+            case Commands.homesButton:
+                if (model.getUser() != null) {
+                    view.switchCard("3");
+                }
                 break;
             case Commands.fileOpen:
                 break;

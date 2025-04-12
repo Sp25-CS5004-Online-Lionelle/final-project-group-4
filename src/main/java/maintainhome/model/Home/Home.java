@@ -8,6 +8,7 @@ import java.util.ArrayList;
  */
 public class Home {
     private String homeId;
+    private String homeName;
     private String address;
     private String zip;
     private List<IUnit> unitItems = new ArrayList<>(); // change datatype
@@ -17,14 +18,19 @@ public class Home {
      * @param homeId id of home
      * @param address address of home to reference in map (might not be able to use due to discomfort of users providing. Maybe can just use current location or zip code)
      */
-    public Home(String homeId, String address, String zip) {
+    public Home(String homeId, String homeName, String address, String zip) {
         this.homeId = homeId;
+        this.homeName = homeName;
         this.address = address;
         this.zip = zip;
     }
 
     public String getHomeId() {
         return homeId;
+    }
+    
+    public String getHomeName() {
+        return homeName;
     }
 
     public String getAddress() {

@@ -4,7 +4,8 @@ package maintainhome.controller;
 /** A list of command types allowed for the contoller. */
 public enum Commands {
     /** Different command options. */
-    searchButton("Search"), fileOpen("Open"), fileSave("Save"), fileExit("Exit");
+    loginButton("Login"), userButton("User"), homesButton("Homes"), unitsButton("Units")
+    , fileOpen("Open"), fileSave("Save"), fileExit("Exit");
 
     /** The command. */
     private final String command;

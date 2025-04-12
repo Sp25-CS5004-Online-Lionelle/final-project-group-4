@@ -147,6 +147,7 @@ private static String[] trimValues(String[] values) {
 
         Home home = new Home(
             columns[columnMap.get(ColumnData.HOME_ID)],
+            columns[columnMap.get(ColumnData.HOME_NAME)],
             columns[columnMap.get(ColumnData.ADDRESS)],
             columns[columnMap.get(ColumnData.ZIP)]);
         return home;

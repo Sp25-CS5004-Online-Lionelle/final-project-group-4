@@ -1,5 +1,7 @@
 package maintainhome.view;
 
+import maintainhome.controller.Commands;
+
 import java.awt.event.ActionListener;
 import java.awt.event.KeyListener;
 
@@ -11,5 +13,9 @@ public interface IView {
    * Set the listener for any actions.
    */
   void setListener(ActionListener clicks, KeyListener keys);
+
+  void switchCard(String cardNum);
+
+  void setLeftPanel();
 
 }
