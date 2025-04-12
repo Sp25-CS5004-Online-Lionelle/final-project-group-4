@@ -26,6 +26,7 @@ public class View extends JFrame implements IView {
     private JPanel panel4 = new JPanel(new BorderLayout()); // when a home is selected
     GridBagConstraints gbc = new GridBagConstraints();
     private JButton sideBtns[] = new JButton[3];
+    private int inset20 = 20;
 
     /** view's GridBagConstraints inset . */
     // private int inset = 10; // padding
@@ -55,7 +56,7 @@ public class View extends JFrame implements IView {
 
     public void setLeftPanel() {
         /* LEFT panel */
-        constraints.insets = new Insets(10, 10, 20, 10);
+        constraints.insets = new Insets(inset20, inset20, inset20, inset20);
         constraints.anchor = GridBagConstraints.WEST;
         
         //this.add(mainPanel);
@@ -83,30 +84,42 @@ public class View extends JFrame implements IView {
     }
 
     public JPanel setHomesView() {
-        JPanel homeVwPanel = new JPanel(new GridBagLayout());
-        GridBagConstraints constraints1 = new GridBagConstraints();
+        JPanel homeVwPanel = new JPanel(new BorderLayout());
         // VIEW tab
-        constraints1.anchor = GridBagConstraints.NORTH;
-        constraints1.insets = new Insets(50,0, 10, 0);
+        JPanel topPanel = new JPanel(new GridBagLayout());
+        GridBagConstraints constraints1 = new GridBagConstraints();
+        JPanel bttmPanel = new JPanel(new GridBagLayout());
+        GridBagConstraints constraints2 = new GridBagConstraints();
+        //constraints1.fill = GridBagConstraints.VERTICAL;
+        
         constraints1.gridx = 0;
         constraints1.gridy = 0;
+        constraints.gridwidth = 2;
+        constraints1.insets = new Insets(50, 0, 0, 0);
         String labelTxt = "Homes" + ":";
         JLabel listLabel = new JLabel(labelTxt);
-        homeVwPanel.add(listLabel, constraints1);
+        topPanel.add(listLabel, constraints1);
 
-        constraints1.insets = new Insets(50,50, 50, 50);
         String[] mylist = new String[] {"hello world", "2", "3", "4"};
         JList<String> listDisplay = new JList<String>(mylist);
-        constraints1.gridy = 1;
-        homeVwPanel.add(listDisplay, constraints1);
+        constraints1.gridx = 1;
+        constraints1.gridy = 0;
+        constraints1.insets = new Insets(50, inset20, 0, 0);
+        topPanel.add(listDisplay, constraints1);
 
+        constraints.anchor = GridBagConstraints.NORTH;
         String[][] tableData = new String[][] { {"1", "23", "26"}, {"2", "2", "3"} };
         String[] tableHeading = new String[] {"home", "Address", "Zip"};
         JTable homeTable = new JTable(tableData, tableHeading);
         homeTable.getTableHeader().setReorderingAllowed(false);
-        constraints1.gridy = 3;
-        homeVwPanel.add(homeTable.getTableHeader(), constraints1);
-        homeVwPanel.add(homeTable, constraints1);
+        constraints2.gridy = 3;
+        bttmPanel.add(homeTable.getTableHeader(), constraints2);
+        constraints2.gridy = 4;
+        bttmPanel.add(homeTable, constraints2);
+
+        homeVwPanel.add(topPanel, BorderLayout.NORTH);
+        homeVwPanel.add(bttmPanel, BorderLayout.CENTER);
+
         return homeVwPanel;
         /* END */
     }
