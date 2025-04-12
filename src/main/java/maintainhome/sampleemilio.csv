@@ -1,2 +1,4 @@
-ObjectName, UnitType, ItemName, InstallDate, MaintainedDate, StandardLifeSpan, LifeSpanMeasure, RoomLocation, ElectricWatt
-KitchenSink, PlumbingUnit, Sink1, 2/2/2023, 2/2/2024, 10, Year, Kitchen, 50
+id,item_name,unit_type,room_type,room_name,install_date,maintained_date,maintenance_frequency,frequency_meas
+U001,Dishwasher,Appliance,Kitchen,Main Kitchen,2/2/2024,3/1/2024,6,Months
+U002,Ceiling Fan,Electric Unit,Living Room,Family Room,1/15/2023,1/15/2024,12,Months
+U003,Toilet,Plumbing Unit,Bathroom,Guest Bath,5/5/2022,2/2/2024,24,Months

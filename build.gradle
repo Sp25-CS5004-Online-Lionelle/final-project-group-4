@@ -5,6 +5,7 @@
  * Learn more about Gradle by exploring our samples at https://docs.gradle.org/7.4.2/samples
  */
 plugins {
+    id "java"
     id "application"
     id "idea"
 }
@@ -16,7 +17,7 @@ repositories {
 }
 
 application {
-    mainClass.set("") /** Update with your main driver app location */
+    mainClass.set("maintainhome.HomeUpkeep") /** Update with your main driver app location */
 }
 
 dependencies {
