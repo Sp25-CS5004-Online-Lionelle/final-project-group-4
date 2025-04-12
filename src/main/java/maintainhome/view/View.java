@@ -70,35 +70,12 @@ public class View extends JFrame implements IView {
     public JPanel setHomesView() {
         JPanel homeVwPanel = new JPanel(new BorderLayout());
         // VIEW tab
-        JPanel topPanel = new JPanel(new GridBagLayout());
-        GridBagConstraints constraints1 = new GridBagConstraints();
         JPanel bttmPanel = new JPanel(new GridBagLayout());
         GridBagConstraints constraints2 = new GridBagConstraints();
         //constraints1.fill = GridBagConstraints.VERTICAL;
         
-        constraints1.gridx = 0;
-        constraints1.gridy = 0;
-        constraints1.insets = new Insets(50, 0, 0, 0);
-        String labelTxt = "Homes" + ":";
-        JLabel listLabel = new JLabel(labelTxt);
-        topPanel.add(listLabel, constraints1);
-
-        String[] mylist = new String[] {"hello world", "2", "3", "4"};
-        JList<String> listDisplay = new JList<String>(mylist);
-        constraints1.gridx = 1;
-        constraints1.gridy = 0;
-        constraints1.insets = new Insets(50, inset20, 0, 0);
-        topPanel.add(listDisplay, constraints1);
 
 
-        String[][] tableData = new String[][] { {"1", "23", "26"}, {"2", "2", "3"} };
-        String[] tableHeading = new String[] {"home", "Address", "Zip"};
-        JTable homeTable = new JTable(tableData, tableHeading);
-        homeTable.getTableHeader().setReorderingAllowed(false);
-        constraints2.gridy = 3;
-        bttmPanel.add(homeTable.getTableHeader(), constraints2);
-        constraints2.gridy = 4;
-        bttmPanel.add(homeTable, constraints2);
 
         homeVwPanel.add(topPanel, BorderLayout.NORTH);
         homeVwPanel.add(bttmPanel, BorderLayout.CENTER);
