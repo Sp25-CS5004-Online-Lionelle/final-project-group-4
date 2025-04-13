@@ -1,8 +1,9 @@
 package maintainhome.model.Home;
 
-import java.util.List;
-import maintainhome.model.Home.UnitItems.IUnit;
 import java.util.ArrayList;
+import java.util.List;
+
+import maintainhome.model.Home.UnitItems.IUnit;
 
 /**
  * The Home class to store the user's home and relevant information.
