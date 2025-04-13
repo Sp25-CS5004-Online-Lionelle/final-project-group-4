@@ -13,7 +13,7 @@ import maintainhome.model.UnitSorters;
 import maintainhome.model.User.User;
 import maintainhome.model.Utilities.CsvLoader;
 
-public class HomeSortAndFilter {
+public class EdgeCaseTesting {
     
     private User testUser;
     
