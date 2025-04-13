@@ -8,7 +8,7 @@ import java.util.stream.Collectors;
 import maintainhome.model.Home.Home;
 import maintainhome.model.Home.UnitItems.IUnit;
 
-public class UnitFilters {
+public class Filters {
     public static List<IUnit> filterByType(List<IUnit> units, String type) {
         return units.stream()
                 .filter(u -> u.getUnitType().toString().equalsIgnoreCase(type))

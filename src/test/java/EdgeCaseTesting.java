@@ -8,7 +8,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import maintainhome.model.Home.Home;
-import maintainhome.model.UnitFilters;
+import maintainhome.model.Filters;
 import maintainhome.model.UnitSorters;
 import maintainhome.model.User.User;
 import maintainhome.model.Utilities.CsvLoader;
@@ -22,7 +22,7 @@ public class EdgeCaseTesting {
         // Setup test user and homes for the edge case tests
         String userId = "js1";
         testUser = CsvLoader.loadUserFile(userId);
-        testUser.setHomes(CsvLoader.loadHomesFile(userId));
+        //testUser.setHomes(CsvLoader.loadHomesFile(userId));
     }
     
     @Test
@@ -77,20 +77,21 @@ public class EdgeCaseTesting {
     }
     
     @Test
-    public void testFilterHomesByNonExistentName() {
-        // Test filtering by a home name that doesn't exist using UnitFilters
-        String nonExistentName = "NonExistent Home";
-        List<Home> filteredHomes = UnitFilters.filterByHomeName(testUser.getHomes(), nonExistentName);
+    public void testFilterHomesByNonExistName() {
+        // Test filtering by a home name that doesn't exist using Filters
+        String nonExistName = "NonExistent Home";
+        List<Home> filteredHomes = Filters.filterByHomeName(testUser.getHomes(), nonExistName);
 
         // Check that the filtered list is empty
         assertTrue(filteredHomes.isEmpty());
     }
 
+
     @Test
     public void testFilterHomesByValidName() {
-        // Test filtering by a valid home name using UnitFilters
+        // Test filtering by a valid home name using Filters
         String validHomeName = "Home A";
-        List<Home> filteredHomes = UnitFilters.filterByHomeName(testUser.getHomes(), validHomeName);
+        List<Home> filteredHomes = Filters.filterByHomeName(testUser.getHomes(), validHomeName);
 
         // Check that the filtered list contains the home
         assertFalse(filteredHomes.isEmpty());
@@ -110,11 +111,11 @@ public class EdgeCaseTesting {
         testUser.getHomes().sort(UnitSorters.BY_HOME_NUM);
 
         // Check if the homes are sorted by homeNum in ascending order
-        assertEquals("101", testUser.getHomes().get(0).getHomeNum());
-        assertEquals("102", testUser.getHomes().get(1).getHomeNum());
+        assertEquals(101, testUser.getHomes().get(0).getHomeNum());
+        assertEquals(102, testUser.getHomes().get(1).getHomeNum());
     }
 
-    // Test filtering by HOME_NAME using UnitFilters
+    // Test filtering by HOME_NAME using Filters
     @Test
     public void testFilterHomesByHomeName() {
         // Create test homes
@@ -123,8 +124,8 @@ public class EdgeCaseTesting {
 
         testUser.setHomes(List.of(home1, home2));
 
-        // Filter by a specific home name using UnitFilters
-        List<Home> filteredHomes = UnitFilters.filterByHomeName(testUser.getHomes(), "Home A");
+        // Filter by a specific home name using Filters
+        List<Home> filteredHomes = Filters.filterByHomeName(testUser.getHomes(), "Home A");
 
         // Check that only the home with "Home A" is returned
         assertFalse(filteredHomes.isEmpty());

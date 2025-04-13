@@ -9,7 +9,7 @@ import maintainhome.view.View;
 import maintainhome.model.User.User;
 import maintainhome.model.Home.Types.RoomType;
 import maintainhome.model.Home.UnitItems.IUnit;
-import maintainhome.model.UnitFilters;
+import maintainhome.model.Filters;
 import maintainhome.model.UnitSorters;
 import java.util.List;
 
