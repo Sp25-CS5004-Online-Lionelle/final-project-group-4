@@ -1,6 +1,7 @@
 package maintainhome.model.Home;
 
 import java.util.List;
+import maintainhome.model.Home.UnitItems.IUnit;
 import java.util.ArrayList;
 
 /**
@@ -8,6 +9,7 @@ import java.util.ArrayList;
  */
 public class Home {
     private String homeId;
+    private int num;
     private String homeName;
     private String address;
     private String zip;
@@ -18,8 +20,9 @@ public class Home {
      * @param homeId id of home
      * @param address address of home to reference in map (might not be able to use due to discomfort of users providing. Maybe can just use current location or zip code)
      */
-    public Home(String homeId, String homeName, String address, String zip) {
+    public Home(String homeId, String homeNum, String homeName, String address, String zip) {
         this.homeId = homeId;
+        this.num = Integer.parseInt(homeNum);
         this.homeName = homeName;
         this.address = address;
         this.zip = zip;
@@ -31,6 +34,10 @@ public class Home {
     
     public String getHomeName() {
         return homeName;
+    }
+
+    public int getHomeNum() {
+        return num;
     }
 
     public String getAddress() {

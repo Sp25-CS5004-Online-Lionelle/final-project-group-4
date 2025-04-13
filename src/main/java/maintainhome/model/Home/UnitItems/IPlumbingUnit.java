@@ -1,4 +1,4 @@
-package maintainhome.model.Home;
+package maintainhome.model.Home.UnitItems;
 
 public interface IPlumbingUnit {
     int getPlumbingGallon();

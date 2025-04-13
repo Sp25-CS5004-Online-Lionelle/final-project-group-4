@@ -1,4 +1,4 @@
-package maintainhome.model.Home;
+package maintainhome.model.Home.UnitItems;
 
 import java.time.LocalDate;
 import maintainhome.model.Home.Types.PriorityType;

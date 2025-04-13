@@ -10,7 +10,7 @@ public enum ColumnData {
     // user columns
     , NAME("name"), EMAIL("email")
     // home columns
-    , HOME_NAME("home_name"), ADDRESS("address"), ZIP("zip")
+    , HOME_NUM("home_num") , HOME_NAME("home_name"), ADDRESS("address"), ZIP("zip")
     // unit item columns
     , ITEM_NAME("item_name")
     , UNIT_TYPE("unit_type"), ROOM_TYPE("room_type")

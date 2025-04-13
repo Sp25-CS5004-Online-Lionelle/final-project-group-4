@@ -26,8 +26,13 @@ https://linearb.io/blog/code-review-on-github
 
 ## Java Swing
 **Java Swing CardLayout Switch**  
-http://www.learningjava.net/377/tutorial-on-java-cardlayout-in-swing/
+http://www.learningjava.net/377/tutorial-on-java-cardlayout-in-swing/  
 https://www.youtube.com/watch?v=1JjTAxbsDqs
+
+**Java Swing JList**  
+
+**Java Swing JTable**  
+https://stackhowto.com/how-to-update-a-row-in-jtable/
 
 **JavaFX**  
 

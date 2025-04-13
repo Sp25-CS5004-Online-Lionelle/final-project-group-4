@@ -2,6 +2,7 @@ package maintainhome.controller;
 import maintainhome.view.IView;
 import maintainhome.model.Model;
 import maintainhome.model.Home.Home;
+import maintainhome.model.User.User;
 import maintainhome.model.Utilities.CsvLoader;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -30,23 +31,32 @@ public class Controller implements ActionListener, KeyListener {
         v.setListener(this, this);
     }
 
+    private void loginClicked() {
+        User user = model.getUser();
+        //try {
+            List<Home> homes = CsvLoader.loadHomesFile(user.getUserId());
+            model.getUser().setHomes(homes);
+            // need to see if setting the JList here works otherwise need to figure out how to update the JList data
+            view.updateHomesList(user.getHomeNames());
+            view.updateHomesTable(user.getHomeRows());
+            view.switchMainPanel("3");
+        /*
+        } catch(NullPointerException err) {
+            throw new NullPointerException("No User Found");
+        }
+        */
+    }
+
     // need to set 
     
     @Override
     public void actionPerformed(ActionEvent e) {
         switch (Commands.toCommand(e.getActionCommand())) {
             case Commands.loginButton:
-                String sampleUser = "js1";
-                model.setUser(sampleUser);
-                
-                try {
-                    List<Home> homes = CsvLoader.loadHomesFile(model.getUser().getUserId());
-                    model.getUser().setHomes(homes);
-                } catch(Exception err) {
-                    // throw new NullPointerException("User has no homes");
-                    System.out.println("User has no homes listed yet.");
-                }
-                view.switchMainPanel("3");
+
+                String userString = view.getLoginUser();
+                model.setUser(userString);
+                loginClicked();
                 break;
             case Commands.homesButton:
                 view.switchRightPanel("3");

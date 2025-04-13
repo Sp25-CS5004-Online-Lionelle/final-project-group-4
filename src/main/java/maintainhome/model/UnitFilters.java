@@ -4,9 +4,8 @@ package maintainhome.model;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
-
-import maintainhome.model.Home.IUnit;
 import maintainhome.model.Home.Types.RoomType;
+import maintainhome.model.Home.UnitItems.IUnit;
 
 public class UnitFilters {
     public static List<IUnit> filterByType(List<IUnit> units, String type) {

@@ -6,9 +6,9 @@ import java.awt.*;
 public class LoginPanel extends JPanel {
     private GridBagConstraints gbc = new GridBagConstraints();
     private JLabel userLabel = new JLabel("Username:");
-    private JTextField userInput = new JTextField("", 15);
+    private JTextField userInput = new JTextField("js1", 15);
     private JLabel passLabel = new JLabel("Password:");
-    private JPasswordField passInput = new JPasswordField("", 15);
+    private JPasswordField passInput = new JPasswordField("password", 15);
     private JButton loginBtn = new JButton("Login");
     private int inset20 = 20;
 
@@ -22,12 +22,16 @@ public class LoginPanel extends JPanel {
         setLoginBtn();
     }
 
-    public JPanel getLoginPanel() {
-        return this;
+    public String getUserInput() {
+        return userInput.getText();
     }
 
     public JButton getLoginBtn() {
         return loginBtn;
+    }
+    
+    public JPanel getLoginPanel() {
+        return this;
     }
 
     private void setUserLabel() {

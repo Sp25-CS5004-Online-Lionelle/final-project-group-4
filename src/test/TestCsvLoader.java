@@ -11,7 +11,7 @@ import maintainhome.model.Home.Home;
  * Class to test the User, Home, unitItems classes.
  * 
  */
-public class TestObjects {
+public class TestCsvLoader {
     /**
      * Executed before every tests, resets the values of the unit objects.
      * 

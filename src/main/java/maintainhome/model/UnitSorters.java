@@ -2,8 +2,7 @@
 package maintainhome.model;
 
 import java.util.Comparator;
-
-import maintainhome.model.Home.IUnit;
+import maintainhome.model.Home.UnitItems.IUnit;
 
 public class UnitSorters {
     public static final Comparator<IUnit> BY_TYPE = Comparator.comparing(IUnit::getUnitType);

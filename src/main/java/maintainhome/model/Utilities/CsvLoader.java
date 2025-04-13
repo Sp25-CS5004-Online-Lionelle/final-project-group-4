@@ -1,14 +1,14 @@
 package maintainhome.model.Utilities;
 
 import maintainhome.model.User.User;
-import maintainhome.model.Home.ApplianceUnit;
-import maintainhome.model.Home.ElectricUnit;
 import maintainhome.model.Home.Home;
-import maintainhome.model.Home.IUnit;
-import maintainhome.model.Home.PlumbingUnit;
 import maintainhome.model.Home.Types.PriorityType;
 import maintainhome.model.Home.Types.RoomType;
 import maintainhome.model.Home.Types.UnitType;
+import maintainhome.model.Home.UnitItems.ApplianceUnit;
+import maintainhome.model.Home.UnitItems.ElectricUnit;
+import maintainhome.model.Home.UnitItems.IUnit;
+import maintainhome.model.Home.UnitItems.PlumbingUnit;
 import maintainhome.model.Utilities.Types.FileType;
 import maintainhome.model.Utilities.Types.ColumnData;
 import java.io.BufferedReader;
@@ -35,13 +35,13 @@ public class CsvLoader implements ICsvLoader {
     /** Standard csv delim. */
     private static final String DELIMITER = ",";
     
-private static String[] trimValues(String[] values) {
-    String[] result = new String[values.length];
-    for (int i = 0; i < values.length; i++) {
-        result[i] = values[i].trim();
+    private static String[] trimValues(String[] values) {
+        String[] result = new String[values.length];
+        for (int i = 0; i < values.length; i++) {
+            result[i] = values[i].trim();
+        }
+        return result;
     }
-    return result;
-}
 
     /**
      * Converts a line from the csv file into a User object.
@@ -50,197 +50,36 @@ private static String[] trimValues(String[] values) {
      * @param columnMap the map of columns to index
      * @return a User object
      */
-    private static User toUser(String line, Map<ColumnData, Integer> columnMap) {
+    private static Object toObject(String line, Map<ColumnData, Integer> columnMap, FileType filetype) {
         String[] columns = trimValues(line.split(DELIMITER));
         if (columns.length < columnMap.values().stream().max(Integer::compareTo).get()) {
             return null;
         }
         
-        User user = new User(
-            columns[columnMap.get(ColumnData.USER_ID)]
-            , columns[columnMap.get(ColumnData.NAME)]
-            , columns[columnMap.get(ColumnData.EMAIL)]
-            );
-            
-        return user;
-    }
-
-    
-    /**
-     * Loads the users from the csv file into a set of User objects.
-     * 
-     * @param filename the name of the file to load
-     * @return a set of User objects
-     */
-    public static User loadUserFile(String userId) {
-        String path = filePath.concat(FileType.USER.getFileName());
-        User user = null;
-        
-        List<String> lines;
-        try {
-            // this is so we can store the files in the resources folder
-            
-            // InputStream is = CsvLoader.class.getResourceAsStream(filename);
-            InputStream is = new FileInputStream(path);
-            InputStreamReader isr = new InputStreamReader(is, StandardCharsets.UTF_8);
-            BufferedReader reader = new BufferedReader(isr);
-            lines = reader.lines().collect(Collectors.toList());
-            reader.close();
-        } catch (Exception e) {
-            System.err.println("Error reading file: " + e.getMessage());
-            return user;
-        }
-        if (lines == null || lines.isEmpty()) {
-            return user;
-        }
-
-        Map<ColumnData, Integer> columnMap = processHeader(lines.remove(0));
-        for (String line:lines) {
-            User checkuser = toUser(line, columnMap);
-            if (checkuser.getUserId().equals(userId)) {
-                user = checkuser;
+        switch(filetype) {
+            case FileType.USER:
+                User user = new User(
+                    columns[columnMap.get(ColumnData.USER_ID)]
+                    , columns[columnMap.get(ColumnData.NAME)]
+                    , columns[columnMap.get(ColumnData.EMAIL)]
+                    );
                 return user;
-            }
+            case FileType.HOMES:
+                Home home = new Home(
+                    columns[columnMap.get(ColumnData.HOME_ID)],
+                    columns[columnMap.get(ColumnData.HOME_NUM)],
+                    columns[columnMap.get(ColumnData.HOME_NAME)],
+                    columns[columnMap.get(ColumnData.ADDRESS)],
+                    columns[columnMap.get(ColumnData.ZIP)]);
+                return home;
+            case FileType.UNIT_ITEMS:
+                return toUnitItems(columns, columnMap);
         }
-
-        return user;
-    }
-
-    
-    /**
-     * Processes the header line to determine the column mapping.
-     * 
-     * It is common to do this for csv files as the columns can be in any order.
-     * This makes it order independent by taking a moment to link the columns
-     * with their actual index in the file.
-     * 
-     * @param header the header line
-     * @return a map of column to index
-     */
-    private static Map<ColumnData, Integer> processHeader(String header) {
-        Map<ColumnData, Integer> columnMap = new HashMap<>();
-        // 
-        String[] columns = trimValues(header.split(DELIMITER));
-        for (int i = 0; i < columns.length; i++) {
-            try {
-                ColumnData col = ColumnData.fromColumnName(columns[i]);
-                columnMap.put(col, i);
-            } catch (IllegalArgumentException e) {
-                // System.out.println("Ignoring column: " + columns[i]);
-            }
-        }
-        return columnMap;
-    }
-
-    /**
-     * Converts a line from the csv file into a Home object.
-     * 
-     * @param line      the line to convert
-     * @param columnMap the map of columns to index
-     * @return a Home object
-     */
-    private static Home toHome(String line, Map<ColumnData, Integer> columnMap) {
-        String[] columns = trimValues(line.split(DELIMITER));
-        if (columns.length < columnMap.values().stream().max(Integer::compareTo).get()) {
-            return null;
-        }
-
-        Home home = new Home(
-            columns[columnMap.get(ColumnData.HOME_ID)],
-            columns[columnMap.get(ColumnData.HOME_NAME)],
-            columns[columnMap.get(ColumnData.ADDRESS)],
-            columns[columnMap.get(ColumnData.ZIP)]);
-        return home;
-    }
-
-    
-    /**
-     * Loads the homes from the csv file into a list of Home objects.
-     * 
-     * @param filename the name of the file to load
-     * @return a set of User objects
-     */
-    public static List<Home> loadHomesFile(String userId) {
-        String path = filePath.concat(FileType.HOMES.getFileName());
-        List<Home> homes = new ArrayList<>();
-        // set the list of homes for the user
-        Set<String> homeIds = loadUserHomesFile(userId);
-
-        List<String> lines;
-        try {
-            // this is so we can store the files in the resources folder
             
-            // InputStream is = CsvLoader.class.getResourceAsStream(filename);
-            InputStream is = new FileInputStream(path);
-            InputStreamReader isr = new InputStreamReader(is, StandardCharsets.UTF_8);
-            BufferedReader reader = new BufferedReader(isr);
-            lines = reader.lines().collect(Collectors.toList());
-            reader.close();
-        } catch (Exception e) {
-            System.err.println("Error reading file: " + e.getMessage());
-            return homes;
-        }
-        if (lines == null || lines.isEmpty()) {
-            return homes;
-        }
-        
-        Map<ColumnData, Integer> columnMap = processHeader(lines.remove(0));
-
-        homes = lines.stream().map(line -> toHome(line, columnMap))
-            .filter(home -> homeIds.contains(home.getHomeId()) && home != null).collect(Collectors.toList());
-        
-        return homes;
-
-    }
-    
-    /**
-     * Loads the user's homes from the csv file to set in User object.
-     * 
-     * @param filename the name of the file to load
-     * @return a set of User objects
-     */
-    
-    public static Set<String> loadUserHomesFile(String userId) {
-        String path = filePath.concat(FileType.USER_HOMES.getFileName());
-        Set<String> userHomes = new HashSet<>();
-
-        List<String> lines;
-        try {
-            // this is so we can store the files in the resources folder
-            
-            // InputStream is = CsvLoader.class.getResourceAsStream(filename);
-            InputStream is = new FileInputStream(path);
-            InputStreamReader isr = new InputStreamReader(is, StandardCharsets.UTF_8);
-            BufferedReader reader = new BufferedReader(isr);
-            lines = reader.lines().collect(Collectors.toList());
-            reader.close();
-        } catch (Exception e) {
-            System.err.println("Error reading file: " + e.getMessage());
-            return userHomes;
-        }
-        if (lines == null || lines.isEmpty()) {
-            return userHomes;
-        }
-
-        Map<ColumnData, Integer> columnMap = processHeader(lines.remove(0));
-        for (String line:lines) {
-            
-            String[] columns = trimValues(line.split(DELIMITER));
-            if (columns.length < columnMap.values().stream().max(Integer::compareTo).get()) {
-                continue;
-            }
-            String id = columns[columnMap.get(ColumnData.USER_ID)];
-            if (id.equalsIgnoreCase(userId)) {
-                userHomes.add(columns[columnMap.get(ColumnData.HOME_ID)]);
-            }
-        
-        }
-
-        return userHomes;
-
+        return null;
     }
 
-
+    
     /**
      * Converts a line from the csv file into a unit item object.
      * 
@@ -248,13 +87,9 @@ private static String[] trimValues(String[] values) {
      * @param columnMap the map of columns to index
      * @return a User object
      */
-    private static IUnit toUnitItems(String line, Map<ColumnData, Integer> columnMap) {
-        String[] columns = trimValues(line.split(DELIMITER));
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("M/d/yyyy");
+    private static IUnit toUnitItems(String[] columns, Map<ColumnData, Integer> columnMap) {
         
-        if (columns.length < columnMap.values().stream().max(Integer::compareTo).get()) {
-            return null;
-        }
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("M/d/yyyy");
 
         String userId = columns[columnMap.get(ColumnData.USER_ID)].trim();
         String homeId = columns[columnMap.get(ColumnData.HOME_ID)].trim();
@@ -346,6 +181,159 @@ private static String[] trimValues(String[] values) {
         }
         
     }
+
+    
+    /**
+     * Processes the header line to determine the column mapping.
+     * 
+     * It is common to do this for csv files as the columns can be in any order.
+     * This makes it order independent by taking a moment to link the columns
+     * with their actual index in the file.
+     * 
+     * @param header the header line
+     * @return a map of column to index
+     */
+    private static Map<ColumnData, Integer> processHeader(String header) {
+        Map<ColumnData, Integer> columnMap = new HashMap<>();
+        // 
+        String[] columns = trimValues(header.split(DELIMITER));
+        for (int i = 0; i < columns.length; i++) {
+            try {
+                ColumnData col = ColumnData.fromColumnName(columns[i]);
+                columnMap.put(col, i);
+            } catch (IllegalArgumentException e) {
+                // System.out.println("Ignoring column: " + columns[i]);
+            }
+        }
+        return columnMap;
+    }
+
+    /**
+     * Loads the users from the csv file into a set of User objects.
+     * 
+     * @param filename the name of the file to load
+     * @return a set of User objects
+     */
+    public static User loadUserFile(String userId) {
+        String path = filePath.concat(FileType.USER.getFileName());
+        User user = null;
+        
+        List<String> lines;
+        try {
+            // this is so we can store the files in the resources folder
+            
+            // InputStream is = CsvLoader.class.getResourceAsStream(filename);
+            InputStream is = new FileInputStream(path);
+            InputStreamReader isr = new InputStreamReader(is, StandardCharsets.UTF_8);
+            BufferedReader reader = new BufferedReader(isr);
+            lines = reader.lines().collect(Collectors.toList());
+            reader.close();
+        } catch (Exception e) {
+            System.err.println("Error reading file: " + e.getMessage());
+            return user;
+        }
+        if (lines == null || lines.isEmpty()) {
+            return user;
+        }
+
+        Map<ColumnData, Integer> columnMap = processHeader(lines.remove(0));
+        for (String line:lines) {
+            User checkuser = (User) toObject(line, columnMap, FileType.USER);
+            if (checkuser.getUserId().equals(userId)) {
+                user = checkuser;
+                return user;
+            }
+        }
+
+        return user;
+    }
+    
+    /**
+     * Loads the homes from the csv file into a list of Home objects.
+     * 
+     * @param filename the name of the file to load
+     * @return a set of User objects
+     */
+    public static List<Home> loadHomesFile(String userId) {
+        String path = filePath.concat(FileType.HOMES.getFileName());
+        List<Home> homes = new ArrayList<>();
+        // set the list of homes for the user
+        Set<String> homeIds = loadUserHomesFile(userId);
+
+        List<String> lines;
+        try {
+            // this is so we can store the files in the resources folder
+            
+            // InputStream is = CsvLoader.class.getResourceAsStream(filename);
+            InputStream is = new FileInputStream(path);
+            InputStreamReader isr = new InputStreamReader(is, StandardCharsets.UTF_8);
+            BufferedReader reader = new BufferedReader(isr);
+            lines = reader.lines().collect(Collectors.toList());
+            reader.close();
+        } catch (Exception e) {
+            System.err.println("Error reading file: " + e.getMessage());
+            return homes;
+        }
+        if (lines == null || lines.isEmpty()) {
+            return homes;
+        }
+        
+        Map<ColumnData, Integer> columnMap = processHeader(lines.remove(0));
+
+        homes = lines.stream().map(line -> (Home)toObject(line, columnMap, FileType.HOMES))
+            .filter(home -> homeIds.contains(home.getHomeId()) && home != null).collect(Collectors.toList());
+        
+        return homes;
+
+    }
+    
+    /**
+     * Loads the user's homes from the csv file to set in User object.
+     * 
+     * @param filename the name of the file to load
+     * @return a set of User objects
+     */
+    
+    public static Set<String> loadUserHomesFile(String userId) {
+        String path = filePath.concat(FileType.USER_HOMES.getFileName());
+        Set<String> userHomes = new HashSet<>();
+
+        List<String> lines;
+        try {
+            // this is so we can store the files in the resources folder
+            
+            // InputStream is = CsvLoader.class.getResourceAsStream(filename);
+            InputStream is = new FileInputStream(path);
+            InputStreamReader isr = new InputStreamReader(is, StandardCharsets.UTF_8);
+            BufferedReader reader = new BufferedReader(isr);
+            lines = reader.lines().collect(Collectors.toList());
+            reader.close();
+        } catch (Exception e) {
+            System.err.println("Error reading file: " + e.getMessage());
+            return userHomes;
+        }
+        if (lines == null || lines.isEmpty()) {
+            return userHomes;
+        }
+
+        Map<ColumnData, Integer> columnMap = processHeader(lines.remove(0));
+        for (String line:lines) {
+            
+            String[] columns = trimValues(line.split(DELIMITER));
+            if (columns.length < columnMap.values().stream().max(Integer::compareTo).get()) {
+                continue;
+            }
+            String id = columns[columnMap.get(ColumnData.USER_ID)];
+            if (id.equalsIgnoreCase(userId)) {
+                userHomes.add(columns[columnMap.get(ColumnData.HOME_ID)]);
+            }
+        
+        }
+
+        return userHomes;
+
+    }
+
     
 
     /**
@@ -378,7 +366,7 @@ private static String[] trimValues(String[] values) {
         }
         Map<ColumnData, Integer> columnMap = processHeader(lines.remove(0));
         
-        units = lines.stream().map(line -> toUnitItems(line, columnMap))
+        units = lines.stream().map(line -> (IUnit)toObject(line, columnMap, FileType.UNIT_ITEMS))
                 .filter(unit -> unit.getUserId().equals(userId) && unit.getHomeId().equals(homeId)
                 && unit != null).collect(Collectors.toList());
 
