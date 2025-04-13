@@ -1,7 +1,7 @@
 package maintainhome.view;
 
 import maintainhome.controller.Commands;
-
+import maintainhome.view.ViewPanel.ViewPanel;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyListener;
 
@@ -16,8 +16,7 @@ public class View extends JFrame implements IView {
     /** view's panel to hold the components. */
     private ButtonPanel leftPanel;
     private JPanel container = new JPanel(new CardLayout()); // user info - viewing and modifying will be on same page // user icon, homes list - will have Jlist to select and JTextArea - will incorporate a tab for adding
-    private LoginPanel login;
-    private JPanel main1; // login panel
+    private LoginPanel loginPanel;
     private JPanel main2 = new JPanel(new BorderLayout());
     private JPanel rightPanel = new JPanel(new CardLayout());
     private JPanel panel2 = new JPanel(new BorderLayout()); 
@@ -53,8 +52,7 @@ public class View extends JFrame implements IView {
     }
 
     private void setLoginPanel() {
-        login = new LoginPanel();
-        main1 = login.getLoginPanel();
+        loginPanel = new LoginPanel();
     }
 
     private void setLeftPanel() {
@@ -68,19 +66,15 @@ public class View extends JFrame implements IView {
     }
 
     public JPanel setHomesView() {
-        JPanel homeVwPanel = new JPanel(new BorderLayout());
         // VIEW tab
-        JPanel bttmPanel = new JPanel(new GridBagLayout());
-        GridBagConstraints constraints2 = new GridBagConstraints();
         //constraints1.fill = GridBagConstraints.VERTICAL;
         
-
-
-
-        homeVwPanel.add(topPanel, BorderLayout.NORTH);
-        homeVwPanel.add(bttmPanel, BorderLayout.CENTER);
-
-        return homeVwPanel;
+        String[] mylist = new String[] {"hello world", "2", "3", "4"};
+        
+        String[][] tableData = new String[][] { {"1", "23", "26"}, {"2", "2", "3"} };
+        String[] tableHeading = new String[] {"home", "Address", "Zip"};
+        
+        return new ViewPanel("Homes", mylist, tableData, tableHeading);
         /* END */
     }
 
@@ -112,7 +106,7 @@ public class View extends JFrame implements IView {
         
         main2.add(leftPanel, BorderLayout.WEST);
         main2.add(rightPanel, BorderLayout.CENTER);
-        container.add(main1, "2");
+        container.add(loginPanel.getLoginPanel(), "2");
         container.add(main2, "3");
         //this.add(rightPanel);
         this.add(container, BorderLayout.CENTER);
@@ -139,7 +133,7 @@ public class View extends JFrame implements IView {
 
     @Override
     public void setListener(ActionListener listener, KeyListener keys) {
-        login.getLoginBtn().addActionListener(listener);
+        loginPanel.getLoginBtn().addActionListener(listener);
 
         for (int i = 0; i < leftPanel.getButtons().length; i++) {
             leftPanel.getButtons()[i].addActionListener(listener);

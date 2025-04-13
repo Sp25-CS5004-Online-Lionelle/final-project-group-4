@@ -12,14 +12,17 @@ public class ViewPanel extends JPanel {
         
         private JPanel bttmPanel = new JPanel(new GridBagLayout());
         private GridBagConstraints gbcBttm = new GridBagConstraints();
+        private JTable table;
         private int inset20 = 20;
 
-        public ViewPanel(String label, JList<String>list) {
+        public ViewPanel(String label, String[] list, String[][] tableData, String[] tableHeading) { // need to get the list of home ids, names or other and set here
                 super(new BorderLayout());
                 listLabel = new JLabel(label + ":");
-                listItems = list;
+                listItems = new JList<> (list);
                 setListLabel();
                 setJList();
+                table = new JTable(tableData, tableHeading);
+                setTable();
                 add(topPanel, BorderLayout.NORTH);
                 add(bttmPanel, BorderLayout.CENTER);
         }
@@ -28,28 +31,31 @@ public class ViewPanel extends JPanel {
                 gbcTop.gridx = 0;
                 gbcTop.gridy = 0;
                 gbcTop.insets = new Insets(50, 0, 0, 0);
-                
                 topPanel.add(listLabel, gbcTop);
         }
         
         public void setJList() {
-                String[] mylist = new String[] {"hello world", "2", "3", "4"};
+                
                 gbcTop.gridx = 1;
                 gbcTop.gridy = 0;
                 gbcTop.insets = new Insets(50, inset20, 0, 0);
                 topPanel.add(listItems, gbcTop);
         }
 
-        private void setTable(String[][] tableData, String[] tableHeading) {
-                //String[][] tableData = new String[][] { {"1", "23", "26"}, {"2", "2", "3"} };
-                //String[] tableHeading = new String[] {"home", "Address", "Zip"};
+        private void setTable() { // String[][] tableData, String[] tableHeading
                 
-                JTable homeTable = new JTable(tableData, tableHeading);
-                homeTable.getTableHeader().setReorderingAllowed(false);
+                table.getTableHeader().setReorderingAllowed(false);
                 gbcBttm.gridy = 3;
-                bttmPanel.add(homeTable.getTableHeader(), gbcBttm);
+                bttmPanel.add(table.getTableHeader(), gbcBttm);
                 gbcBttm.gridy = 4;
-                bttmPanel.add(homeTable, gbcBttm);
+                bttmPanel.add(table, gbcBttm);
 
         }
+
+        /* // update homes table on selection of list
+        private void updateTable() { // https://www.geeksforgeeks.org/java-swing-jtable/
+                setValueAt(Object value, int row, int column);
+                fireTableDataChanged();
+        }
+        */
 }
