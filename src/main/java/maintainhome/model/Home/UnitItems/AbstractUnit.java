@@ -143,19 +143,6 @@ public abstract class AbstractUnit implements IUnit {
         this.priority = priority;
     }
 
-    /**
-     * Converts the unit item to a CSV string.
-     * 
-     * @return the unit item as a CSV string
-     */
-    
-    @Override
-    public String toCSV() {
-        return getUnitId() + "," + getItemName() + "," + getRoomType().toString() + "," + getRoomName()
-             + "," + IUnit.dateToString(getInstallDate()) + "," + IUnit.dateToString(getMaintainedDate()) + "," + getMaintenanceFrequency()
-             + "," + getMaintenanceFrequency() + "," + getFrequencyMeasure();
-    }
-
     @Override
     public String toString() {
         return String.format("Unit: %s, Room: %s, Item: %s, Install Date: %s, Maintained Date: %s, Priority: %s",

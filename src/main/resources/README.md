@@ -30,6 +30,7 @@ http://www.learningjava.net/377/tutorial-on-java-cardlayout-in-swing/
 https://www.youtube.com/watch?v=1JjTAxbsDqs
 
 **Java Swing JList**  
+https://www.codejava.net/java-se/swing/jlist-basic-tutorial-and-examples
 
 **Java Swing JTable**  
 https://stackhowto.com/how-to-update-a-row-in-jtable/

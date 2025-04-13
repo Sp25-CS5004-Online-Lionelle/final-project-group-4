@@ -1,8 +1,13 @@
 package maintainhome.view;
 
-import maintainhome.view.ViewPanel.ViewPanel;
+import maintainhome.view.MainPanels.ViewPanel;
+import maintainhome.model.Utilities.Types.ColumnData;
+
 import java.awt.event.ActionListener;
 import java.awt.event.KeyListener;
+
+//import javax.swing.event.ListSelectionEvent;
+//import javax.swing.event.ListSelectionListener;
 
 import javax.swing.*;
 import java.awt.*;
@@ -77,7 +82,12 @@ public class View extends JFrame implements IView {
         //String[] mylist = new String[] {"hello world", "2", "3", "4"};
         
         //String[][] tableData = new String[][] { {"1", "23", "26"}, {"2", "2", "3"} };
-        String[] tableHeading = new String[] {"Row", "Home Name", "Address", "Zip"};
+        String[] tableHeading = new String[] {
+            ColumnData.HomeData.home_num.getColumnName(),
+            ColumnData.HomeData.home_name.getColumnName(),
+            ColumnData.HomeData.address.getColumnName(),
+            ColumnData.HomeData.zip.getColumnName()
+        };
 
         hViewPanel = new ViewPanel("Homes", tableHeading);
         homesViewPanel = hViewPanel.getPanel();
@@ -153,7 +163,28 @@ public class View extends JFrame implements IView {
         for (int i = 0; i < leftPanel.getButtons().length; i++) {
             leftPanel.getButtons()[i].addActionListener(listener);
         }
+
+        //setListSelectionListener();
     }
+    
+    /*
+    public void setListSelectionListener() {
+        JList<String> list = hViewPanel.getJList();
+        list.addListSelectionListener(new ListSelectionListener() {
+                @Override
+                public void valueChanged(ListSelectionEvent e) {
+                        ListSelectionModel lsm = (ListSelectionModel) e.getSource();
+                        if (!e.getValueIsAdjusting()) {
+                                System.out.println(list.getSelectedValue());
+                                
+                                //final List<String> selectedValuesList = list.getSelectedValuesList();
+                                //System.out.println(selectedValuesList);
+                                
+                            }
+                    }
+            });
+    }
+    */
 
     private void display() {
         setVisible(true);

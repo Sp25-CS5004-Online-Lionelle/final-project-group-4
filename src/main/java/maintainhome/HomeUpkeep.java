@@ -33,12 +33,12 @@ public final class HomeUpkeep {
         IView view = new View("Home Maintenance App");
         Controller controller = new Controller(model, view);
         
-
+        /*
         String sampleUser = "js1";
         model.setUser(sampleUser);
         User user = model.getUser();
         user.setHomes(CsvLoader.loadHomesFile(user.getUserId()));
-        /*
+        
         try {
             h1 = this.user.getHomes().get(0);
             System.out.println(h1.getAddress());
@@ -46,7 +46,7 @@ public final class HomeUpkeep {
             // NullPointerException
             System.out.println("User has no homes listed.");
         }
-        */
+        
 
         //testing the filter and sort functionality
         //List<IUnit> allUnits = CsvLoader.loadUnitItemsFile(user.getUserId(), user.getHomes().get(0).getHomeId());
@@ -61,6 +61,6 @@ public final class HomeUpkeep {
         filtered.sort(UnitSorters.BY_INSTALL_DATE);
 
         filtered.forEach(System.out::println);
-        
+        */
     }
 }

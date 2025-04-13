@@ -11,6 +11,7 @@ import maintainhome.model.Home.UnitItems.IUnit;
 import maintainhome.model.Home.UnitItems.PlumbingUnit;
 import maintainhome.model.Utilities.Types.FileType;
 import maintainhome.model.Utilities.Types.ColumnData;
+import maintainhome.model.Utilities.Types.IColumnEnum;
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
@@ -30,7 +31,7 @@ import java.util.stream.Collectors;
  * Loads this apps objects from a CSV file.
  * Supports unit types: ElectricUnit, PlumbingUnit, ApplianceUnit.
  */
-public class CsvLoader implements ICsvLoader {
+public class CsvLoader implements ICsvSource {
 
     /** Standard csv delim. */
     private static final String DELIMITER = ",";
@@ -50,7 +51,7 @@ public class CsvLoader implements ICsvLoader {
      * @param columnMap the map of columns to index
      * @return a User object
      */
-    private static Object toObject(String line, Map<ColumnData, Integer> columnMap, FileType filetype) {
+    private static Object toObject(String line, Map<IColumnEnum, Integer> columnMap, FileType filetype) {
         String[] columns = trimValues(line.split(DELIMITER));
         if (columns.length < columnMap.values().stream().max(Integer::compareTo).get()) {
             return null;
@@ -59,24 +60,24 @@ public class CsvLoader implements ICsvLoader {
         switch(filetype) {
             case FileType.USER:
                 User user = new User(
-                    columns[columnMap.get(ColumnData.USER_ID)]
-                    , columns[columnMap.get(ColumnData.NAME)]
-                    , columns[columnMap.get(ColumnData.EMAIL)]
+                    columns[columnMap.get(ColumnData.UserData.user_id)]
+                    , columns[columnMap.get(ColumnData.UserData.name)]
+                    , columns[columnMap.get(ColumnData.UserData.email)]
                     );
                 return user;
             case FileType.HOMES:
                 Home home = new Home(
-                    columns[columnMap.get(ColumnData.HOME_ID)],
-                    columns[columnMap.get(ColumnData.HOME_NUM)],
-                    columns[columnMap.get(ColumnData.HOME_NAME)],
-                    columns[columnMap.get(ColumnData.ADDRESS)],
-                    columns[columnMap.get(ColumnData.ZIP)]);
+                    columns[columnMap.get(ColumnData.HomeData.home_id)],
+                    Integer.parseInt(columns[columnMap.get(ColumnData.HomeData.home_num)]),
+                    columns[columnMap.get(ColumnData.HomeData.home_name)],
+                    columns[columnMap.get(ColumnData.HomeData.address)],
+                    columns[columnMap.get(ColumnData.HomeData.zip)]);
                 return home;
             case FileType.UNIT_ITEMS:
                 return toUnitItems(columns, columnMap);
+            default:
+                return null;
         }
-            
-        return null;
     }
 
     
@@ -87,30 +88,30 @@ public class CsvLoader implements ICsvLoader {
      * @param columnMap the map of columns to index
      * @return a User object
      */
-    private static IUnit toUnitItems(String[] columns, Map<ColumnData, Integer> columnMap) {
+    private static IUnit toUnitItems(String[] columns, Map<IColumnEnum, Integer> columnMap) {
         
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("M/d/yyyy");
-
-        String userId = columns[columnMap.get(ColumnData.USER_ID)].trim();
-        String homeId = columns[columnMap.get(ColumnData.HOME_ID)].trim();
-        String itemId = columns[columnMap.get(ColumnData.UNIT_ID)].trim();
-        String itemName = columns[columnMap.get(ColumnData.ITEM_NAME)].trim();
+        // mapping for this file has both UserData and HomeData
+        String userId = columns[columnMap.get(ColumnData.UnitItemData.user_id)].trim();
+        String homeId = columns[columnMap.get(ColumnData.UnitItemData.home_id)].trim();
+        String itemId = columns[columnMap.get(ColumnData.UnitItemData.unit_id)].trim();
+        String itemName = columns[columnMap.get(ColumnData.UnitItemData.item_name)].trim();
         UnitType type = UnitType.toUnitType(columns[columnMap
-            .get(ColumnData.UNIT_TYPE)].trim());
-        String roomType = columns[columnMap.get(ColumnData.ROOM_TYPE)].trim();
-        String roomName = columns[columnMap.get(ColumnData.ROOM_NAME)].trim();
-        String installDate = columns[columnMap.get(ColumnData.INSTALL_DATE)].trim();
-        String maintainedDate = columns[columnMap.get(ColumnData.MAINTAINED_DATE)].trim();
-        String maintainFreq = columns[columnMap.get(ColumnData.MAINTAIN_FREQ)].trim();
-        String freqMeas = columns[columnMap.get(ColumnData.FREQ_MEAS)].trim();
-        String issue = columns[columnMap.get(ColumnData.ISSUE)].trim();
-        int priority = PriorityType.containsValues(columns[columnMap.get(ColumnData.PRIORITY)].trim()).getPriorityType();
+            .get(ColumnData.UnitItemData.unit_type)].trim());
+        RoomType roomType = RoomType.toRoomType(columns[columnMap.get(ColumnData.UnitItemData.room_type)].trim());
+        String roomName = columns[columnMap.get(ColumnData.UnitItemData.room_name)].trim();
+        LocalDate installDate = LocalDate.parse(columns[columnMap.get(ColumnData.UnitItemData.install_date)].trim(), formatter);
+        LocalDate maintainedDate = LocalDate.parse(columns[columnMap.get(ColumnData.UnitItemData.maintained_date)].trim(), formatter);
+        int maintainFreq =  Integer.parseInt(columns[columnMap.get(ColumnData.UnitItemData.maintenance_freq)].trim());
+        String freqMeas = columns[columnMap.get(ColumnData.UnitItemData.frequency_meas)].trim();
+        String issue = columns[columnMap.get(ColumnData.UnitItemData.issue)].trim();
+        PriorityType priority = PriorityType.containsValues(columns[columnMap.get(ColumnData.UnitItemData.priority)].trim());
         
-        String electricWatt = "0";
-        String plumbingGallon = "0";
-        String height = "0";
-        String width = "0";
-        String depth = "0";
+        int electricWatt = Integer.parseInt("0");
+        int plumbingGallon = Integer.parseInt("0");
+        int height = Integer.parseInt("0");
+        int width = Integer.parseInt("0");
+        int depth = Integer.parseInt("0");
         
         IUnit unit = null;
         
@@ -123,15 +124,15 @@ public class CsvLoader implements ICsvLoader {
                     , itemId
                     , itemName
                     , type
-                    , RoomType.toRoomType(roomType)
+                    , roomType
                     , roomName
-                    , LocalDate.parse(installDate, formatter)
-                    , LocalDate.parse(maintainedDate, formatter)
-                    , Integer.parseInt(maintainFreq)
+                    , installDate
+                    , maintainedDate
+                    , maintainFreq
                     , freqMeas
                     , issue
-                    , PriorityType.toPriorityType(priority)
-                    , Integer.parseInt(electricWatt)
+                    , priority
+                    , electricWatt
                     );
                     break;
                 case UnitType.PLUMBING_UNIT:
@@ -141,15 +142,15 @@ public class CsvLoader implements ICsvLoader {
                     , itemId
                     , itemName
                     , type
-                    , RoomType.toRoomType(roomType)
+                    , roomType
                     , roomName
-                    , LocalDate.parse(installDate, formatter)
-                    , LocalDate.parse(maintainedDate, formatter)
-                    , Integer.parseInt(maintainFreq)
+                    , installDate
+                    , maintainedDate
+                    , maintainFreq
                     , freqMeas
                     , issue
-                    , PriorityType.toPriorityType(priority)
-                    ,Integer.parseInt(plumbingGallon)
+                    , priority
+                    ,plumbingGallon
                     );
                     break;
                 case UnitType.APPLIANCE:
@@ -159,18 +160,18 @@ public class CsvLoader implements ICsvLoader {
                     , itemId
                     , itemName
                     , type
-                    , RoomType.toRoomType(roomType)
+                    , roomType
                     , roomName
-                    , LocalDate.parse(installDate, formatter)
-                    , LocalDate.parse(maintainedDate, formatter)
-                    , Integer.parseInt(maintainFreq)
+                    , installDate
+                    , maintainedDate
+                    , maintainFreq
                     , freqMeas
                     , issue
-                    , PriorityType.toPriorityType(priority)
-                    , Integer.parseInt(electricWatt)
-                    , Integer.parseInt(height)
-                    , Integer.parseInt(width)
-                    , Integer.parseInt(depth)
+                    , priority
+                    , electricWatt
+                    , height
+                    , width
+                    , depth
                     );
                     break;
             }
@@ -193,13 +194,13 @@ public class CsvLoader implements ICsvLoader {
      * @param header the header line
      * @return a map of column to index
      */
-    private static Map<ColumnData, Integer> processHeader(String header) {
-        Map<ColumnData, Integer> columnMap = new HashMap<>();
+    private static Map<IColumnEnum, Integer> processHeader(String header, FileType filetype) {
+        Map<IColumnEnum, Integer> columnMap = new HashMap<>();
         // 
         String[] columns = trimValues(header.split(DELIMITER));
         for (int i = 0; i < columns.length; i++) {
             try {
-                ColumnData col = ColumnData.fromColumnName(columns[i]);
+                IColumnEnum col = ColumnData.fromString(columns[i], filetype);
                 columnMap.put(col, i);
             } catch (IllegalArgumentException e) {
                 // System.out.println("Ignoring column: " + columns[i]);
@@ -208,16 +209,8 @@ public class CsvLoader implements ICsvLoader {
         return columnMap;
     }
 
-    /**
-     * Loads the users from the csv file into a set of User objects.
-     * 
-     * @param filename the name of the file to load
-     * @return a set of User objects
-     */
-    public static User loadUserFile(String userId) {
-        String path = filePath.concat(FileType.USER.getFileName());
-        User user = null;
-        
+    private static List<String> processLines(FileType filetype) {
+        String path = filePath.concat(filetype.getFileName());
         List<String> lines;
         try {
             // this is so we can store the files in the resources folder
@@ -228,17 +221,33 @@ public class CsvLoader implements ICsvLoader {
             BufferedReader reader = new BufferedReader(isr);
             lines = reader.lines().collect(Collectors.toList());
             reader.close();
+            return lines;
         } catch (Exception e) {
             System.err.println("Error reading file: " + e.getMessage());
-            return user;
         }
+        return null;
+    }
+
+    /**
+     * Loads the users from the csv file into a set of User objects.
+     * 
+     * @param filename the name of the file to load
+     * @return a set of User objects
+     */
+    public static User loadUserFile(String userId) {
+        FileType fType = FileType.USER;
+        User user = null;
+        
+        List<String> lines = processLines(fType);
+        
         if (lines == null || lines.isEmpty()) {
             return user;
         }
-
-        Map<ColumnData, Integer> columnMap = processHeader(lines.remove(0));
+        
+        Map<IColumnEnum, Integer> columnMap = processHeader(lines.remove(0), fType);
+        
         for (String line:lines) {
-            User checkuser = (User) toObject(line, columnMap, FileType.USER);
+            User checkuser = (User) toObject(line, columnMap, fType);
             if (checkuser.getUserId().equals(userId)) {
                 user = checkuser;
                 return user;
@@ -255,32 +264,21 @@ public class CsvLoader implements ICsvLoader {
      * @return a set of User objects
      */
     public static List<Home> loadHomesFile(String userId) {
-        String path = filePath.concat(FileType.HOMES.getFileName());
+        FileType fType = FileType.HOMES;
+
         List<Home> homes = new ArrayList<>();
         // set the list of homes for the user
         Set<String> homeIds = loadUserHomesFile(userId);
 
-        List<String> lines;
-        try {
-            // this is so we can store the files in the resources folder
-            
-            // InputStream is = CsvLoader.class.getResourceAsStream(filename);
-            InputStream is = new FileInputStream(path);
-            InputStreamReader isr = new InputStreamReader(is, StandardCharsets.UTF_8);
-            BufferedReader reader = new BufferedReader(isr);
-            lines = reader.lines().collect(Collectors.toList());
-            reader.close();
-        } catch (Exception e) {
-            System.err.println("Error reading file: " + e.getMessage());
-            return homes;
-        }
+        List<String> lines = processLines(fType);
+        
         if (lines == null || lines.isEmpty()) {
             return homes;
         }
         
-        Map<ColumnData, Integer> columnMap = processHeader(lines.remove(0));
+        Map<IColumnEnum, Integer> columnMap = processHeader(lines.remove(0), fType);
 
-        homes = lines.stream().map(line -> (Home)toObject(line, columnMap, FileType.HOMES))
+        homes = lines.stream().map(line -> (Home)toObject(line, columnMap, fType))
             .filter(home -> homeIds.contains(home.getHomeId()) && home != null).collect(Collectors.toList());
         
         return homes;
@@ -295,46 +293,32 @@ public class CsvLoader implements ICsvLoader {
      */
     
     public static Set<String> loadUserHomesFile(String userId) {
-        String path = filePath.concat(FileType.USER_HOMES.getFileName());
+        FileType fType = FileType.USER_HOMES;
+        
         Set<String> userHomes = new HashSet<>();
 
-        List<String> lines;
-        try {
-            // this is so we can store the files in the resources folder
-            
-            // InputStream is = CsvLoader.class.getResourceAsStream(filename);
-            InputStream is = new FileInputStream(path);
-            InputStreamReader isr = new InputStreamReader(is, StandardCharsets.UTF_8);
-            BufferedReader reader = new BufferedReader(isr);
-            lines = reader.lines().collect(Collectors.toList());
-            reader.close();
-        } catch (Exception e) {
-            System.err.println("Error reading file: " + e.getMessage());
-            return userHomes;
-        }
+        List<String> lines = processLines(fType);
+
         if (lines == null || lines.isEmpty()) {
             return userHomes;
         }
-
-        Map<ColumnData, Integer> columnMap = processHeader(lines.remove(0));
+        
+        Map<IColumnEnum, Integer> columnMap = processHeader(lines.remove(0), fType);
         for (String line:lines) {
             
             String[] columns = trimValues(line.split(DELIMITER));
             if (columns.length < columnMap.values().stream().max(Integer::compareTo).get()) {
                 continue;
             }
-            String id = columns[columnMap.get(ColumnData.USER_ID)];
+            String id = columns[columnMap.get(ColumnData.UserHomeData.user_id)];
             if (id.equalsIgnoreCase(userId)) {
-                userHomes.add(columns[columnMap.get(ColumnData.HOME_ID)]);
+                userHomes.add(columns[columnMap.get(ColumnData.UserHomeData.home_id)]);
             }
-        
         }
 
         return userHomes;
 
     }
-
-    
 
     /**
       * Loads IUnit objects from a CSV file.
@@ -344,31 +328,18 @@ public class CsvLoader implements ICsvLoader {
      * @return a set of User objects
      */
     public static List<IUnit> loadUnitItemsFile(String userId, String homeId) {
-        String path = filePath.concat(FileType.UNIT_ITEMS.getFileName());
+        FileType fType = FileType.UNIT_ITEMS;
+        
         List<IUnit> units = new ArrayList<>();
 
-        List<String> lines;
-        try {
-            // this is so we can store the files in the resources folder
-            
-            // InputStream is = CsvLoader.class.getResourceAsStream(filename);
-            InputStream is = new FileInputStream(path);
-            InputStreamReader isr = new InputStreamReader(is, StandardCharsets.UTF_8);
-            BufferedReader reader = new BufferedReader(isr);
-            lines = reader.lines().collect(Collectors.toList());
-            reader.close();
-        } catch (Exception e) {
-            System.err.println("Error reading file: " + e.getMessage());
-            return units;
-        }
-        if (lines == null || lines.isEmpty()) {
-            return units;
-        }
-        Map<ColumnData, Integer> columnMap = processHeader(lines.remove(0));
+        List<String> lines = processLines(fType);
+        Map<IColumnEnum, Integer> columnMap = processHeader(lines.remove(0), fType);
         
-        units = lines.stream().map(line -> (IUnit)toObject(line, columnMap, FileType.UNIT_ITEMS))
-                .filter(unit -> unit.getUserId().equals(userId) && unit.getHomeId().equals(homeId)
-                && unit != null).collect(Collectors.toList());
+        units = lines.stream().map(line -> (IUnit)toObject(line, columnMap, fType))
+                .filter(
+                    unit ->
+                    //unit.getUserId().equals(userId) && unit.getHomeId().equals(homeId) &&
+                    unit != null).collect(Collectors.toList());
 
         return units;
     }

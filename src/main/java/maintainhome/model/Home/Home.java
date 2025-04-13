@@ -20,9 +20,9 @@ public class Home {
      * @param homeId id of home
      * @param address address of home to reference in map (might not be able to use due to discomfort of users providing. Maybe can just use current location or zip code)
      */
-    public Home(String homeId, String homeNum, String homeName, String address, String zip) {
+    public Home(String homeId, int homeNum, String homeName, String address, String zip) {
         this.homeId = homeId;
-        this.num = Integer.parseInt(homeNum);
+        this.num = homeNum;
         this.homeName = homeName;
         this.address = address;
         this.zip = zip;

@@ -47,7 +47,5 @@ public interface IUnit {
     static String dateToString(LocalDate date) {
         return date != null ? date.format(DATE_FORMATTER) : "";
     }
-
-    String toCSV();
     
 }

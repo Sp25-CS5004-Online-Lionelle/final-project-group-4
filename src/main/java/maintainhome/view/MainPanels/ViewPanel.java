@@ -1,7 +1,9 @@
-package maintainhome.view.ViewPanel;
+package maintainhome.view.MainPanels;
 
 
 import javax.swing.*;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.util.List;
@@ -37,6 +39,10 @@ public class ViewPanel extends JPanel {
 
         public JPanel getPanel() {
                 return this;
+        }
+
+        public DefaultListModel<String> getListModel() {
+                return listModel;
         }
 
         public JList<String> getJList() {
@@ -79,11 +85,13 @@ public class ViewPanel extends JPanel {
         
         public void setJList() {
                 list.setFixedCellWidth(100);
+                //list.add(new JScrollPane(list));
                 gbcTop.gridx = 1;
                 gbcTop.gridy = 0;
-                gbcTop.insets = new Insets(50, inset20, 0, 0);
+                gbcTop.insets = new Insets(50, 10, 0, 0);
                 topPanel.add(list, gbcTop);
         }
+        
 
         private void setTable() { // String[][] tableData, String[] tableHeading
                 
@@ -94,11 +102,4 @@ public class ViewPanel extends JPanel {
                 bttmPanel.add(table, gbcBttm);
 
         }
-
-        /* // update homes table on selection of list
-        private void updateTable() { // https://www.geeksforgeeks.org/java-swing-jtable/
-                setValueAt(Object value, int row, int column);
-                fireTableDataChanged();
-        }
-        */
 }

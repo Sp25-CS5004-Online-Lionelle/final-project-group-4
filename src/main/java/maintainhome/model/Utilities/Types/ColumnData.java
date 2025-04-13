@@ -1,42 +1,103 @@
 package maintainhome.model.Utilities.Types;
 
-public enum ColumnData {
-    /**
-     * Enums matching CODE(cvsname) pattern.
-     * 
-     * name and id are used for column uniqueness.
-     */
-    USER_ID("user_id"), HOME_ID("home_id"), UNIT_ID("unit_id")
-    // user columns
-    , NAME("name"), EMAIL("email")
-    // home columns
-    , HOME_NUM("home_num") , HOME_NAME("home_name"), ADDRESS("address"), ZIP("zip")
-    // unit item columns
-    , ITEM_NAME("item_name")
-    , UNIT_TYPE("unit_type"), ROOM_TYPE("room_type")
-    , ROOM_NAME("room_name"), INSTALL_DATE("install_date")
-    , MAINTAINED_DATE("maintained_date"), MAINTAIN_FREQ("maintenance_freq")
-    , FREQ_MEAS("frequency_meas"), ISSUE("issue"), PRIORITY("priority");
+public class ColumnData { // https://www.geekster.in/articles/enum-class-in-java/
+    
+    private ColumnData() {
 
-    /** stores the original csv name in the enum. */
-    private final String columnName;
-
-    /**
-     * Constructor for the enum.
-     * 
-     * @param columnName the name of the column in the CSV file.
-     */
-    ColumnData(String columnName) {
-        this.columnName = columnName;
     }
 
-    /**
-     * Getter for the column name.
-     * 
-     * @return the name of the column in the CSV file.
-     */
-    public String getColumnName() {
-        return columnName;
+    public enum UserData implements IColumnEnum {
+        // user columns
+        user_id("User ID"), name("Name"), email("Email");
+        
+        /** stores the original csv name in the enum. */
+        private final String columnName;
+
+        /**
+         * Constructor for the enum.
+         * 
+         * @param columnName the name of the column in the CSV file.
+         */
+        UserData(String columnName) {
+            this.columnName = columnName;
+        }
+
+        @Override
+        public String getColumnName() {
+            return columnName;
+        }
+    }
+
+    public enum HomeData implements IColumnEnum {
+        // home columns
+        home_id("Home ID"), home_num("Home Row")
+        , home_name("Home Name"), address("Address"), zip("Zip");
+        
+        /** stores the original csv name in the enum. */
+        private final String columnName;
+
+        /**
+         * Constructor for the enum.
+         * 
+         * @param columnName the name of the column in the CSV file.
+         */
+        HomeData(String columnName) {
+            this.columnName = columnName;
+        }
+
+        @Override
+        public String getColumnName() {
+            return columnName;
+        }
+    }
+
+    public enum UnitItemData implements IColumnEnum {
+        user_id("User ID"), home_id("Home ID")
+        // unit item columns
+        , unit_id("Unit ID"), item_name("Item Name")
+        , unit_type("Unit Type"), room_type("Room Type")
+        , room_name("Room Name"), install_date("Install Date")
+        , maintained_date("Last Maintained Date"), maintenance_freq("Maintenance Frequency")
+        , frequency_meas("Frequency Measure"), issue("Issue"), priority("Priority");
+        
+        /** stores the original csv name in the enum. */
+        private final String columnName;
+
+        /**
+         * Constructor for the enum.
+         * 
+         * @param columnName the name of the column in the CSV file.
+         */
+        UnitItemData(String columnName) {
+            this.columnName = columnName;
+        }
+
+        @Override
+        public String getColumnName() {
+            return columnName;
+        }
+    }
+
+    public enum UserHomeData implements IColumnEnum {
+        // unit item columns
+        user_id("User ID"), home_id("Home ID");
+        
+        /** stores the original csv name in the enum. */
+        private final String columnName;
+
+        /**
+         * Constructor for the enum.
+         * 
+         * @param columnName the name of the column in the CSV file.
+         */
+        UserHomeData(String columnName) {
+            this.columnName = columnName;
+        }
+
+        @Override
+        public String getColumnName() {
+            return columnName;
+        }
     }
 
     /**
@@ -45,13 +106,40 @@ public enum ColumnData {
      * @param columnName the name of the column in the CSV file.
      * @return the enum that matches the column name.
      */
-    public static ColumnData fromColumnName(String columnName) {
-        for (ColumnData col : ColumnData.values()) {
-            if (col.getColumnName().equals(columnName)) {
-                return col;
-            }
+    public static IColumnEnum fromColumnName(String columnName, FileType source) {
+        
+        switch(source) {
+            case FileType.USER:
+                for (IColumnEnum col : ColumnData.UserData.values()) {
+                    if (col.getColumnName().equals(columnName)) {
+                        return col;
+                    }
+                }
+                fromColumnNameException(columnName);
+            case FileType.HOMES:
+                for (IColumnEnum col : ColumnData.HomeData.values()) {
+                    if (col.getColumnName().equals(columnName)) {
+                        return col;
+                    }
+                }
+                fromColumnNameException(columnName);
+            case FileType.UNIT_ITEMS:
+                for (IColumnEnum col : ColumnData.UnitItemData.values()) {
+                    if (col.getColumnName().equals(columnName)) {
+                        return col;
+                    }
+                }
+                fromColumnNameException(columnName);
+            case FileType.USER_HOMES:
+                for (IColumnEnum col : ColumnData.UserHomeData.values()) {
+                    if (col.getColumnName().equals(columnName)) {
+                        return col;
+                    }
+                }
+                fromColumnNameException(columnName);
+            default:
+                return null;
         }
-        throw new IllegalArgumentException("No column with name " + columnName);
     }
 
     /**
@@ -63,12 +151,48 @@ public enum ColumnData {
      * @param name the name of the enum.
      * @return the enum that matches the name.
      */
-    public static ColumnData fromString(String name) {
-        for (ColumnData col : ColumnData.values()) {
-            if (col.name().equalsIgnoreCase(name) || col.getColumnName().equalsIgnoreCase(name)) {
-                return col;
+    public static IColumnEnum fromString(String name, FileType source) {
+
+        switch(source) {
+            case FileType.USER:
+                for (UserData col : UserData.values()) {
+                    if (col.name().equalsIgnoreCase(name) || col.getColumnName().equalsIgnoreCase(name)) {
+                        return col;
+                    }
+                }
+                fromStringException(name);
+            case FileType.HOMES:
+                for (HomeData col : HomeData.values()) {
+                    if (col.name().equalsIgnoreCase(name) || col.getColumnName().equalsIgnoreCase(name)) {
+                        return col;
+                    }
+                }
+                fromStringException(name);
+            case FileType.UNIT_ITEMS:
+                for (UnitItemData col : UnitItemData.values()) {
+                    if (col.name().equalsIgnoreCase(name) || col.getColumnName().equalsIgnoreCase(name)) {
+                        return col;
+                    }
+                }
+                fromStringException(name);
+            case FileType.USER_HOMES:
+                for (UserHomeData col : UserHomeData.values()) {
+                    if (col.name().equalsIgnoreCase(name) || col.getColumnName().equalsIgnoreCase(name)) {
+                        return col;
+                    }
+                }
+                fromStringException(name);
+            default:
+                return null;
             }
-        }
+    }
+
+    private static IllegalArgumentException fromColumnNameException(String columnName) {
+        throw new IllegalArgumentException("No column with name " + columnName);
+    }
+
+    private static IllegalArgumentException fromStringException(String name) {
         throw new IllegalArgumentException("No column with name " + name);
     }
+
 }

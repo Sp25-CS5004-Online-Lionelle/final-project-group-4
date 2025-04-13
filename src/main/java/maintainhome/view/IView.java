@@ -4,6 +4,10 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyListener;
 import java.util.List;
 
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+
+
 /**
  * The interface for our view class
  */

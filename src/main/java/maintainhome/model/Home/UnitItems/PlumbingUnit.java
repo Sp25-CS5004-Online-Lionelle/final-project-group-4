@@ -5,7 +5,7 @@ import maintainhome.model.Home.Types.PriorityType;
 import maintainhome.model.Home.Types.RoomType;
 import maintainhome.model.Home.Types.UnitType;
 
-public class PlumbingUnit extends AbstractUnit implements IUnit, IPlumbingUnit {
+public class PlumbingUnit extends AbstractUnit implements IPlumbingUnit {
     private int plumbingGallon;
     private boolean hasFaucet;
     private boolean hasDrain;
