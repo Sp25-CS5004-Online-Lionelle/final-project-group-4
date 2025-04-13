@@ -2,16 +2,8 @@ package maintainhome;
 
 import maintainhome.controller.Controller;
 import maintainhome.model.Model;
-import maintainhome.model.Utilities.CsvLoader;
 import maintainhome.view.IView;
 import maintainhome.view.View;
-
-import maintainhome.model.User.User;
-import maintainhome.model.Home.Types.RoomType;
-import maintainhome.model.Home.UnitItems.IUnit;
-import maintainhome.model.Filters;
-import maintainhome.model.UnitSorters;
-import java.util.List;
 
 /**
  * Main driver for the program.
@@ -61,6 +53,10 @@ public final class HomeUpkeep {
         filtered.sort(UnitSorters.BY_INSTALL_DATE);
 
         filtered.forEach(System.out::println);
+
+        // Save the filtered units to a CSV file
+        String outputPath = "filtered_units.csv";
+        CsvSaver.saveUnitsToCsv(filtered, outputPath);
         */
     }
 }
