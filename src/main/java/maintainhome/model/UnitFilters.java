@@ -4,7 +4,8 @@ package maintainhome.model;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
-import maintainhome.model.Home.Types.RoomType;
+
+import maintainhome.model.Home.Home;
 import maintainhome.model.Home.UnitItems.IUnit;
 
 public class UnitFilters {
@@ -24,5 +25,11 @@ public class UnitFilters {
         return units.stream()
                 .filter(u -> u.getInstallDate().isAfter(date))
                 .collect(Collectors.toList());
+    }
+    
+    public static List<Home> filterByHomeName(List<Home> homes, String homeName) {
+    return homes.stream()
+            .filter(home -> home.getHomeName().equalsIgnoreCase(homeName))
+            .collect(Collectors.toList());
     }
 }
