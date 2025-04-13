@@ -150,7 +150,7 @@ public class CsvLoader implements ICsvSource {
                     , freqMeas
                     , issue
                     , priority
-                    ,plumbingGallon
+                    , plumbingGallon
                     );
                     break;
                 case UnitType.APPLIANCE:

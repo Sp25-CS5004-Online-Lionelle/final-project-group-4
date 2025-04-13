@@ -1,7 +1,7 @@
 package maintainhome.model.Home.Types;
 
 
-/** A list of priorite types allowed for the issues. */
+/** A list of priority types allowed for the issues. */
 public enum PriorityType {
     /** Different room type options. */
     URGENT(1), IMPORTANT(2)

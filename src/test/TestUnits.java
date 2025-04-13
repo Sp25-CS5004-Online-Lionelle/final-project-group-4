@@ -4,12 +4,12 @@ import java.time.Month;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Test;
 
-import maintainhome.model.Home.ApplianceUnit;
-import maintainhome.model.Home.ElectricUnit;
-import maintainhome.model.Home.PlumbingUnit;
 import maintainhome.model.Home.Types.PriorityType;
 import maintainhome.model.Home.Types.RoomType;
 import maintainhome.model.Home.Types.UnitType;
+import maintainhome.model.Home.UnitItems.ApplianceUnit;
+import maintainhome.model.Home.UnitItems.ElectricUnit;
+import maintainhome.model.Home.UnitItems.PlumbingUnit;
 
 public class TestUnits {
 
