@@ -17,6 +17,7 @@ public class AddPanel extends JPanel {
     private List<JLabel> labels = new ArrayList<>();
     private List<Object> fields = new ArrayList<>();
     private JButton addButton = new JButton("Add");
+    private JButton clearButton = new JButton("Clear");
 
     public AddPanel(String[] displays, Commands panelType) {
     // need to make this flexible to account for Homes and UnitItems
@@ -26,9 +27,12 @@ public class AddPanel extends JPanel {
 
         setDisplays(displays);
         setTextFields(panelType);
-        gbc.gridx = 1;
+        gbc.anchor= GridBagConstraints.EAST;
+        gbc.gridx = 0;
         gbc.gridy = displays.length + 1; // excluding home_num
         add(addButton, gbc);
+        gbc.gridx = 1;
+        add(clearButton, gbc);
     }
 
     private void setDisplays(String[] displays) {
