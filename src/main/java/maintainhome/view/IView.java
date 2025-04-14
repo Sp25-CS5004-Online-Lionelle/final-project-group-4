@@ -16,6 +16,7 @@ public interface IView {
    * Set the listener for any actions.
    */
   String getLoginUser();
+  void setUserPanel(String id, String name, String email);
   void updateHomesList(String[] list);
   void updateHomesTable(List<String[]> row);
   void setListener(ActionListener clicks, KeyListener keys);

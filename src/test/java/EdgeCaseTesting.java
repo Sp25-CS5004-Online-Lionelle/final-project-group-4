@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test;
 
 import maintainhome.model.Home.Home;
 import maintainhome.model.Filters;
-import maintainhome.model.UnitSorters;
+import maintainhome.model.Sorters;
 import maintainhome.model.User.User;
 import maintainhome.model.Utilities.CsvLoader;
 
@@ -33,7 +33,7 @@ public class EdgeCaseTesting {
         testUser.setHomes(List.of(home1, home2));
 
         // Sorting by homeNum using UnitSorters
-        testUser.getHomes().sort(UnitSorters.BY_HOME_NUM);
+        testUser.getHomes().sort(Sorters.BY_HOME_NUM);
 
         // Check if homes are sorted by homeNum (should be in ascending order)
         assertEquals(101, testUser.getHomes().get(0).getHomeNum());
@@ -108,7 +108,7 @@ public class EdgeCaseTesting {
         testUser.setHomes(List.of(home1, home2));
 
         // Sort by homeNum using UnitSorters
-        testUser.getHomes().sort(UnitSorters.BY_HOME_NUM);
+        testUser.getHomes().sort(Sorters.BY_HOME_NUM);
 
         // Check if the homes are sorted by homeNum in ascending order
         assertEquals(101, testUser.getHomes().get(0).getHomeNum());

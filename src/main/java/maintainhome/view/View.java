@@ -19,7 +19,7 @@ import java.util.List;
 public class View extends JFrame implements IView {
 
     /** view's panel to hold the components. */
-    private ButtonPanel leftPanel;
+    private ButtonPanel buttonPanel;
     private JPanel container = new JPanel(new CardLayout()); // user info - viewing and modifying will be on same page // user icon, homes list - will have Jlist to select and JTextArea - will incorporate a tab for adding
     private LoginPanel loginPanel;
     private JPanel afterLogin = new JPanel(new BorderLayout());
@@ -29,7 +29,6 @@ public class View extends JFrame implements IView {
     private JPanel panel2 = new JPanel(new BorderLayout()); 
     private JPanel panel3 = new JPanel(new BorderLayout()); // when a home is selected
     private JPanel panel4 = new JPanel(new BorderLayout());
-    GridBagConstraints gbc = new GridBagConstraints();
 
     /** view's GridBagConstraints inset . */
     // private int inset = 10; // padding
@@ -65,8 +64,20 @@ public class View extends JFrame implements IView {
         return loginPanel.getUserInput();
     }
 
+    /*
+     public  setUserPanel() {
+     }
+     */
+
     private void setLeftPanel() {
-        leftPanel = new ButtonPanel(3);
+        // need to have the splitpane
+        buttonPanel = new ButtonPanel(3);
+    }
+
+    @Override
+    public void setUserPanel(String id, String name, String email) {
+        UserPanel userPanel = new UserPanel(id, name, email);
+        panel2.add(userPanel);
     }
 
     private JPanel setHomesAdd() {
@@ -111,8 +122,8 @@ public class View extends JFrame implements IView {
 
         panel3.add(tabPane, BorderLayout.CENTER);
 
-        rightPanel.add(panel2, "2");
-        rightPanel.add(panel3, "3");
+        rightPanel.add(panel3, "2");
+        rightPanel.add(panel2, "3");
         rightPanel.add(panel4, "4");
         afterLogin.add(rightPanel);
 
@@ -128,18 +139,17 @@ public class View extends JFrame implements IView {
         setRightPanel();
         /* END */
         
-        afterLogin.add(leftPanel, BorderLayout.WEST);
+        afterLogin.add(buttonPanel, BorderLayout.WEST);
         afterLogin.add(rightPanel, BorderLayout.CENTER);
         container.add(loginPanel.getLoginPanel(), "2");
         container.add(afterLogin, "3");
         //this.add(rightPanel);
         this.add(container, BorderLayout.CENTER);
-
     }
 
 
     private void setBorder() {
-        leftPanel.setBorder(BorderFactory.createLineBorder(Color.black));
+        buttonPanel.setBorder(BorderFactory.createLineBorder(Color.black));
         container.setBorder(BorderFactory.createLineBorder(Color.black));
         hViewPanel.getJList().setBorder(BorderFactory.createLineBorder(Color.black));
     }
@@ -160,8 +170,8 @@ public class View extends JFrame implements IView {
     public void setListener(ActionListener listener, KeyListener keys) {
         loginPanel.getLoginBtn().addActionListener(listener);
 
-        for (int i = 0; i < leftPanel.getButtons().length; i++) {
-            leftPanel.getButtons()[i].addActionListener(listener);
+        for (int i = 0; i < buttonPanel.getButtons().length; i++) {
+            buttonPanel.getButtons()[i].addActionListener(listener);
         }
 
         //setListSelectionListener();

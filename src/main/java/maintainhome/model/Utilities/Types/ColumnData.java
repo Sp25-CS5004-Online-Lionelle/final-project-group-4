@@ -8,7 +8,7 @@ public class ColumnData { // https://www.geekster.in/articles/enum-class-in-java
 
     public enum UserData implements IColumnEnum {
         // user columns
-        user_id("User ID"), name("Name"), email("Email");
+        user_id("Username"), name("Name"), email("Email");
         
         /** stores the original csv name in the enum. */
         private final String columnName;

@@ -37,6 +37,7 @@ public class Controller implements ActionListener, KeyListener {
             List<Home> homes = CsvLoader.loadHomesFile(user.getUserId());
             model.getUser().setHomes(homes);
             // need to see if setting the JList here works otherwise need to figure out how to update the JList data
+            view.setUserPanel(user.getUserId(), user.getName(), user.getEmail());
             view.updateHomesList(user.getHomeNames());
             view.updateHomesTable(user.getHomeRows());
             view.switchMainPanel("3");
@@ -58,16 +59,15 @@ public class Controller implements ActionListener, KeyListener {
                 model.setUser(userString);
                 loginClicked();
                 break;
-            case Commands.homesButton:
+                
+            case Commands.userButton:
                 view.switchRightPanel("3");
+                break;
+            case Commands.homesButton:
+                view.switchRightPanel("2");
                 
                 break;
-            case Commands.fileOpen:
-                break;
-            case Commands.fileSave:
-                break;
-            case Commands.fileExit:
-                System.exit(0);
+            case Commands.unitsButton:
                 break;
             default:
         }

@@ -9,14 +9,10 @@ import java.awt.*;
 import java.util.List;
 
 public class ViewPanel extends JPanel {
-        private JPanel topPanel = new JPanel(new GridBagLayout());
-        private GridBagConstraints gbcTop = new GridBagConstraints();
         private JLabel listLabel;
         private DefaultListModel<String> listModel = new DefaultListModel<>();
         private JList<String> list;
-        
-        private JPanel bttmPanel = new JPanel(new GridBagLayout());
-        private GridBagConstraints gbcBttm = new GridBagConstraints();
+
         private DefaultTableModel tableModel;
         private JTable table;
         private int inset20 = 20;
@@ -26,12 +22,11 @@ public class ViewPanel extends JPanel {
                 // top panel
                 listLabel = new JLabel(label + ":");
                 list = new JList<> (listModel);
-                setListLabel();
-                setJList();
+                JPanel topPanel = setTopPanel();
                 // bottom panel
                 tableModel = new DefaultTableModel(tableHeading, 0);
                 table = new JTable(tableModel);
-                setTable();
+                JPanel bttmPanel = setBottomPanel();
 
                 add(topPanel, BorderLayout.NORTH);
                 add(bttmPanel, BorderLayout.CENTER);
@@ -76,30 +71,33 @@ public class ViewPanel extends JPanel {
                 }
         }
 
-        private void setListLabel() {
-                gbcTop.gridx = 0;
-                gbcTop.gridy = 0;
-                gbcTop.insets = new Insets(50, 0, 0, 0);
-                topPanel.add(listLabel, gbcTop);
-        }
-        
-        public void setJList() {
+        private JPanel setTopPanel() {
+                JPanel panel = new JPanel(new GridBagLayout());
+                GridBagConstraints gbc = new GridBagConstraints();
+                // JList Label
+                gbc.gridx = 0;
+                gbc.gridy = 0;
+                gbc.insets = new Insets(50, 0, 0, 0);
+                panel.add(listLabel, gbc);
+                // JList
                 list.setFixedCellWidth(100);
                 //list.add(new JScrollPane(list));
-                gbcTop.gridx = 1;
-                gbcTop.gridy = 0;
-                gbcTop.insets = new Insets(50, 10, 0, 0);
-                topPanel.add(list, gbcTop);
+                gbc.gridx = 1;
+                gbc.gridy = 0;
+                gbc.insets = new Insets(50, 10, 0, 0);
+                panel.add(list, gbc);
+                return panel;
         }
         
 
-        private void setTable() { // String[][] tableData, String[] tableHeading
-                
+        private JPanel setBottomPanel() { // String[][] tableData, String[] tableHeading
+                JPanel panel = new JPanel(new GridBagLayout());
+                GridBagConstraints gbc = new GridBagConstraints();
                 table.getTableHeader().setReorderingAllowed(false);
-                gbcBttm.gridy = 3;
-                bttmPanel.add(table.getTableHeader(), gbcBttm);
-                gbcBttm.gridy = 4;
-                bttmPanel.add(table, gbcBttm);
-
+                gbc.gridy = 3;
+                panel.add(table.getTableHeader(), gbc);
+                gbc.gridy = 4;
+                panel.add(table, gbc);
+                return panel;
         }
 }
