@@ -71,7 +71,7 @@ public class Home {
                 unit.getUnitId(), unit.getItemName(), unit.getUnitType().getUnitType(),
                 unit.getRoomName(), unit.getInstallDate().format(formatter), unit.getMaintainedDate().format(formatter),
                 Integer.toString(unit.getMaintenanceFrequency()) + " " + unit.getFrequencyMeasure(),
-                //unit.getIssue(),
+                unit.getIssue(),
                 unit.getPriority().toString()
             });
         }

@@ -2,6 +2,7 @@ package maintainhome.controller;
 import maintainhome.view.IView;
 import maintainhome.model.Model;
 import maintainhome.model.Home.Home;
+import maintainhome.model.Home.Types.RoomType;
 import maintainhome.model.User.User;
 import maintainhome.model.Home.UnitItems.IUnit;
 import maintainhome.model.Utilities.CsvLoader;
@@ -10,6 +11,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.List;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * A controller to manage incoming requests from the view and processed outgoing data from the model.
@@ -47,7 +50,14 @@ public class Controller implements ActionListener, KeyListener {
             List<IUnit> units = CsvLoader.loadUnitItemsFile(user.getUserId(), home.getHomeId());
             home.setUnitItems(units);
             // set in view: Units Panel
-            view.addUnitsList(home.getUnitJList());
+            // view.addUnitsList(home.getUnitJList());
+            List<String> values = new ArrayList<>();
+            for (RoomType val: RoomType.values()) {
+                values.add(val.getRoomType());
+            }
+            String[] jList = values.toArray(new String[0]);
+            Arrays.sort(jList);
+            view.addUnitsList(jList);
             view.addUnitsTable(home.getUnitRows());
         }
     }

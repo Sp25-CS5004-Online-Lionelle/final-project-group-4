@@ -1,8 +1,10 @@
 package maintainhome.view;
 
 import maintainhome.view.MainPanels.ViewPanel;
+import maintainhome.view.MainPanels.AddPanel;
+import maintainhome.controller.Commands;
 import maintainhome.model.Utilities.Types.ColumnData;
-
+import maintainhome.model.Utilities.Types.IColumnEnum;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyListener;
 
@@ -12,6 +14,7 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.*;
 import java.awt.*;
 import java.util.List;
+import java.util.ArrayList;
 
 /**
  * The view's frame using JFrame.
@@ -77,11 +80,50 @@ public class View extends JFrame implements IView {
         panel2.add(userPanel);
     }
 
-    private JPanel setHomesAdd() {
-        JPanel panel = new JPanel(new GridBagLayout());
+    private String[] homeFields(List<IColumnEnum> exclude) {
+        List<String> fields = new ArrayList<>();
+        int check = 0;
+        for (ColumnData.HomeData col:ColumnData.HomeData.values()) {
+            for (IColumnEnum ex: exclude) {
+                if (col.equals(ex)) {
+                    check = 1;
+                }
+            }
+            if (check == 0) {
+                fields.add(col.getColumnName());
+            }
+            check = 0;
+        }
+        return fields.toArray(new String[0]);
+    }
 
+    private String[] unitFields(List<IColumnEnum> exclude) {
+        List<String> fields = new ArrayList<>();
+        int check = 0;
+        for (ColumnData.UnitItemData col:ColumnData.UnitItemData.values()) {
+            for (IColumnEnum ex: exclude) {
+                if (col.equals(ex)) {
+                    check = 1;
+                }
+            }
+            if (check == 0) {
+                fields.add(col.getColumnName());
+            }
+            check = 0;
+        }
+        return fields.toArray(new String[0]);
+    }
+
+    private JPanel setHomesAdd() {
+        //JPanel panel = new JPanel(new GridBagLayout());
+        List<IColumnEnum> ex = new ArrayList<>();
+        ex.add(ColumnData.HomeData.home_id);
+        ex.add(ColumnData.HomeData.home_num);
+        String[] fields = homeFields(ex);
+        AddPanel panel = new AddPanel(fields, Commands.homesButton);
         return panel;
     }
+
 
     private void setHomesView() { // https://www.geeksforgeeks.org/java-swing-jlist-with-examples/
         // VIEW tab
@@ -90,12 +132,9 @@ public class View extends JFrame implements IView {
         //String[] mylist = new String[] {"hello world", "2", "3", "4"};
         
         //String[][] tableData = new String[][] { {"1", "23", "26"}, {"2", "2", "3"} };
-        String[] tableHeading = new String[] {
-            ColumnData.HomeData.home_num.getColumnName(),
-            ColumnData.HomeData.home_name.getColumnName(),
-            ColumnData.HomeData.address.getColumnName(),
-            ColumnData.HomeData.zip.getColumnName()
-        };
+        List<IColumnEnum> ex = new ArrayList<>();
+        ex.add(ColumnData.HomeData.home_id);
+        String[] tableHeading = homeFields(ex);
 
         hViewPanel = new ViewPanel("Homes", tableHeading);
         homesViewPanel = hViewPanel.getPanel();
@@ -113,8 +152,15 @@ public class View extends JFrame implements IView {
 
     
     private JPanel setUnitsAdd() {
-        JPanel panel = new JPanel(new GridBagLayout());
+        List<IColumnEnum> ex = new ArrayList<>();
+        ex.add(ColumnData.UnitItemData.user_id);
+        ex.add(ColumnData.UnitItemData.home_id);
+        ex.add(ColumnData.UnitItemData.unit_id);
+        // ex.add(ColumnData.UnitItemData.room_type);
+        ex.add(ColumnData.UnitItemData.frequency_meas);
 
+        String[] fields = unitFields(ex);
+        AddPanel panel = new AddPanel(fields, Commands.unitsButton);
         return panel;
     }
     
@@ -125,6 +171,7 @@ public class View extends JFrame implements IView {
         //String[] mylist = new String[] {"hello world", "2", "3", "4"};
         
         //String[][] tableData = new String[][] { {"1", "23", "26"}, {"2", "2", "3"} };
+        /*
         String[] tableHeading = new String[] {
             ColumnData.UnitItemData.unit_id.getColumnName(),
             ColumnData.UnitItemData.item_name.getColumnName(),
@@ -136,7 +183,15 @@ public class View extends JFrame implements IView {
             //ColumnData.UnitItemData.issue.getColumnName(),
             ColumnData.UnitItemData.priority.getColumnName()
         };
+        */
+        List<IColumnEnum> ex = new ArrayList<>();
+        ex.add(ColumnData.UnitItemData.user_id);
+        ex.add(ColumnData.UnitItemData.home_id);
+        ex.add(ColumnData.UnitItemData.unit_id);
+        ex.add(ColumnData.UnitItemData.room_type);
+        ex.add(ColumnData.UnitItemData.frequency_meas);
 
+        String[] tableHeading = unitFields(ex);
         uViewPanel = new ViewPanel("Units", tableHeading);
         unitsViewPanel = uViewPanel.getPanel();
         /* END */
@@ -230,9 +285,9 @@ public class View extends JFrame implements IView {
             buttonPanel.getButtons()[i].addActionListener(listener);
         }
 
-        // setListSelectionListener();
+        setListSelectionListener();
     }
-    /*
+    
     private void setListSelectionListener() {
         JList<String> list = hViewPanel.getJList();
         list.addListSelectionListener(new ListSelectionListener() {
@@ -241,15 +296,15 @@ public class View extends JFrame implements IView {
                         ListSelectionModel lsm = (ListSelectionModel) e.getSource();
                         if (!e.getValueIsAdjusting()) {
                                 System.out.println(lsm.getLeadSelectionIndex());
-                                *
+                                /*
                                 final List<String> selectedValuesList = list.getSelectedValuesList();
                                 System.out.println(selectedValuesList);
-                                *
+                                */
                             }
                     }
             });
     }
-    */
+    
 
     private void display() {
         setVisible(true);

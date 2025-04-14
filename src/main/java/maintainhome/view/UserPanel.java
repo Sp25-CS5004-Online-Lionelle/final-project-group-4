@@ -30,17 +30,15 @@ public class UserPanel extends JPanel {
     private JPanel setTopPane(String id, String name, String email) {
         JPanel panel = new JPanel(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
+
+        
+        gbc.anchor = GridBagConstraints.EAST;
         // username label
         JLabel usernameLabel = new JLabel(ColumnData.UserData.user_id.getColumnName()+":");
         gbc.gridx = 0;
         gbc.gridy = 0;
-        gbc.insets = new Insets(10, 0, 5, 0);
+        gbc.insets = new Insets(5, 0, 5, 0);
         panel.add(usernameLabel, gbc);
-
-        usernameDisplay = new JLabel(id, JLabel.LEFT);
-        gbc.gridx = 1;
-        gbc.gridy = 0;
-        panel.add(usernameDisplay, gbc);
 
         // name label
         JLabel nameLabel = new JLabel(ColumnData.UserData.name.getColumnName()+":");
@@ -48,21 +46,29 @@ public class UserPanel extends JPanel {
         gbc.gridy = 1;
         panel.add(nameLabel, gbc);
 
-        nameDisplay = new JLabel(name, JLabel.LEFT);
-        gbc.gridx = 1;
-        gbc.gridy = 1;
-        panel.add(nameDisplay, gbc);
-
         // email label
         JLabel emailLabel = new JLabel(ColumnData.UserData.email.getColumnName()+":");
         gbc.gridx = 0;
         gbc.gridy = 2;
         panel.add(emailLabel, gbc);
 
-        emailDisplay = new JLabel(email, JLabel.LEFT);
+        gbc.anchor = GridBagConstraints.WEST;
+        gbc.insets = new Insets(5, 5, 5, 0);
+        usernameDisplay = new JLabel(id);
+        gbc.gridx = 1;
+        gbc.gridy = 0;
+        panel.add(usernameDisplay, gbc);
+
+        nameDisplay = new JLabel(name);
+        gbc.gridx = 1;
+        gbc.gridy = 1;
+        panel.add(nameDisplay, gbc);
+
+        emailDisplay = new JLabel(email);
         gbc.gridx = 1;
         gbc.gridy = 2;
         panel.add(emailDisplay, gbc);
+        
 
         return panel;
     }
@@ -71,45 +77,47 @@ public class UserPanel extends JPanel {
         JPanel panel = new JPanel(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
         // username label
+        /*
         JLabel usernameLabel = new JLabel(ColumnData.UserData.user_id.getColumnName()+":");
         gbc.gridx = 0;
         gbc.gridy = 0;
         gbc.insets = new Insets(10, 0, 10, 0);
         panel.add(usernameLabel, gbc);
-        
+
         //passText.setPreferredSize(new Dimension(15, 22));
         //passInput.setMinimumSize(passInput.getPreferredSize());
         gbc.gridx = 1;
         gbc.gridy = 0;
         gbc.insets = new Insets(10, 10, 10, 0);
         panel.add(usernameText, gbc);
+        */
 
         // name label
         JLabel nameLabel = new JLabel(ColumnData.UserData.name.getColumnName()+":");
         gbc.gridx = 0;
-        gbc.gridy = 1;
+        gbc.gridy = 0;
         gbc.insets = new Insets(10, 0, 10, 0);
         panel.add(nameLabel, gbc);
 
         gbc.gridx = 1;
-        gbc.gridy = 1;
+        gbc.gridy = 0;
         gbc.insets = new Insets(10, 10, 10, 0);
         panel.add(nameText, gbc);
 
         // email label
         JLabel emailLabel = new JLabel(ColumnData.UserData.email.getColumnName()+":");
         gbc.gridx = 0;
-        gbc.gridy = 2;
+        gbc.gridy = 1;
         gbc.insets = new Insets(10, 0, 10, 0);
         panel.add(emailLabel, gbc);
 
         gbc.gridx = 1;
-        gbc.gridy = 2;
+        gbc.gridy = 1;
         gbc.insets = new Insets(10, 10, 10, 0);
         panel.add(emailText, gbc);
         
         gbc.gridx = 1;
-        gbc.gridy = 3;
+        gbc.gridy = 2;
         gbc.insets = new Insets(10, 0, 10, 0);
         panel.add(update, gbc);
 
