@@ -1,5 +1,6 @@
 package maintainhome.model.Home;
 
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -49,6 +50,34 @@ public class Home {
         return zip;
     }
 
+    public List<IUnit> getUnitItems() {
+        return unitItems;
+    }
+
+    
+    public String[] getUnitJList() {
+        String[] unitList = new String[getUnitItems().size()];
+        for (int i = 0; i < getUnitItems().size(); i++) {
+            unitList[i] = getUnitItems().get(i).getUnitId();
+        } 
+        return unitList;
+    }
+
+    public List<String[]> getUnitRows() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("M/d/yyyy");
+        List<String[]> rows = new ArrayList<>();
+        for (IUnit unit:getUnitItems()) {
+            rows.add(new String[] {
+                unit.getUnitId(), unit.getItemName(), unit.getUnitType().getUnitType(),
+                unit.getRoomName(), unit.getInstallDate().format(formatter), unit.getMaintainedDate().format(formatter),
+                Integer.toString(unit.getMaintenanceFrequency()) + " " + unit.getFrequencyMeasure(),
+                //unit.getIssue(),
+                unit.getPriority().toString()
+            });
+        }
+        return rows;
+    }
+
     public void setUnitItem(IUnit unitItem) {
         unitItems.add(unitItem);
     }
@@ -62,5 +91,6 @@ public class Home {
         }
         // by default add kitchen, dining room, living room, bedroom, bathroom, 
     }
+
 
 }

@@ -45,19 +45,20 @@ public class User {
         }
     }
 
-    public String[] getHomeNames() {
-        String[] homeNames = new String[getHomes().size()];
+    public String[] getHomeJList() {
+        String[] homeList = new String[getHomes().size()];
         for (int i = 0; i < getHomes().size(); i++) {
-            homeNames[i] = getHomes().get(i).getHomeName();
+            homeList[i] = getHomes().get(i).getHomeName();
         } 
-        return homeNames;
+        return homeList;
     }
 
     public List<String[]> getHomeRows() {
         List<String[]> rows = new ArrayList<>();
         for (Home home:getHomes()) {
-            rows.add(new String[] {Integer.toString(home.getHomeNum())
-                , home.getHomeName(), home.getAddress(), home.getZip()});
+            rows.add(new String[] {
+                Integer.toString(home.getHomeNum()), home.getHomeName(), home.getAddress(), home.getZip()
+            });
         }
         return rows;
     }

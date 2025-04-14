@@ -3,6 +3,7 @@ import maintainhome.view.IView;
 import maintainhome.model.Model;
 import maintainhome.model.Home.Home;
 import maintainhome.model.User.User;
+import maintainhome.model.Home.UnitItems.IUnit;
 import maintainhome.model.Utilities.CsvLoader;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -31,16 +32,34 @@ public class Controller implements ActionListener, KeyListener {
         v.setListener(this, this);
     }
 
+    private void setUserHomes(User user) {
+        List<Home> homes = CsvLoader.loadHomesFile(user.getUserId());
+        model.getUser().setHomes(homes);
+        // User Panel
+        view.setUserPanel(user.getUserId(), user.getName(), user.getEmail());
+        // Homes Panel
+        view.addHomesList(user.getHomeJList());
+        view.addHomesTable(user.getHomeRows());
+    }
+
+    private void setUserItems(User user) {
+        for (Home home:user.getHomes()) {
+            List<IUnit> units = CsvLoader.loadUnitItemsFile(user.getUserId(), home.getHomeId());
+            home.setUnitItems(units);
+            // set in view: Units Panel
+            view.addUnitsList(home.getUnitJList());
+            view.addUnitsTable(home.getUnitRows());
+        }
+    }
+
     private void loginClicked() {
         User user = model.getUser();
         //try {
-            List<Home> homes = CsvLoader.loadHomesFile(user.getUserId());
-            model.getUser().setHomes(homes);
-            // need to see if setting the JList here works otherwise need to figure out how to update the JList data
-            view.setUserPanel(user.getUserId(), user.getName(), user.getEmail());
-            view.updateHomesList(user.getHomeNames());
-            view.updateHomesTable(user.getHomeRows());
-            view.switchMainPanel("3");
+        setUserHomes(user);
+        
+        setUserItems(user);
+        
+        view.switchMainPanel("3");
         /*
         } catch(NullPointerException err) {
             throw new NullPointerException("No User Found");
@@ -68,6 +87,7 @@ public class Controller implements ActionListener, KeyListener {
                 
                 break;
             case Commands.unitsButton:
+                view.switchRightPanel("4");
                 break;
             default:
         }

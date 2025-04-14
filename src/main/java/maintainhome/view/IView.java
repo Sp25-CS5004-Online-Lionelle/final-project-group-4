@@ -17,8 +17,13 @@ public interface IView {
    */
   String getLoginUser();
   void setUserPanel(String id, String name, String email);
-  void updateHomesList(String[] list);
-  void updateHomesTable(List<String[]> row);
+
+  void addHomesList(String[] list);
+  void addHomesTable(List<String[]> row);
+  
+  void addUnitsList (String[] unitIds);
+  void addUnitsTable(List<String[]> row);
+  
   void setListener(ActionListener clicks, KeyListener keys);
 
   void switchRightPanel(String cardNum);

@@ -2,6 +2,7 @@ package maintainhome.view.MainPanels;
 
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
@@ -27,9 +28,9 @@ public class ViewPanel extends JPanel {
                 tableModel = new DefaultTableModel(tableHeading, 0);
                 table = new JTable(tableModel);
                 JPanel bttmPanel = setBottomPanel();
-
-                add(topPanel, BorderLayout.NORTH);
-                add(bttmPanel, BorderLayout.CENTER);
+                
+                JSplitPane splitPane = new JSplitPane(SwingConstants.HORIZONTAL, topPanel, bttmPanel);
+                add(splitPane, BorderLayout.CENTER);
         }
 
         public JPanel getPanel() {
@@ -50,8 +51,12 @@ public class ViewPanel extends JPanel {
 
         public void updateJList(String[] updateItems) {
                 clearJList();
-                for (String items:updateItems) {
-                        listModel.addElement(items);
+                addToJList(updateItems);
+        }
+
+        public void addToJList(String[] items) {
+                for (String item:items) {
+                        listModel.addElement(item);
                 }
                 list.setModel(listModel);
         }
@@ -62,6 +67,12 @@ public class ViewPanel extends JPanel {
 
         public void addTableRow(String[] row) {
                 tableModel.addRow(row);
+        }
+
+        public void addTableRows(List<String[]> rows) {
+                for (String[] row:rows) {
+                        addTableRow(row);
+                }
         }
 
         public void updateTableRows(List<String[]> rows) {
@@ -77,27 +88,35 @@ public class ViewPanel extends JPanel {
                 // JList Label
                 gbc.gridx = 0;
                 gbc.gridy = 0;
-                gbc.insets = new Insets(50, 0, 0, 0);
+                gbc.insets = new Insets(25, 0, 25, 0);
                 panel.add(listLabel, gbc);
                 // JList
                 list.setFixedCellWidth(100);
+                list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
                 //list.add(new JScrollPane(list));
                 gbc.gridx = 1;
                 gbc.gridy = 0;
-                gbc.insets = new Insets(50, 10, 0, 0);
+                gbc.insets = new Insets(25, 10, 25, 0);
                 panel.add(list, gbc);
                 return panel;
         }
         
 
         private JPanel setBottomPanel() { // String[][] tableData, String[] tableHeading
-                JPanel panel = new JPanel(new GridBagLayout());
-                GridBagConstraints gbc = new GridBagConstraints();
+                JPanel panel = new JPanel(new BorderLayout());
+                panel.setBorder(new EmptyBorder(20, 20, 20, 20));
+                //GridBagConstraints gbc = new GridBagConstraints();
+                //table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+                // Wrap in a JScrollPane for scrolling functionality
                 table.getTableHeader().setReorderingAllowed(false);
-                gbc.gridy = 3;
-                panel.add(table.getTableHeader(), gbc);
-                gbc.gridy = 4;
-                panel.add(table, gbc);
+                //gbc.gridy = 3;
+                // panel.add(table.getTableHeader(), gbc);
+                //gbc.gridy = 4;
+                // panel.add(table, gbc);
+                
+                JScrollPane scrollPane = new JScrollPane(table);
+                scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+                panel.add(scrollPane, BorderLayout.CENTER);
                 return panel;
         }
 }

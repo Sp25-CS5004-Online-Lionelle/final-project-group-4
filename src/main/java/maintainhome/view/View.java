@@ -25,6 +25,8 @@ public class View extends JFrame implements IView {
     private JPanel afterLogin = new JPanel(new BorderLayout());
     private ViewPanel hViewPanel;
     private JPanel homesViewPanel;
+    private ViewPanel uViewPanel;
+    private JPanel unitsViewPanel;
     private JPanel rightPanel = new JPanel(new CardLayout());
     private JPanel panel2 = new JPanel(new BorderLayout()); 
     private JPanel panel3 = new JPanel(new BorderLayout()); // when a home is selected
@@ -64,11 +66,6 @@ public class View extends JFrame implements IView {
         return loginPanel.getUserInput();
     }
 
-    /*
-     public  setUserPanel() {
-     }
-     */
-
     private void setLeftPanel() {
         // need to have the splitpane
         buttonPanel = new ButtonPanel(3);
@@ -81,9 +78,9 @@ public class View extends JFrame implements IView {
     }
 
     private JPanel setHomesAdd() {
-        JPanel homesAddPanel = new JPanel(new GridBagLayout());
+        JPanel panel = new JPanel(new GridBagLayout());
 
-        return homesAddPanel;
+        return panel;
     }
 
     private void setHomesView() { // https://www.geeksforgeeks.org/java-swing-jlist-with-examples/
@@ -104,23 +101,81 @@ public class View extends JFrame implements IView {
         homesViewPanel = hViewPanel.getPanel();
         /* END */
     }
+    
     @Override
-    public void updateHomesList (String[] homeNames) {
-        hViewPanel.updateJList(homeNames);
+    public void addHomesList (String[] homeNames) {
+        hViewPanel.addToJList(homeNames);
     }
     @Override
-    public void updateHomesTable(List<String[]> row) {
-        hViewPanel.updateTableRows(row);
+    public void addHomesTable(List<String[]> row) {
+        hViewPanel.addTableRows(row);
     }
 
-    private void setRightPanel() {
+    
+    private JPanel setUnitsAdd() {
+        JPanel panel = new JPanel(new GridBagLayout());
+
+        return panel;
+    }
+    
+    private void setUnitsView() { // https://www.geeksforgeeks.org/java-swing-jlist-with-examples/
+        // VIEW tab
+        //constraints1.fill = GridBagConstraints.VERTICAL;
+        
+        //String[] mylist = new String[] {"hello world", "2", "3", "4"};
+        
+        //String[][] tableData = new String[][] { {"1", "23", "26"}, {"2", "2", "3"} };
+        String[] tableHeading = new String[] {
+            ColumnData.UnitItemData.unit_id.getColumnName(),
+            ColumnData.UnitItemData.item_name.getColumnName(),
+            ColumnData.UnitItemData.unit_type.getColumnName(),
+            ColumnData.UnitItemData.room_name.getColumnName(),
+            ColumnData.UnitItemData.install_date.getColumnName(),
+            ColumnData.UnitItemData.maintained_date.getColumnName(),
+            ColumnData.UnitItemData.maintenance_freq.getColumnName(),
+            //ColumnData.UnitItemData.issue.getColumnName(),
+            ColumnData.UnitItemData.priority.getColumnName()
+        };
+
+        uViewPanel = new ViewPanel("Units", tableHeading);
+        unitsViewPanel = uViewPanel.getPanel();
+        /* END */
+    }
+
+    @Override
+    public void addUnitsList (String[] unitIds) {
+        uViewPanel.addToJList(unitIds);
+    }
+    @Override
+    public void addUnitsTable(List<String[]> row) {
+        uViewPanel.addTableRows(row);
+    }
+
+    private void setHomesTabs(String tab1, String tab2) {
         
         JTabbedPane tabPane = new JTabbedPane();
         JPanel addPanel = setHomesAdd();
-        tabPane.add("View", homesViewPanel);
-        tabPane.add("Add", addPanel);
+        tabPane.add(tab1, homesViewPanel);
+        tabPane.add(tab2, addPanel);
 
         panel3.add(tabPane, BorderLayout.CENTER);
+    }
+
+    private void setUnitsTabs(String tab1, String tab2) {
+        
+        JTabbedPane tabPane = new JTabbedPane();
+        JPanel addPanel = setUnitsAdd();
+        tabPane.add(tab1, unitsViewPanel);
+        tabPane.add(tab2, addPanel);
+
+        panel4.add(tabPane, BorderLayout.CENTER);
+    }
+
+    private void setRightPanel() {
+        String tab1 = "View";
+        String tab2 = "Add";
+        setHomesTabs(tab1, tab2);
+        setUnitsTabs(tab1, tab2);
 
         rightPanel.add(panel3, "2");
         rightPanel.add(panel2, "3");
@@ -134,6 +189,7 @@ public class View extends JFrame implements IView {
         setLoginPanel();
         setLeftPanel();
         setHomesView();
+        setUnitsView();
         /* RIGHT panel */
         /* ADD tab */
         setRightPanel();

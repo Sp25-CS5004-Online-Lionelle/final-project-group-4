@@ -20,7 +20,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
-public class CsvUpdater {
+public class CsvUpdater implements ICsvSource {
 
     private static final String DELIMITER = ",";
 
@@ -73,7 +73,7 @@ public class CsvUpdater {
      * Gets the file path based on file type
      */
     private static String getFilePath(FileType fileType) {
-        return "path/to/csv/files/" + fileType.getFileName(); // Update this path
+        return filePath + fileType.getFileName(); // Update this path
     }
 
     /**

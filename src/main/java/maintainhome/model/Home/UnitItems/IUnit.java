@@ -3,7 +3,7 @@ package maintainhome.model.Home.UnitItems;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-
+import maintainhome.model.Home.Types.PriorityType;
 import maintainhome.model.Home.Types.RoomType;
 import maintainhome.model.Home.Types.UnitType;
 // the unit interface that all unit items implement
@@ -22,7 +22,19 @@ public interface IUnit {
 
     RoomType getRoomType();
     
+    String getRoomName();
+
     LocalDate getInstallDate();
+    
+    LocalDate getMaintainedDate();
+    
+    int getMaintenanceFrequency();
+
+    String getFrequencyMeasure();
+
+    String getIssue();
+
+    PriorityType getPriority();
 
     /**
      * Converts a string (e.g. "2/2/2024") into a LocalDate.

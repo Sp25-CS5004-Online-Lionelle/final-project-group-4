@@ -54,7 +54,7 @@ public class ColumnData { // https://www.geekster.in/articles/enum-class-in-java
     public enum UnitItemData implements IColumnEnum {
         user_id("User ID"), home_id("Home ID")
         // unit item columns
-        , unit_id("Unit ID"), item_name("Item Name")
+        , unit_id("Unit ID"), item_name("Unit Name")
         , unit_type("Unit Type"), room_type("Room Type")
         , room_name("Room Name"), install_date("Install Date")
         , maintained_date("Last Maintained Date"), maintenance_freq("Maintenance Frequency")
