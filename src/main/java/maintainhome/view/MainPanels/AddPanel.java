@@ -1,16 +1,22 @@
 package maintainhome.view.MainPanels;
 
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+
 import maintainhome.controller.Commands;
 import maintainhome.model.Home.Types.PriorityType;
 import maintainhome.model.Home.Types.RoomType;
 import maintainhome.model.Home.Types.UnitType;
 import maintainhome.model.Utilities.Types.ColumnData;
-
-import javax.swing.*;
-import java.awt.*;
-
-import java.util.List;
-import java.util.ArrayList;
 
 public class AddPanel extends JPanel {
     private GridBagConstraints gbc = new GridBagConstraints();
@@ -49,7 +55,7 @@ public class AddPanel extends JPanel {
     private void setTextFields(Commands type) {
         gbc.anchor= GridBagConstraints.WEST;
         switch(type) {
-            case Commands.homesButton:
+            case homesButton:
                 for (int i = 0; i < labels.size(); i++) {
                     fields.add(new JTextField("", 15));
                     gbc.gridy = i;
@@ -57,7 +63,7 @@ public class AddPanel extends JPanel {
                     add((JTextField)fields.get(i), gbc);
                 }
                 break;
-            case Commands.unitsButton:
+            case unitsButton:
                 for (int i = 0; i < labels.size(); i++) {
                     String labelText = labels.get(i).getText().replace(":", "");
                     gbc.gridy = i;

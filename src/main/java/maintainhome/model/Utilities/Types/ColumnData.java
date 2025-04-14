@@ -109,28 +109,28 @@ public class ColumnData { // https://www.geekster.in/articles/enum-class-in-java
     public static IColumnEnum fromColumnName(String columnName, FileType source) {
         
         switch(source) {
-            case FileType.USER:
+            case USER:
                 for (IColumnEnum col : ColumnData.UserData.values()) {
                     if (col.getColumnName().equals(columnName)) {
                         return col;
                     }
                 }
                 fromColumnNameException(columnName);
-            case FileType.HOMES:
+            case HOMES:
                 for (IColumnEnum col : ColumnData.HomeData.values()) {
                     if (col.getColumnName().equals(columnName)) {
                         return col;
                     }
                 }
                 fromColumnNameException(columnName);
-            case FileType.UNIT_ITEMS:
+            case UNIT_ITEMS:
                 for (IColumnEnum col : ColumnData.UnitItemData.values()) {
                     if (col.getColumnName().equals(columnName)) {
                         return col;
                     }
                 }
                 fromColumnNameException(columnName);
-            case FileType.USER_HOMES:
+            case USER_HOMES:
                 for (IColumnEnum col : ColumnData.UserHomeData.values()) {
                     if (col.getColumnName().equals(columnName)) {
                         return col;
@@ -154,28 +154,28 @@ public class ColumnData { // https://www.geekster.in/articles/enum-class-in-java
     public static IColumnEnum fromString(String name, FileType source) {
 
         switch(source) {
-            case FileType.USER:
+            case USER:
                 for (UserData col : UserData.values()) {
                     if (col.name().equalsIgnoreCase(name) || col.getColumnName().equalsIgnoreCase(name)) {
                         return col;
                     }
                 }
                 fromStringException(name);
-            case FileType.HOMES:
+            case HOMES:
                 for (HomeData col : HomeData.values()) {
                     if (col.name().equalsIgnoreCase(name) || col.getColumnName().equalsIgnoreCase(name)) {
                         return col;
                     }
                 }
                 fromStringException(name);
-            case FileType.UNIT_ITEMS:
+            case UNIT_ITEMS:
                 for (UnitItemData col : UnitItemData.values()) {
                     if (col.name().equalsIgnoreCase(name) || col.getColumnName().equalsIgnoreCase(name)) {
                         return col;
                     }
                 }
                 fromStringException(name);
-            case FileType.USER_HOMES:
+            case USER_HOMES:
                 for (UserHomeData col : UserHomeData.values()) {
                     if (col.name().equalsIgnoreCase(name) || col.getColumnName().equalsIgnoreCase(name)) {
                         return col;

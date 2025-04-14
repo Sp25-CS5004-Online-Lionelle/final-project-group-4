@@ -1,22 +1,10 @@
 package maintainhome.model.Utilities;
 
-import maintainhome.model.User.User;
-import maintainhome.model.Home.Home;
-import maintainhome.model.Home.Types.PriorityType;
-import maintainhome.model.Home.Types.RoomType;
-import maintainhome.model.Home.Types.UnitType;
-import maintainhome.model.Home.UnitItems.ApplianceUnit;
-import maintainhome.model.Home.UnitItems.ElectricUnit;
-import maintainhome.model.Home.UnitItems.IUnit;
-import maintainhome.model.Home.UnitItems.PlumbingUnit;
-import maintainhome.model.Utilities.Types.FileType;
-import maintainhome.model.Utilities.Types.ColumnData;
-import maintainhome.model.Utilities.Types.IColumnEnum;
 import java.io.BufferedReader;
 import java.io.FileInputStream;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
-import java.io.InputStream;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -26,6 +14,19 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
+
+import maintainhome.model.Home.Home;
+import maintainhome.model.Home.Types.PriorityType;
+import maintainhome.model.Home.Types.RoomType;
+import maintainhome.model.Home.Types.UnitType;
+import maintainhome.model.Home.UnitItems.ApplianceUnit;
+import maintainhome.model.Home.UnitItems.ElectricUnit;
+import maintainhome.model.Home.UnitItems.IUnit;
+import maintainhome.model.Home.UnitItems.PlumbingUnit;
+import maintainhome.model.User.User;
+import maintainhome.model.Utilities.Types.ColumnData;
+import maintainhome.model.Utilities.Types.FileType;
+import maintainhome.model.Utilities.Types.IColumnEnum;
 
 /**
  * Loads this apps objects from a CSV file.
@@ -58,14 +59,14 @@ public class CsvLoader implements ICsvSource {
         }
         
         switch(filetype) {
-            case FileType.USER:
+            case USER:
                 User user = new User(
                     columns[columnMap.get(ColumnData.UserData.user_id)]
                     , columns[columnMap.get(ColumnData.UserData.name)]
                     , columns[columnMap.get(ColumnData.UserData.email)]
                     );
                 return user;
-            case FileType.HOMES:
+            case HOMES:
                 Home home = new Home(
                     columns[columnMap.get(ColumnData.HomeData.home_id)],
                     Integer.parseInt(columns[columnMap.get(ColumnData.HomeData.home_num)]),
@@ -73,7 +74,7 @@ public class CsvLoader implements ICsvSource {
                     columns[columnMap.get(ColumnData.HomeData.address)],
                     columns[columnMap.get(ColumnData.HomeData.zip)]);
                 return home;
-            case FileType.UNIT_ITEMS:
+            case UNIT_ITEMS:
                 return toUnitItems(columns, columnMap);
             default:
                 return null;
@@ -117,7 +118,7 @@ public class CsvLoader implements ICsvSource {
         
         try {
             switch(type) {
-                case UnitType.ELECTRIC_UNIT:
+                case ELECTRIC_UNIT:
                     unit = new ElectricUnit(
                     userId
                     , homeId
@@ -135,7 +136,7 @@ public class CsvLoader implements ICsvSource {
                     , electricWatt
                     );
                     break;
-                case UnitType.PLUMBING_UNIT:
+                case PLUMBING_UNIT:
                     unit = new PlumbingUnit(
                     userId
                     , homeId
@@ -153,7 +154,7 @@ public class CsvLoader implements ICsvSource {
                     , plumbingGallon
                     );
                     break;
-                case UnitType.APPLIANCE:
+                case APPLIANCE:
                     unit = new ApplianceUnit(
                     userId
                     , homeId

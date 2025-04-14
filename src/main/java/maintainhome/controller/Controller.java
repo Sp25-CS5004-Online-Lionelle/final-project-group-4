@@ -1,18 +1,19 @@
 package maintainhome.controller;
-import maintainhome.view.IView;
-import maintainhome.model.Model;
-import maintainhome.model.Home.Home;
-import maintainhome.model.Home.Types.RoomType;
-import maintainhome.model.User.User;
-import maintainhome.model.Home.UnitItems.IUnit;
-import maintainhome.model.Utilities.CsvLoader;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.util.List;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
+
+import maintainhome.model.Home.Home;
+import maintainhome.model.Home.Types.RoomType;
+import maintainhome.model.Home.UnitItems.IUnit;
+import maintainhome.model.Model;
+import maintainhome.model.User.User;
+import maintainhome.model.Utilities.CsvLoader;
+import maintainhome.view.IView;
 
 /**
  * A controller to manage incoming requests from the view and processed outgoing data from the model.
@@ -82,21 +83,21 @@ public class Controller implements ActionListener, KeyListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         switch (Commands.toCommand(e.getActionCommand())) {
-            case Commands.loginButton:
+            case loginButton:
 
                 String userString = view.getLoginUser();
                 model.setUser(userString);
                 loginClicked();
                 break;
                 
-            case Commands.userButton:
+            case userButton:
                 view.switchRightPanel("3");
                 break;
-            case Commands.homesButton:
+            case homesButton:
                 view.switchRightPanel("2");
                 
                 break;
-            case Commands.unitsButton:
+            case unitsButton:
                 view.switchRightPanel("4");
                 break;
             default:
