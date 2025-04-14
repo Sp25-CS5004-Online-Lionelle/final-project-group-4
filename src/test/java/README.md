@@ -9,3 +9,7 @@ You should have full code coverage on your tests.
 soluion:
 
 ![alt text](test_imgs/image1.png)
+
+- View error with JLIst selection
+
+![alt text](test_imgs/image2.png)

@@ -6,8 +6,8 @@ import maintainhome.model.Utilities.Types.ColumnData;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyListener;
 
-//import javax.swing.event.ListSelectionEvent;
-//import javax.swing.event.ListSelectionListener;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 import javax.swing.*;
 import java.awt.*;
@@ -174,22 +174,21 @@ public class View extends JFrame implements IView {
             buttonPanel.getButtons()[i].addActionListener(listener);
         }
 
-        //setListSelectionListener();
+        // setListSelectionListener();
     }
-    
     /*
-    public void setListSelectionListener() {
+    private void setListSelectionListener() {
         JList<String> list = hViewPanel.getJList();
         list.addListSelectionListener(new ListSelectionListener() {
                 @Override
                 public void valueChanged(ListSelectionEvent e) {
                         ListSelectionModel lsm = (ListSelectionModel) e.getSource();
                         if (!e.getValueIsAdjusting()) {
-                                System.out.println(list.getSelectedValue());
-                                
-                                //final List<String> selectedValuesList = list.getSelectedValuesList();
-                                //System.out.println(selectedValuesList);
-                                
+                                System.out.println(lsm.getLeadSelectionIndex());
+                                *
+                                final List<String> selectedValuesList = list.getSelectedValuesList();
+                                System.out.println(selectedValuesList);
+                                *
                             }
                     }
             });
