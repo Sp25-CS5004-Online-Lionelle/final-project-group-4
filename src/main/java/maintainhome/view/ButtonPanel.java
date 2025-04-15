@@ -8,7 +8,7 @@ public class ButtonPanel extends JPanel {
     private JButton buttons[];
     private int inset20 = 20;
 
-    public ButtonPanel(int btnNum) {
+    public ButtonPanel(int btnNum, String[] btnText) {
         super(new GridBagLayout());
         buttons = new JButton[btnNum];
         /* LEFT panel */
@@ -21,17 +21,16 @@ public class ButtonPanel extends JPanel {
         //gbc.gridheight = 3;
         //gbc.fill = GridBagConstraints.VERTICAL;
         //sidePanel.setBounds(50,50, 500, 500);
-        setButtons();
+        setButtons(btnText);
     }
 
     public JButton[] getButtons() {
         return buttons;
     }
 
-    private void setButtons() {
+    private void setButtons(String[] btnText) {
         gbc.anchor = GridBagConstraints.CENTER;
 
-        String[] btnText = {"User", "Homes", "Units"};
         for (int i = 0; i < buttons.length; i++) {
             buttons[i] = new JButton(btnText[i]);
             gbc.gridy = i + 1;

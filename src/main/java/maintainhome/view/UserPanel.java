@@ -11,9 +11,9 @@ public class UserPanel extends JPanel {
     private JLabel nameDisplay;
     private JLabel emailDisplay;
 
-    private JTextField usernameText = new JTextField("", 15);;
-    private JTextField nameText = new JTextField("", 15);;
-    private JTextField emailText = new JTextField("", 15);;
+    //private JTextField usernameText = new JTextField("", 15);
+    private JTextField nameText = new JTextField("", 15);
+    private JTextField emailText = new JTextField("", 15);
     private JButton update = new JButton("Update");
     
     

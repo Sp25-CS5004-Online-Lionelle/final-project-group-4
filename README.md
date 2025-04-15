@@ -26,3 +26,9 @@ Emilio Sanchez-Harris -
 [Manual](/Manual)
 
 ## Instructions
+
+1. Enter the application with user login information.
+
+2. Option to navigate 3 buttons to view or add to User, User's Homes, User Home's Units.
+
+3. 

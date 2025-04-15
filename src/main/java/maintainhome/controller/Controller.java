@@ -6,6 +6,9 @@ import maintainhome.model.Home.Types.RoomType;
 import maintainhome.model.User.User;
 import maintainhome.model.Home.UnitItems.IUnit;
 import maintainhome.model.Utilities.CsvLoader;
+import maintainhome.model.Utilities.CsvUpdater;
+import maintainhome.model.Utilities.Types.ColumnData;
+import maintainhome.model.Utilities.Types.FileType;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -13,6 +16,7 @@ import java.awt.event.KeyListener;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Map;
 
 /**
  * A controller to manage incoming requests from the view and processed outgoing data from the model.
@@ -22,7 +26,6 @@ public class Controller implements ActionListener, KeyListener {
     private Model model;
     /** View of the application. */
     private IView view;
-
 
     /**
      * Default arg controller Constructor.
@@ -35,41 +38,30 @@ public class Controller implements ActionListener, KeyListener {
         v.setListener(this, this);
     }
 
-    private void setUserHomes(User user) {
-        List<Home> homes = CsvLoader.loadHomesFile(user.getUserId());
-        model.getUser().setHomes(homes);
+    private void setUserHomes() {
+        model.setUserHomes();
+        User user = model.getUser();
         // User Panel
         view.setUserPanel(user.getUserId(), user.getName(), user.getEmail());
         // Homes Panel
-        view.addHomesList(user.getHomeJList());
-        view.addHomesTable(user.getHomeRows());
+        view.updateHomesList(user.getHomeJList());
+        view.updateHomesTable(user.getHomeRows());
     }
 
-    private void setUserItems(User user) {
-        for (Home home:user.getHomes()) {
-            List<IUnit> units = CsvLoader.loadUnitItemsFile(user.getUserId(), home.getHomeId());
-            home.setUnitItems(units);
-            // set in view: Units Panel
-            // view.addUnitsList(home.getUnitJList());
-            List<String> values = new ArrayList<>();
-            for (RoomType val: RoomType.values()) {
-                values.add(val.getRoomType());
-            }
-            String[] jList = values.toArray(new String[0]);
-            Arrays.sort(jList);
-            view.addUnitsList(jList);
-            view.addUnitsTable(home.getUnitRows());
-        }
+    private void setViewUnits() {
+        
+        model.setUserItems();
+        String[] jList = model.getUnitsJList();
+
+        view.updateUnitsList(jList);
+        view.updateUnitsTable(model.getUnitRows());
     }
+
 
     private void loginClicked() {
-        User user = model.getUser();
         //try {
-        setUserHomes(user);
-        
-        setUserItems(user);
-        
-        view.switchMainPanel("3");
+        setUserHomes();
+        setViewUnits();
         /*
         } catch(NullPointerException err) {
             throw new NullPointerException("No User Found");
@@ -81,24 +73,59 @@ public class Controller implements ActionListener, KeyListener {
     
     @Override
     public void actionPerformed(ActionEvent e) {
-        switch (Commands.toCommand(e.getActionCommand())) {
+        String commandText = e.getActionCommand();
+        Commands command = Commands.toCommand(commandText);
+        switch (command) {
             case Commands.loginButton:
 
                 String userString = view.getLoginUser();
                 model.setUser(userString);
                 loginClicked();
+
+                view.switchMainPanel("3");
                 break;
                 
             case Commands.userButton:
-                view.switchRightPanel("3");
+                
+                view.setSelectedCard(command);
+                view.switchRightPanel(commandText);
                 break;
             case Commands.homesButton:
-                view.switchRightPanel("2");
+                
+                view.setSelectedCard(command);
+                view.switchRightPanel(commandText);
                 
                 break;
             case Commands.unitsButton:
-                view.switchRightPanel("4");
+
+                view.setSelectedCard(command);
+                view.switchRightPanel(commandText);
                 break;
+            case Commands.clearButton:
+                view.clearAddFields();
+            case Commands.insertButton:
+                model.setData(view.getAddValues());
+                Commands panel = view.getSelectedCard();
+                switch(panel) {
+                    case Commands.homesButton:
+                        model.setNewHome();
+                        model.addHome(model.getNewHome());
+                        model.saveHome();
+                        view.updateHomesList(model.getUser().getHomeJList());
+                        view.updateHomesTable(model.getUser().getHomeRows());
+                        view.getHomesTab().setSelectedIndex(0);
+                        break;
+                    case Commands.unitsButton:
+                        // need to implement saving out of units
+                        
+                        view.updateUnitsList(model.getUser().getHomeJList());
+                        view.updateUnitsTable(model.getUser().getHomeRows());
+                        view.getUnitsTab().setSelectedIndex(0);
+                        break;
+                    default:
+                    }
+                
+                view.clearAddFields();
             default:
         }
         //view.resetFocus();

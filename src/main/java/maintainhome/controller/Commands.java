@@ -4,7 +4,8 @@ package maintainhome.controller;
 /** A list of command types allowed for the contoller. */
 public enum Commands {
     /** Different command options. */
-    loginButton("Login"), userButton("User"), homesButton("Homes"), unitsButton("Units");
+    loginButton("Login"), userButton("User"), homesButton("Homes"), unitsButton("Units"),
+    clearButton("Clear"), insertButton("Add");
 
     /** The command. */
     private final String command;
@@ -23,7 +24,7 @@ public enum Commands {
      * 
      * @return The command.
      */
-    public String getCommand() {
+    public String getCommandText() {
         return command;
     }
 
@@ -35,7 +36,7 @@ public enum Commands {
      */
     public static Commands toCommand(String command) {
         for (Commands op : Commands.values()) {
-            if (op.getCommand().equalsIgnoreCase(command)) {
+            if (op.getCommandText().equalsIgnoreCase(command)) {
                 return op;
             }
         }

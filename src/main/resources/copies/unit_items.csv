@@ -1,0 +1,6 @@
+user_id,home_id,unit_id,item_name,unit_type,room_type,room_name,install_date,maintained_date,maintenance_freq,frequency_meas,issue,priority
+js1,1,js1h1u1,stove,Appliance,KITCHEN,Kitchen,1/6/2012,1/6/2022,10,YEAR,stove button for top-right not working,LOW
+js1,1,js1h1u2,sink,Plumbing Unit,BATHROOM,Master Bathroom,1/5/2012,1/5/2017,3,YEAR,sink is leaking,IMPORTANT
+js1,1,js1h1u3,sink,Plumbing Unit,BATHROOM,2nd Bathroom,1/6/2010,8/10/2024,3,YEAR,hot water not working,LOW
+js1,1,js1h1u4,electric panel,Electric Unit,GARAGE,Garage,1/20/2010,5/15/2024,3,YEAR,breaker for 2nd bedroom not working,URGENT
+js1,1,js1h1u5,refrigerator,Appliance,KITCHEN,Kitchen,1/25/2012,2/5/2023,10,YEAR,temperature is too high,IMPORTANT

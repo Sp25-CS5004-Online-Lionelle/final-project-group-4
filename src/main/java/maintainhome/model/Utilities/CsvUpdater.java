@@ -2,32 +2,38 @@ package maintainhome.model.Utilities;
 
 import maintainhome.model.User.User;
 import maintainhome.model.Home.Home;
-import maintainhome.model.Home.UnitItems.AbstractUnit;
-import maintainhome.model.Home.Types.PriorityType;
-import maintainhome.model.Home.Types.RoomType;
-import maintainhome.model.Home.Types.UnitType;
-import maintainhome.model.Home.UnitItems.ApplianceUnit;
-import maintainhome.model.Home.UnitItems.ElectricUnit;
 import maintainhome.model.Home.UnitItems.IUnit;
-import maintainhome.model.Home.UnitItems.PlumbingUnit;
 import maintainhome.model.Utilities.Types.FileType;
 import maintainhome.model.Utilities.Types.ColumnData;
 import maintainhome.model.Utilities.Types.IColumnEnum;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 public class CsvUpdater implements ICsvSource {
 
     private static final String DELIMITER = ",";
 
+    public static int getLastRow(FileType fileType) {
+        List<String> lines = readCsvFile(fileType);
+        
+        return lines.size();
+    }
+
+    
+    private static String[] trimValues(String[] values) {
+        String[] result = new String[values.length];
+        for (int i = 0; i < values.length; i++) {
+            result[i] = values[i].trim();
+        }
+        return result;
+    }
+
     /**
      * Method to update or append to a CSV file
      */
-    public static void updateCsvFile(FileType fileType, Object data) {
+    public static void updateRewriteCsvFile(FileType fileType, Object data) {
         List<String> lines = readCsvFile(fileType);
         Map<IColumnEnum, Integer> columnMap = processHeader(lines.remove(0), fileType);
 
@@ -51,6 +57,28 @@ public class CsvUpdater implements ICsvSource {
         // Write updated content back to the CSV
         writeToFile(fileType, lines);
     }
+
+    
+  public static void updateCsvFile(FileType fileType, Map<String, String> data) {
+        List<String> lines = readCsvFile(fileType);
+        String[] header = trimValues(lines.get(0).split(DELIMITER));
+        
+        String line = "";
+        for (int i = 0; i < header.length; i++) {
+
+            if (i == header.length - 1) {
+                line += data.get(header[i]);
+            } else {
+                line += data.get(header[i]) + DELIMITER;
+            }
+        }
+
+        lines.add(line);
+        // Write updated content back to the CSV
+    
+        // Write updated content back to the CSV
+        writeToFile(fileType, lines);
+}
 
     /**
      * Reads the content of a CSV file.
@@ -100,6 +128,7 @@ public class CsvUpdater implements ICsvSource {
         String filePath = getFilePath(fileType);
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath, StandardCharsets.UTF_8))) {
             for (String line : lines) {
+                
                 writer.write(line);
                 writer.newLine();
             }

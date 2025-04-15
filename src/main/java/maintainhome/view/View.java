@@ -14,6 +14,8 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.*;
 import java.awt.*;
 import java.util.List;
+import java.util.Map;
+import java.util.HashMap;
 import java.util.ArrayList;
 
 /**
@@ -26,20 +28,31 @@ public class View extends JFrame implements IView {
     private JPanel container = new JPanel(new CardLayout()); // user info - viewing and modifying will be on same page // user icon, homes list - will have Jlist to select and JTextArea - will incorporate a tab for adding
     private LoginPanel loginPanel;
     private JPanel afterLogin = new JPanel(new BorderLayout());
-    private ViewPanel hViewPanel;
-    private JPanel homesViewPanel;
-    private ViewPanel uViewPanel;
-    private JPanel unitsViewPanel;
+    private JTabbedPane homesTabPane;
+    private JTabbedPane unitsTabPane;
+    private ViewPanel homesViewPanel;
+    private AddPanel homesAddPanel;
+    private ViewPanel unitsViewPanel;
+    private AddPanel unitsAddPanel;
     private JPanel rightPanel = new JPanel(new CardLayout());
-    private JPanel panel2 = new JPanel(new BorderLayout()); 
-    private JPanel panel3 = new JPanel(new BorderLayout()); // when a home is selected
-    private JPanel panel4 = new JPanel(new BorderLayout());
+    private JPanel panel1 = new JPanel(new BorderLayout()); 
+    private JPanel panel2 = new JPanel(new BorderLayout()); // when a home is selected
+    private JPanel panel3 = new JPanel(new BorderLayout());
+    private Commands selectedCard;
+    private Map<Commands, String[]> commands = new HashMap<>();
 
     /** view's GridBagConstraints inset . */
     // private int inset = 10; // padding
 
     public View(String caption) {
         super(caption);
+
+        commands.put(Commands.userButton,
+            new String[] {Commands.userButton.getCommandText(), "User"});
+        commands.put(Commands.homesButton, new String[] {Commands.homesButton.getCommandText(),
+                ColumnData.HomeData.home_name.getColumnName()});
+        commands.put(Commands.unitsButton, new String[] {Commands.unitsButton.getCommandText(),
+            ColumnData.UnitItemData.room_type.getColumnName()});
 
         setFramePanel();
         addToFrame();
@@ -60,27 +73,38 @@ public class View extends JFrame implements IView {
         //gbc.fill = GridBagConstraints.NONE;
 
     }
-
+    
+    /**
+     * Sets and adds componenets to the login panel.
+     */
     private void setLoginPanel() {
         loginPanel = new LoginPanel();
     }
 
+    @Override
     public String getLoginUser() {
         return loginPanel.getUserInput();
     }
 
+    /**
+     * Sets and adds componenets to the left panel.
+     */
     private void setLeftPanel() {
         // need to have the splitpane
-        buttonPanel = new ButtonPanel(3);
+        buttonPanel = new ButtonPanel(3, new String[] {commands.get(Commands.userButton)[0],
+            commands.get(Commands.homesButton)[0], commands.get(Commands.unitsButton)[0]});
     }
 
     @Override
     public void setUserPanel(String id, String name, String email) {
         UserPanel userPanel = new UserPanel(id, name, email);
-        panel2.add(userPanel);
+        panel1.add(userPanel);
     }
-
-    private String[] homeFields(List<IColumnEnum> exclude) {
+    
+    /**
+     * Sets and adds componenets to the add tab for Homes panel.
+     */
+    private String[] homeAddFields(List<IColumnEnum> exclude) {
         List<String> fields = new ArrayList<>();
         int check = 0;
         for (ColumnData.HomeData col:ColumnData.HomeData.values()) {
@@ -97,7 +121,11 @@ public class View extends JFrame implements IView {
         return fields.toArray(new String[0]);
     }
 
-    private String[] unitFields(List<IColumnEnum> exclude) {
+    
+    /**
+     * Sets and adds componenets to the add tab for Units panel.
+     */
+    private String[] unitAddFields(List<IColumnEnum> exclude) {
         List<String> fields = new ArrayList<>();
         int check = 0;
         for (ColumnData.UnitItemData col:ColumnData.UnitItemData.values()) {
@@ -114,17 +142,21 @@ public class View extends JFrame implements IView {
         return fields.toArray(new String[0]);
     }
 
-    private JPanel setHomesAdd() {
+    /**
+     * Sets the add tab for Homes panel.
+     */
+    private void setHomesAdd() {
         //JPanel panel = new JPanel(new GridBagLayout());
         List<IColumnEnum> ex = new ArrayList<>();
         ex.add(ColumnData.HomeData.home_id);
         ex.add(ColumnData.HomeData.home_num);
-        String[] fields = homeFields(ex);
-        AddPanel panel = new AddPanel(fields, Commands.homesButton);
-        return panel;
+        String[] fields = homeAddFields(ex);
+        homesAddPanel = new AddPanel(fields, Commands.homesButton);
     }
 
-
+    /**
+     * Sets the view tab for Homes panel.
+     */
     private void setHomesView() { // https://www.geeksforgeeks.org/java-swing-jlist-with-examples/
         // VIEW tab
         //constraints1.fill = GridBagConstraints.VERTICAL;
@@ -134,24 +166,27 @@ public class View extends JFrame implements IView {
         //String[][] tableData = new String[][] { {"1", "23", "26"}, {"2", "2", "3"} };
         List<IColumnEnum> ex = new ArrayList<>();
         ex.add(ColumnData.HomeData.home_id);
-        String[] tableHeading = homeFields(ex);
+        String[] tableHeading = homeAddFields(ex);
 
-        hViewPanel = new ViewPanel("Homes", tableHeading);
-        homesViewPanel = hViewPanel.getPanel();
+        homesViewPanel = new ViewPanel(commands.get(Commands.homesButton)[1], tableHeading);
+        
         /* END */
     }
     
     @Override
-    public void addHomesList (String[] homeNames) {
-        hViewPanel.addToJList(homeNames);
+    public void updateHomesList (String[] homeNames) {
+        homesViewPanel.updateJList(homeNames);
     }
     @Override
-    public void addHomesTable(List<String[]> row) {
-        hViewPanel.addTableRows(row);
+    public void updateHomesTable(List<String[]> row) {
+        homesViewPanel.updateTableRows(row);
     }
 
     
-    private JPanel setUnitsAdd() {
+    /**
+     * Sets the add tab for Units panel.
+     */
+    private void setUnitsAdd() {
         List<IColumnEnum> ex = new ArrayList<>();
         ex.add(ColumnData.UnitItemData.user_id);
         ex.add(ColumnData.UnitItemData.home_id);
@@ -159,11 +194,13 @@ public class View extends JFrame implements IView {
         // ex.add(ColumnData.UnitItemData.room_type);
         ex.add(ColumnData.UnitItemData.frequency_meas);
 
-        String[] fields = unitFields(ex);
-        AddPanel panel = new AddPanel(fields, Commands.unitsButton);
-        return panel;
+        String[] fields = unitAddFields(ex);
+        unitsAddPanel = new AddPanel(fields, Commands.unitsButton);
     }
     
+    /**
+     * Sets the view tab for Units panel.
+     */
     private void setUnitsView() { // https://www.geeksforgeeks.org/java-swing-jlist-with-examples/
         // VIEW tab
         //constraints1.fill = GridBagConstraints.VERTICAL;
@@ -191,54 +228,72 @@ public class View extends JFrame implements IView {
         ex.add(ColumnData.UnitItemData.room_type);
         ex.add(ColumnData.UnitItemData.frequency_meas);
 
-        String[] tableHeading = unitFields(ex);
-        uViewPanel = new ViewPanel("Units", tableHeading);
-        unitsViewPanel = uViewPanel.getPanel();
+        String[] tableHeading = unitAddFields(ex);
+        unitsViewPanel = new ViewPanel(commands.get(Commands.unitsButton)[1], tableHeading);
         /* END */
     }
 
     @Override
-    public void addUnitsList (String[] unitIds) {
-        uViewPanel.addToJList(unitIds);
+    public void updateUnitsList (String[] unitIds) {
+        unitsViewPanel.updateJList(unitIds);
     }
     @Override
-    public void addUnitsTable(List<String[]> row) {
-        uViewPanel.addTableRows(row);
+    public void updateUnitsTable(List<String[]> row) {
+        unitsViewPanel.updateTableRows(row);
     }
 
+    /**
+     * Adds the componenets to the Homes panel tabs.
+     */
     private void setHomesTabs(String tab1, String tab2) {
-        
-        JTabbedPane tabPane = new JTabbedPane();
-        JPanel addPanel = setHomesAdd();
-        tabPane.add(tab1, homesViewPanel);
-        tabPane.add(tab2, addPanel);
+        setHomesAdd();
+        homesTabPane = new JTabbedPane();
+        homesTabPane.add(tab1, homesViewPanel);
+        homesTabPane.add(tab2, homesAddPanel);
 
-        panel3.add(tabPane, BorderLayout.CENTER);
+        panel2.add(homesTabPane, BorderLayout.CENTER);
     }
 
+    public JTabbedPane getHomesTab() {
+        return homesTabPane;
+    }
+
+    public JTabbedPane getUnitsTab() {
+        return unitsTabPane;
+    }
+
+    /**
+     * Adds the componenets to the Units panel tabs.
+     */
     private void setUnitsTabs(String tab1, String tab2) {
-        
-        JTabbedPane tabPane = new JTabbedPane();
-        JPanel addPanel = setUnitsAdd();
-        tabPane.add(tab1, unitsViewPanel);
-        tabPane.add(tab2, addPanel);
+        setUnitsAdd();
+        unitsTabPane = new JTabbedPane();
+        unitsTabPane.add(tab1, unitsViewPanel);
+        unitsTabPane.add(tab2, unitsAddPanel);
 
-        panel4.add(tabPane, BorderLayout.CENTER);
+        panel3.add(unitsTabPane, BorderLayout.CENTER);
     }
 
+    
+    /**
+     * Adds all componenets to right panel and sets the panel ready to be displayed.
+     */
     private void setRightPanel() {
         String tab1 = "View";
         String tab2 = "Add";
         setHomesTabs(tab1, tab2);
         setUnitsTabs(tab1, tab2);
 
-        rightPanel.add(panel3, "2");
-        rightPanel.add(panel2, "3");
-        rightPanel.add(panel4, "4");
+        rightPanel.add(panel2, commands.get(Commands.homesButton)[0]); // Homes Button - wanted to display this first
+        rightPanel.add(panel1, commands.get(Commands.userButton)[0]);
+        rightPanel.add(panel3, commands.get(Commands.unitsButton)[0]);
         afterLogin.add(rightPanel);
 
     }
 
+    /**
+     * Adds all componenets to frame and sets the frame ready to be displayed.
+     */
     private void addToFrame() {
         
         setLoginPanel();
@@ -254,27 +309,65 @@ public class View extends JFrame implements IView {
         afterLogin.add(rightPanel, BorderLayout.CENTER);
         container.add(loginPanel.getLoginPanel(), "2");
         container.add(afterLogin, "3");
-        //this.add(rightPanel);
+
         this.add(container, BorderLayout.CENTER);
     }
 
-
+    /**
+     * Adds border to the main componenets for display.
+     */
     private void setBorder() {
         buttonPanel.setBorder(BorderFactory.createLineBorder(Color.black));
         container.setBorder(BorderFactory.createLineBorder(Color.black));
-        hViewPanel.getJList().setBorder(BorderFactory.createLineBorder(Color.black));
+        homesViewPanel.getJList().setBorder(BorderFactory.createLineBorder(Color.black));
+        unitsViewPanel.getJList().setBorder(BorderFactory.createLineBorder(Color.black));
     }
 
     @Override
-    public void switchRightPanel(String cardNum) {
+    public void switchRightPanel(String cardName) {
         CardLayout card = (CardLayout) rightPanel.getLayout();
-        card.show(rightPanel, cardNum);
+        card.show(rightPanel, cardName);
     }
     
     @Override
-    public void switchMainPanel(String cardNum) {
+    public void switchMainPanel(String cardName) {
         CardLayout card = (CardLayout) container.getLayout();
-        card.show(container, cardNum);
+        card.show(container, cardName);
+    }
+
+    @Override
+    public Commands getSelectedCard() {
+        return selectedCard;
+    }
+
+    @Override
+    public void setSelectedCard(Commands card) {
+        selectedCard = card;
+    }
+
+    @Override
+    public void clearAddFields() {
+        switch(selectedCard) {
+            case Commands.homesButton:
+                homesAddPanel.clearFields(selectedCard);
+                break;
+            case Commands.unitsButton:
+                unitsAddPanel.clearFields(selectedCard);
+                break;
+            default:
+        }
+    }
+
+    @Override
+    public Map<String, String> getAddValues() {
+        switch(selectedCard) {
+            case Commands.homesButton:
+                return homesAddPanel.getValues(selectedCard);
+            case Commands.unitsButton:
+                return unitsAddPanel.getValues(selectedCard);
+            default:
+                return null;
+        }
     }
 
     @Override
@@ -284,28 +377,39 @@ public class View extends JFrame implements IView {
         for (int i = 0; i < buttonPanel.getButtons().length; i++) {
             buttonPanel.getButtons()[i].addActionListener(listener);
         }
+        // set listener for add panels clear button
+        homesAddPanel.getClearButton().addActionListener(listener);
+        unitsAddPanel.getClearButton().addActionListener(listener);
 
-        setListSelectionListener();
+        // set listener for add panels add button
+        homesAddPanel.getAddButton().addActionListener(listener);
+        unitsAddPanel.getAddButton().addActionListener(listener);
+
+        //setListSelectionListener();
     }
-    
+
+    /*
     private void setListSelectionListener() {
-        JList<String> list = hViewPanel.getJList();
+        JList<String> list = homesViewPanel.getJList();
         list.addListSelectionListener(new ListSelectionListener() {
                 @Override
                 public void valueChanged(ListSelectionEvent e) {
                         ListSelectionModel lsm = (ListSelectionModel) e.getSource();
                         if (!e.getValueIsAdjusting()) {
                                 System.out.println(lsm.getLeadSelectionIndex());
-                                /*
+                                *
                                 final List<String> selectedValuesList = list.getSelectedValuesList();
                                 System.out.println(selectedValuesList);
-                                */
+                                *
                             }
                     }
             });
     }
-    
+    */
 
+    /**
+     * Displays the frame
+     */
     private void display() {
         setVisible(true);
     }

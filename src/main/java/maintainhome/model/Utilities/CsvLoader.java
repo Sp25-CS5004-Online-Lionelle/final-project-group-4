@@ -209,13 +209,20 @@ public class CsvLoader implements ICsvSource {
         return columnMap;
     }
 
+    /**
+     * Gets the file path based on file type
+     * @return the filepath to the selected file
+     */
+    private static String getFilePath(FileType fileType) {
+        return filePath + fileType.getFileName(); // Update this path
+    }
+
     private static List<String> processLines(FileType filetype) {
-        String path = filePath.concat(filetype.getFileName());
+        String path = getFilePath(filetype);
         List<String> lines;
         try {
             // this is so we can store the files in the resources folder
             
-            // InputStream is = CsvLoader.class.getResourceAsStream(filename);
             InputStream is = new FileInputStream(path);
             InputStreamReader isr = new InputStreamReader(is, StandardCharsets.UTF_8);
             BufferedReader reader = new BufferedReader(isr);

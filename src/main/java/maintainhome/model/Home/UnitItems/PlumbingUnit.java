@@ -9,7 +9,7 @@ import maintainhome.model.Home.Types.UnitType;
 /**
  * Represents a plumbing unit in the home, such as a toilet, sink, or shower.
  */
-public class PlumbingUnit extends AbstractUnit implements IUnit, IPlumbingUnit {
+public class PlumbingUnit extends AbstractUnit implements IPlumbingUnit {
 
     /** The water capacity of the plumbing unit in gallons. */
     private int plumbingGallon;

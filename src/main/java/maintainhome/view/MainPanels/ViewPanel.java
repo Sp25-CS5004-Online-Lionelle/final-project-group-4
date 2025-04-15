@@ -3,8 +3,6 @@ package maintainhome.view.MainPanels;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.util.List;
@@ -16,7 +14,7 @@ public class ViewPanel extends JPanel {
 
         private DefaultTableModel tableModel;
         private JTable table;
-        private int inset20 = 20;
+        //private int inset20 = 20;
 
         public ViewPanel(String label, String[] tableHeading) { // need to get the list of home ids, names or other and set here
                 super(new BorderLayout());

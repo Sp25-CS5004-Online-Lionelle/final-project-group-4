@@ -45,6 +45,14 @@ public class User {
         }
     }
 
+    public int getNextHomeNum() {
+        int max = 0;
+        for (Home home:getHomes()) {
+            max = (home.getHomeNum() > max) ? home.getHomeNum() : max;
+        }
+        return max + 1;
+    }
+
     public String[] getHomeJList() {
         String[] homeList = new String[getHomes().size()];
         for (int i = 0; i < getHomes().size(); i++) {
