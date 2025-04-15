@@ -63,20 +63,6 @@ public class Home {
         return unitList;
     }
 
-    public List<String[]> getUnitRows() {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("M/d/yyyy");
-        List<String[]> rows = new ArrayList<>();
-        for (IUnit unit:getUnitItems()) {
-            rows.add(new String[] {
-                unit.getUnitId(), unit.getItemName(), unit.getUnitType().getUnitType(),
-                unit.getRoomName(), unit.getInstallDate().format(formatter), unit.getMaintainedDate().format(formatter),
-                Integer.toString(unit.getMaintenanceFrequency()) + " " + unit.getFrequencyMeasure(),
-                unit.getIssue(),
-                unit.getPriority().toString()
-            });
-        }
-        return rows;
-    }
 
     public void setUnitItem(IUnit unitItem) {
         unitItems.add(unitItem);
@@ -92,5 +78,10 @@ public class Home {
         // by default add kitchen, dining room, living room, bedroom, bathroom, 
     }
 
+    public String[] getHomeRow() {
+        return new String[] {
+            Integer.toString(getHomeNum()), getHomeName(), getAddress(), getZip()
+        };
+    }
 
 }

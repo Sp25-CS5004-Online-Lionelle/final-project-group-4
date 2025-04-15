@@ -79,12 +79,31 @@ public class Model {
             // view.addUnitsList(home.getUnitJList());
         }
     }
+    
+    public String[] getHomeJList() {
+        String[] homeList = new String[getUser().getHomes().size()];
+        for (int i = 0; i < getUser().getHomes().size(); i++) {
+            homeList[i] = getUser().getHomes().get(i).getHomeName();
+        } 
+        return homeList;
+    }
+
+    public List<String[]> getHomeRows() {
+        List<String[]> rows = new ArrayList<>();
+        for (Home home:getUser().getHomes()) {
+            rows.add(home.getHomeRow());
+        }
+        return rows;
+    }
 
     public List<String[]> getUnitRows() {
+        List<String[]> rows = new ArrayList<>();
         for (Home home:getUser().getHomes()) {
-            return home.getUnitRows();
+            for (IUnit unit:home.getUnitItems()) {
+                rows.add(unit.getUnitRow());
+            }   
         }
-        return null;
+        return rows;
     }
 
     public String[] getUnitsJList() {

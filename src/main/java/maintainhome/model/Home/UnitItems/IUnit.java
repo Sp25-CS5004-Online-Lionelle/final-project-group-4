@@ -36,6 +36,8 @@ public interface IUnit {
 
     PriorityType getPriority();
 
+    String[] getUnitRow();
+
     /**
      * Converts a string (e.g. "2/2/2024") into a LocalDate.
      *

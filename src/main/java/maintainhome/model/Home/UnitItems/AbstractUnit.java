@@ -1,7 +1,7 @@
 package maintainhome.model.Home.UnitItems;
 
 import java.time.LocalDate;
-
+import java.time.format.DateTimeFormatter;
 import maintainhome.model.Home.Types.PriorityType;
 import maintainhome.model.Home.Types.RoomType;
 import maintainhome.model.Home.Types.UnitType;
@@ -196,6 +196,15 @@ public abstract class AbstractUnit implements IUnit {
     /** @param priority the maintenance priority to set */
     public void setPriority(PriorityType priority) {
         this.priority = priority;
+    }
+
+    public String[] getUnitRow() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("M/d/yyyy");
+        return new String[] {getUnitId(), getItemName(), getUnitType().getUnitType(),
+                getRoomName(), getInstallDate().format(formatter), getMaintainedDate().format(formatter),
+                Integer.toString(getMaintenanceFrequency()) + " " + getFrequencyMeasure(),
+                getIssue(),
+                getPriority().toString()};
     }
 
     /**

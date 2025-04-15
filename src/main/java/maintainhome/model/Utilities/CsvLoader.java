@@ -332,8 +332,8 @@ public class CsvLoader implements ICsvSource {
       * Loads IUnit objects from a CSV file.
         * Supports unit types: ElectricUnit, PlumbingUnit, ApplianceUnit.
      * 
-     * @param filename the name of the file to load
-     * @return a set of User objects
+     * @param userId the user id to filter the file
+     * @return a set of User's unit items
      */
     public static List<IUnit> loadUnitItemsFile(String userId, String homeId) {
         FileType fType = FileType.UNIT_ITEMS;
@@ -346,7 +346,7 @@ public class CsvLoader implements ICsvSource {
         units = lines.stream().map(line -> (IUnit)toObject(line, columnMap, fType))
                 .filter(
                     unit ->
-                    //unit.getUserId().equals(userId) && unit.getHomeId().equals(homeId) &&
+                    unit.getUserId().equals(userId) && unit.getHomeId().equals(homeId) &&
                     unit != null).collect(Collectors.toList());
 
         return units;

@@ -53,22 +53,4 @@ public class User {
         return max + 1;
     }
 
-    public String[] getHomeJList() {
-        String[] homeList = new String[getHomes().size()];
-        for (int i = 0; i < getHomes().size(); i++) {
-            homeList[i] = getHomes().get(i).getHomeName();
-        } 
-        return homeList;
-    }
-
-    public List<String[]> getHomeRows() {
-        List<String[]> rows = new ArrayList<>();
-        for (Home home:getHomes()) {
-            rows.add(new String[] {
-                Integer.toString(home.getHomeNum()), home.getHomeName(), home.getAddress(), home.getZip()
-            });
-        }
-        return rows;
-    }
-
 }

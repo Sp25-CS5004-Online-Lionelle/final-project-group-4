@@ -47,3 +47,12 @@ Before:
 ![alt text](test_imgs/image10.png)  
 After: 
 ![alt text](test_imgs/image11.png)
+
+### Testing Get Units Rows  
+- Testing the get Units rows for Jtable does not have duplicates when updates are made to the files  
+**Homes Add Tab**
+
+Before:   
+![alt text](test_imgs/image12.png)  
+After:  
+![alt text](test_imgs/image13.png)

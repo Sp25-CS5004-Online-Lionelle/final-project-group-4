@@ -35,12 +35,11 @@ public class Controller implements ActionListener, KeyListener {
 
     private void setUserHomes() {
         model.setUserHomes();
-        User user = model.getUser();
         // User Panel
-        view.setUserPanel(user.getUserId(), user.getName(), user.getEmail());
+        view.setUserPanel(model.getUser().getUserId(), model.getUser().getName(), model.getUser().getEmail());
         // Homes Panel
-        view.updateHomesList(user.getHomeJList());
-        view.updateHomesTable(user.getHomeRows());
+        view.updateHomesList(model.getHomeJList());
+        view.updateHomesTable(model.getHomeRows());
     }
 
     private void setViewUnits() {
@@ -106,15 +105,15 @@ public class Controller implements ActionListener, KeyListener {
                         model.setNewHome();
                         model.addHome(model.getNewHome());
                         model.saveHome();
-                        view.updateHomesList(model.getUser().getHomeJList());
-                        view.updateHomesTable(model.getUser().getHomeRows());
+                        view.updateHomesList(model.getHomeJList());
+                        view.updateHomesTable(model.getHomeRows());
                         view.getHomesTab().setSelectedIndex(0);
                         break;
                     case Commands.unitsButton:
                         // need to implement saving out of units
                         
-                        view.updateUnitsList(model.getUser().getHomeJList());
-                        view.updateUnitsTable(model.getUser().getHomeRows());
+                        view.updateUnitsList(model.getHomeJList());
+                        view.updateUnitsTable(model.getUnitRows());
                         view.getUnitsTab().setSelectedIndex(0);
                         break;
                     default:
