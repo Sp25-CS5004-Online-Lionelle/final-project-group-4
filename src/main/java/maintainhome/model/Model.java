@@ -81,13 +81,10 @@ public class Model {
     }
 
     public List<String[]> getUnitRows() {
-        List<String[]> rows = new ArrayList<>();
         for (Home home:getUser().getHomes()) {
-            for (String[] row:home.getUnitRows()) {
-                rows.add(row);
-            }
+            return home.getUnitRows();
         }
-        return rows;
+        return null;
     }
 
     public String[] getUnitsJList() {
