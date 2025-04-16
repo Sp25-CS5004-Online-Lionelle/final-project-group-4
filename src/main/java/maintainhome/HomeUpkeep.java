@@ -25,39 +25,5 @@ public final class HomeUpkeep {
         IView view = new View("Home Maintenance App");
         Controller controller = new Controller(model, view);
         
-
-        /*
-        String sampleUser = "js1";
-        model.setUser(sampleUser);
-        User user = model.getUser();
-        user.setHomes(CsvLoader.loadHomesFile(user.getUserId()));
-        
-        try {
-            h1 = this.user.getHomes().get(0);
-            System.out.println(h1.getAddress());
-        } catch(Exception e) {
-            // NullPointerException
-            System.out.println("User has no homes listed.");
-        }
-        
-
-        //testing the filter and sort functionality
-        //List<IUnit> allUnits = CsvLoader.loadUnitItemsFile(user.getUserId(), user.getHomes().get(0).getHomeId());
-        
-        List<IUnit> units = CsvLoader.loadUnitItemsFile(user.getUserId(), user.getHomes().get(0).getHomeId());
-        
-        for (IUnit unit : units) {
-            System.out.println(unit.getItemName());
-        }
-        
-        List<IUnit> filtered = UnitFilters.filterByRoom(units, RoomType.KITCHEN.getRoomType());
-        filtered.sort(UnitSorters.BY_INSTALL_DATE);
-
-        filtered.forEach(System.out::println);
-
-        // Save the filtered units to a CSV file
-        String outputPath = "filtered_units.csv";
-        CsvSaver.saveUnitsToCsv(filtered, outputPath);
-        */
     }
 }

@@ -1,4 +1,4 @@
-package maintainhome.view.MainPanels;
+package maintainhome.view.Panes;
 
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -32,6 +32,8 @@ public class AddPanel extends JPanel {
     private GridBagConstraints gbc = new GridBagConstraints();
     private List<JLabel> labels = new ArrayList<>();
     private List<Object> fields = new ArrayList<>();
+    private DefaultComboBoxModel<String> homeList = new DefaultComboBoxModel<>();
+    private JComboBox<String> homeDropdown;
     private JComboBox<String> roomDropdown;
     private JComboBox<String> unitsDropdown;
     private JComboBox<String> priorityDropdown;
@@ -147,8 +149,14 @@ public class AddPanel extends JPanel {
                 for (int i = 0; i < labels.size(); i++) {
                     String key = labels.get(i).getText().replace(":", "");
                     gbc.gridy = i;
-                    gbc.insets = new Insets(10, 5, 10, 0);
-                    if(key.equals(ColumnData.UnitItemData.room_type.getColumnName())){
+                    gbc.insets = new Insets(5, 5, 5, 0);
+                    if(key.equals(ColumnData.UnitItemData.home_id.getColumnName())){
+
+                        setHomeComboBox();
+                        fields.add(homeDropdown);
+                        ((JComboBox<String>)fields.get(i)).setActionCommand(key);
+                        add((JComboBox<String>)fields.get(i), gbc);
+                    } else if(key.equals(ColumnData.UnitItemData.room_type.getColumnName())){
 
                         setRoomComboBox();
                         fields.add(roomDropdown);
@@ -178,6 +186,14 @@ public class AddPanel extends JPanel {
                 break;
             default:
         }
+    }
+
+    public DefaultComboBoxModel<String> getHomeList(){
+        return homeList;
+    }
+
+    private void setHomeComboBox() {
+        homeDropdown = new JComboBox<>(homeList);
     }
 
     private void setRoomComboBox() {

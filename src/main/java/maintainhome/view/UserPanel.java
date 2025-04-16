@@ -4,15 +4,22 @@ import java.awt.*;
 import javax.swing.*;
 import maintainhome.model.Utilities.Types.ColumnData;
 
+/**
+ * The User Panel to display and update user information.
+ */
 public class UserPanel extends JPanel {
-
+    /** The user's id display text coming from the file */
     private JLabel usernameDisplay;
+    /** The user's name display text coming from the file */
     private JLabel nameDisplay;
+    /** The user's email display text coming from the file */
     private JLabel emailDisplay;
 
-    //private JTextField usernameText = new JTextField("", 15);
+    /** The user's name input field for update */
     private JTextField nameText = new JTextField("", 15);
+    /** The user's email input field for update */
     private JTextField emailText = new JTextField("", 15);
+    /** The update button that will update the user information when clicked */
     private JButton update = new JButton("Update");
 
     
@@ -33,7 +40,12 @@ public class UserPanel extends JPanel {
         return update;
     }
     
-    
+    /**
+     * Default UserPanel Constructor.
+     * @param id user's id from file
+     * @param name user's name from file
+     * @param email user's emailfrom file
+     */
     public UserPanel(String id,String name, String email) {
         setLayout(new BorderLayout());
         
@@ -44,6 +56,12 @@ public class UserPanel extends JPanel {
         add(splitPane, BorderLayout.CENTER);
     }
 
+    /**
+     * Sets the top pane of the split pane with the display only of the user's information
+     * @param id user's id from file
+     * @param name user's name from file
+     * @param email user's emailfrom file
+     */
     private JPanel setTopPane(String id, String name, String email) {
         JPanel panel = new JPanel(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
@@ -90,6 +108,9 @@ public class UserPanel extends JPanel {
         return panel;
     }
 
+    /**
+     * Sets the bottom pane of the split pane to allow the user to update their information.
+     */
     public JPanel setBottomPane() {
         JPanel panel = new JPanel(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();

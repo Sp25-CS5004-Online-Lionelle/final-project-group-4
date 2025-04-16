@@ -61,4 +61,12 @@ public class User {
         return max + 1;
     }
 
+    public Home findHomeByName(String homeName) {
+        for (Home home : getHomes()) {
+            if (homeName.equals(home.getHomeName())) {
+                return home;
+            }
+        }
+        return null;
+    }
 }

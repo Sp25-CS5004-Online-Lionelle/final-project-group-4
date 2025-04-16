@@ -1,5 +1,5 @@
 
-package maintainhome.model;
+package maintainhome.model.Utilities.Operations;
 
 import java.util.Comparator;
 
@@ -10,6 +10,7 @@ public class Sorters {
     public static final Comparator<IUnit> BY_TYPE = Comparator.comparing(IUnit::getUnitType);
     public static final Comparator<IUnit> BY_ROOM = Comparator.comparing(IUnit::getRoomType);
     public static final Comparator<IUnit> BY_INSTALL_DATE = Comparator.comparing(IUnit::getInstallDate);
+    public static final Comparator<IUnit> BY_MAINTAIN_DATE = Comparator.comparing(IUnit::getMaintainedDate);
     public static final Comparator<Home> BY_HOME_NUM = Comparator.comparingInt(Home::getHomeNum);
 }
 
