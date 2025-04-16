@@ -89,7 +89,7 @@ public class UserPanel extends JPanel {
 
         gbc.anchor = GridBagConstraints.WEST;
         gbc.insets = new Insets(5, 5, 5, 0);
-        usernameDisplay = new JLabel(id);
+        // usernameDisplay = new JLabel(id);
         gbc.gridx = 1;
         gbc.gridy = 0;
         // panel.add(usernameDisplay, gbc);
