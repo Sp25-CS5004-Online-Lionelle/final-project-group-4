@@ -1,8 +1,8 @@
 package maintainhome.model.User;
 
-import maintainhome.model.Home.Home;
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
+import maintainhome.model.Home.Home;
 
 /**
  * The User class to store the user object that will maintain home(s).
@@ -30,6 +30,14 @@ public class User {
     public String getEmail() {
         return email;
     }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+    
+    public void setEmail(String email) {
+        this.email = email;
+    }    
 
     public List<Home> getHomes() {
         return homes;

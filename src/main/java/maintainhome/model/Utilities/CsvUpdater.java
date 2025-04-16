@@ -1,15 +1,23 @@
 package maintainhome.model.Utilities;
 
-import maintainhome.model.User.User;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileInputStream;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import maintainhome.model.Home.Home;
 import maintainhome.model.Home.UnitItems.IUnit;
-import maintainhome.model.Utilities.Types.FileType;
+import maintainhome.model.User.User;
 import maintainhome.model.Utilities.Types.ColumnData;
+import maintainhome.model.Utilities.Types.FileType;
 import maintainhome.model.Utilities.Types.IColumnEnum;
-
-import java.io.*;
-import java.nio.charset.StandardCharsets;
-import java.util.*;
 
 public class CsvUpdater implements ICsvSource {
 
@@ -35,7 +43,8 @@ public class CsvUpdater implements ICsvSource {
      */
     public static void updateRewriteCsvFile(FileType fileType, Object data) {
         List<String> lines = readCsvFile(fileType);
-        Map<IColumnEnum, Integer> columnMap = processHeader(lines.remove(0), fileType);
+        String header = lines.remove(0);
+        Map<IColumnEnum, Integer> columnMap = processHeader(header, fileType);
 
         switch (fileType) {
             case USER:
@@ -53,6 +62,7 @@ public class CsvUpdater implements ICsvSource {
             default:
                 throw new IllegalArgumentException("Unsupported file type: " + fileType);
         }
+        lines.add(0, header); // Put header back at top
 
         // Write updated content back to the CSV
         writeToFile(fileType, lines);

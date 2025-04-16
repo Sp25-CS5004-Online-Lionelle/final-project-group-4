@@ -1,9 +1,8 @@
 package maintainhome.view;
 
-import maintainhome.model.Utilities.Types.ColumnData;
-
-import javax.swing.*;
 import java.awt.*;
+import javax.swing.*;
+import maintainhome.model.Utilities.Types.ColumnData;
 
 public class UserPanel extends JPanel {
 
@@ -15,6 +14,24 @@ public class UserPanel extends JPanel {
     private JTextField nameText = new JTextField("", 15);
     private JTextField emailText = new JTextField("", 15);
     private JButton update = new JButton("Update");
+
+    
+    public String getEnteredName() {
+        return nameText.getText().trim();
+    }
+    
+    public String getEnteredEmail() {
+        return emailText.getText().trim();
+    }
+
+    public void refreshDisplayLabels() {
+        nameDisplay.setText(getEnteredName());
+        emailDisplay.setText(getEnteredEmail());
+    }
+
+    public JButton getUpdateButton() {
+        return update;
+    }
     
     
     public UserPanel(String id,String name, String email) {
@@ -120,6 +137,8 @@ public class UserPanel extends JPanel {
         gbc.gridy = 2;
         gbc.insets = new Insets(10, 0, 10, 0);
         panel.add(update, gbc);
+        update.setActionCommand("Update User"); 
+
 
         return panel;
     }

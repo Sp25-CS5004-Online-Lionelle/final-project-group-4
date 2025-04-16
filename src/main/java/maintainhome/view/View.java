@@ -14,6 +14,7 @@ import maintainhome.model.Utilities.Types.IColumnEnum;
 import maintainhome.view.MainPanels.AddPanel;
 import maintainhome.view.MainPanels.ViewPanel;
 
+
 /**
  * The view's frame using JFrame.
  */
@@ -21,6 +22,8 @@ public class View extends JFrame implements IView {
 
     /** view's panel to hold the components. */
     private ButtonPanel buttonPanel;
+    private UserPanel userPanel;
+    private ActionListener actionListener;
     private JPanel container = new JPanel(new CardLayout()); // user info - viewing and modifying will be on same page // user icon, homes list - will have Jlist to select and JTextArea - will incorporate a tab for adding
     private LoginPanel loginPanel;
     private JPanel afterLogin = new JPanel(new BorderLayout());
@@ -51,6 +54,9 @@ public class View extends JFrame implements IView {
             ColumnData.UnitItemData.room_type.getColumnName()});
         commands.put(Commands.resetFilter,
             new String[] {Commands.resetFilter.getCommandText(), "Reset Filter"});
+            commands.put(Commands.saveFiltered,
+            new String[] {Commands.saveFiltered.getCommandText(), "Save Filtered"});
+        
         
 
         setFramePanel();
@@ -90,16 +96,35 @@ public class View extends JFrame implements IView {
      */
     private void setLeftPanel() {
         // need to have the splitpane
-        buttonPanel = new ButtonPanel(4, new String[] {commands.get(Commands.userButton)[0],
+        buttonPanel = new ButtonPanel(5, new String[] {commands.get(Commands.userButton)[0],
             commands.get(Commands.homesButton)[0], commands.get(Commands.unitsButton)[0], 
-            commands.get(Commands.resetFilter)[0]});
+            commands.get(Commands.resetFilter)[0], commands.get(Commands.saveFiltered)[0]});
     }
 
     @Override
     public void setUserPanel(String id, String name, String email) {
-        UserPanel userPanel = new UserPanel(id, name, email);
+        userPanel = new UserPanel(id, name, email);
         panel1.add(userPanel);
+        // set listener for user update button
+        userPanel.getUpdateButton().addActionListener(actionListener);
+
     }
+    @Override
+    public String getUpdatedUserName() {
+    return userPanel.getEnteredName();
+    }
+
+    @Override
+    public String getUpdatedUserEmail() {
+    return userPanel.getEnteredEmail();
+    }
+
+    @Override
+    public void refreshUserPanelLabels() {
+    userPanel.refreshDisplayLabels();
+}
+
+
     
     /**
      * Sets and adds componenets to the add tab for Homes panel.
@@ -378,6 +403,9 @@ public class View extends JFrame implements IView {
 
     @Override
     public void setListener(ActionListener listener, KeyListener keys) {
+        // Store reference so we can use it in setUserPanel
+        this.actionListener = listener;
+
         loginPanel.getLoginBtn().addActionListener(listener);
 
         for (int i = 0; i < buttonPanel.getButtons().length; i++) {

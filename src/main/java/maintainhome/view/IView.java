@@ -4,9 +4,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyListener;
 import java.util.List;
 import java.util.Map;
-
 import javax.swing.JTabbedPane;
-
 import maintainhome.controller.Commands;
 
 
@@ -100,6 +98,24 @@ public interface IView {
    * @return the room type selected by the user
    */
   String getRoomTypeSelected();
+
+  /**
+   * gets the updated user name from the user panel.
+   * @return the updated user name from the user panel
+   */
+  String getUpdatedUserName();
+
+  /**
+   * gets the updated email from the user panel.
+   * @return the updated email from the user panel
+   */
+  String getUpdatedUserEmail();
+
+  /**
+   * refreshes the user panel labels with the updated user information.
+   */
+  void refreshUserPanelLabels();
+
 
 
 }

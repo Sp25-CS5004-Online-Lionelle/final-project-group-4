@@ -4,7 +4,10 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import maintainhome.model.Model;
+import maintainhome.model.Utilities.CsvUpdater;
+import maintainhome.model.Utilities.Types.FileType;
 import maintainhome.view.IView;
 
 /**
@@ -106,6 +109,23 @@ public class Controller implements ActionListener, KeyListener {
                 view.updateUnitsTable(model.getUnitRows()); 
             break;
             
+            case Commands.updateUser:
+                System.out.println("Update User command received.");
+
+                String newName = view.getUpdatedUserName();
+                String newEmail = view.getUpdatedUserEmail();
+
+                if (!newName.isEmpty() && !newEmail.isEmpty()) {
+                    model.getUser().setName(newName);
+                    model.getUser().setEmail(newEmail);
+                    CsvUpdater.updateRewriteCsvFile(FileType.USER, model.getUser());
+                    view.refreshUserPanelLabels();  // ← this will call the method above from the view
+                    JOptionPane.showMessageDialog(null, "User updated and saved to CSV.");
+                } else {
+                    JOptionPane.showMessageDialog(null, "Name or email cannot be empty.");
+                }
+                break;
+
             case Commands.clearButton:
                 view.clearAddFields();
             case Commands.insertButton:
