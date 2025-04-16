@@ -1,17 +1,11 @@
 package maintainhome.controller;
-import maintainhome.view.IView;
-import maintainhome.model.Model;
-import maintainhome.model.Home.Home;
-import maintainhome.model.Home.Types.RoomType;
-import maintainhome.model.User.User;
-import maintainhome.model.Home.UnitItems.IUnit;
-import maintainhome.model.Utilities.CsvLoader;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
-import java.util.Arrays;
+import maintainhome.model.Model;
+import maintainhome.view.IView;
 
 /**
  * A controller to manage incoming requests from the view and processed outgoing data from the model.
@@ -90,11 +84,28 @@ public class Controller implements ActionListener, KeyListener {
                 view.switchRightPanel(commandText);
                 
                 break;
-            case Commands.unitsButton:
 
+            case Commands.unitsButton:
                 view.setSelectedCard(command);
                 view.switchRightPanel(commandText);
+            
+                String selectedRoom = view.getRoomTypeSelected();
+                if (selectedRoom != null && !selectedRoom.isEmpty()) {
+                    model.filterUnitsByRoomType(selectedRoom);
+                    view.updateUnitsTable(model.getUnitRows(model.getFilteredUnits()));
+                } else {
+                    // If no room is selected, show all
+                    model.setFilteredUnits(new ArrayList<>());
+                    view.updateUnitsTable(model.getUnitRows());
+                }
                 break;
+            
+            case Commands.resetFilter:
+
+                model.setFilteredUnits(new ArrayList<>());  
+                view.updateUnitsTable(model.getUnitRows()); 
+            break;
+            
             case Commands.clearButton:
                 view.clearAddFields();
             case Commands.insertButton:

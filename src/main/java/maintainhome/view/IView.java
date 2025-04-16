@@ -1,12 +1,13 @@
 package maintainhome.view;
 
-import maintainhome.controller.Commands;
-
 import java.awt.event.ActionListener;
 import java.awt.event.KeyListener;
 import java.util.List;
 import java.util.Map;
+
 import javax.swing.JTabbedPane;
+
+import maintainhome.controller.Commands;
 
 
 /**
@@ -93,5 +94,12 @@ public interface IView {
    * switches the panels for the right panel tied to side panel buttons.
    */
   void switchMainPanel(String cardName);
+
+  /**
+   * gets the room type filter selected by the user.
+   * @return the room type selected by the user
+   */
+  String getRoomTypeSelected();
+
 
 }

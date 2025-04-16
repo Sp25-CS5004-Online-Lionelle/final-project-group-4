@@ -26,6 +26,11 @@ public class Model {
     private Map<String, String> data;
     
     /**
+     * Filtered units list.
+     */
+    private List<IUnit> filteredUnits = new ArrayList<>();
+
+    /**
      * Default DomainName Constructor.
      * @param str .
      * @throws .
@@ -33,6 +38,23 @@ public class Model {
     public Model() {
         
     }
+
+    public void setFilteredUnits(List<IUnit> units) {
+        this.filteredUnits = units;
+    }
+    
+    public List<IUnit> getFilteredUnits() {
+        return filteredUnits;
+    }
+
+    public void filterUnitsByRoomType(String roomTypeStr) {
+        RoomType selectedType = RoomType.toRoomType(roomTypeStr);
+        List<IUnit> filtered = Filters.filterByRoom(
+            getUser().getHomes().get(0).getUnitItems(),
+            selectedType.getRoomType()
+        );
+        setFilteredUnits(filtered);
+    }    
 
     public void setUser(String user) {
         // set user
@@ -105,6 +127,15 @@ public class Model {
         }
         return rows;
     }
+
+    public List<String[]> getUnitRows(List<IUnit> units) {
+        List<String[]> rows = new ArrayList<>();
+        for (IUnit unit : units) {
+            rows.add(unit.getUnitRow());
+        }
+        return rows;
+    }
+    
 
     public String[] getUnitsJList() {
         String[] jList;

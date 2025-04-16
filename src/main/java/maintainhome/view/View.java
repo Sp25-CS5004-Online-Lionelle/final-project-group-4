@@ -1,22 +1,18 @@
 package maintainhome.view;
 
-import maintainhome.view.MainPanels.ViewPanel;
-import maintainhome.view.MainPanels.AddPanel;
+import java.awt.*;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyListener;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import javax.swing.*;
 import maintainhome.controller.Commands;
 import maintainhome.model.Utilities.Types.ColumnData;
 import maintainhome.model.Utilities.Types.IColumnEnum;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyListener;
-
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
-
-import javax.swing.*;
-import java.awt.*;
-import java.util.List;
-import java.util.Map;
-import java.util.HashMap;
-import java.util.ArrayList;
+import maintainhome.view.MainPanels.AddPanel;
+import maintainhome.view.MainPanels.ViewPanel;
 
 /**
  * The view's frame using JFrame.
@@ -53,6 +49,9 @@ public class View extends JFrame implements IView {
                 ColumnData.HomeData.home_name.getColumnName()});
         commands.put(Commands.unitsButton, new String[] {Commands.unitsButton.getCommandText(),
             ColumnData.UnitItemData.room_type.getColumnName()});
+        commands.put(Commands.resetFilter,
+            new String[] {Commands.resetFilter.getCommandText(), "Reset Filter"});
+        
 
         setFramePanel();
         addToFrame();
@@ -91,8 +90,9 @@ public class View extends JFrame implements IView {
      */
     private void setLeftPanel() {
         // need to have the splitpane
-        buttonPanel = new ButtonPanel(3, new String[] {commands.get(Commands.userButton)[0],
-            commands.get(Commands.homesButton)[0], commands.get(Commands.unitsButton)[0]});
+        buttonPanel = new ButtonPanel(4, new String[] {commands.get(Commands.userButton)[0],
+            commands.get(Commands.homesButton)[0], commands.get(Commands.unitsButton)[0], 
+            commands.get(Commands.resetFilter)[0]});
     }
 
     @Override
@@ -371,6 +371,12 @@ public class View extends JFrame implements IView {
     }
 
     @Override
+    public String getRoomTypeSelected() {
+    return unitsViewPanel.getJList().getSelectedValue();
+    }
+
+
+    @Override
     public void setListener(ActionListener listener, KeyListener keys) {
         loginPanel.getLoginBtn().addActionListener(listener);
 
@@ -385,7 +391,18 @@ public class View extends JFrame implements IView {
         homesAddPanel.getAddButton().addActionListener(listener);
         unitsAddPanel.getAddButton().addActionListener(listener);
 
-        //setListSelectionListener();
+        // set listener to look for click on list;
+        unitsViewPanel.getJList().addListSelectionListener(e -> {
+            if (!e.getValueIsAdjusting()) {
+                for (JButton b : buttonPanel.getButtons()) {
+                    if (b.getActionCommand().equals(Commands.unitsButton.getCommandText())) {
+                        b.doClick(); // Simulate click to notify controller
+                        break;
+                    }
+                }
+            }
+        });
+        
     }
 
     /*
