@@ -52,13 +52,13 @@ public interface IView {
 
   /**
    * Gets the Homes panel tab panel.
-   * @return the tab panel of Homes
+   * @return the tab pane of Homes
    */
   JTabbedPane getHomesTab();
   
   /**
    * Gets the Units panel tab panel.
-   * @return the tab panel of Units
+   * @return the tab pane of Units
    */
   JTabbedPane getUnitsTab();
 

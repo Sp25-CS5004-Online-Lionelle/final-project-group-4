@@ -44,7 +44,6 @@ public class Controller implements ActionListener, KeyListener {
         view.updateHomesList(model.getHomeJList());
         view.updateHomesTable(model.getHomeRows());
     }
-
     
     /**
      * Sets the View pane of the Units Panel after login.
@@ -55,6 +54,7 @@ public class Controller implements ActionListener, KeyListener {
         String[] jList = model.getUnitsJList();
 
         view.updateUnitsList(jList);
+        //view.updateUnitsTable(model.getUnitRows());
         view.updateUnitsTable(model.getUnitRows());
     }
 

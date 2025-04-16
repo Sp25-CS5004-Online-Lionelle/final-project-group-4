@@ -19,29 +19,46 @@ import maintainhome.view.Panes.ViewPanel;
  */
 public class View extends JFrame implements IView {
 
-    /** view's panel to hold the components. */
+    /** The left panel that holds the buttons to navigate the application. */
     private ButtonPanel buttonPanel;
+    /** The container panel to hold the main 2 panels of the login and the after login panel */
     private JPanel container = new JPanel(new CardLayout()); // user info - viewing and modifying will be on same page // user icon, homes list - will have Jlist to select and JTextArea - will incorporate a tab for adding
+    /** The Login Panel */
     private LoginPanel loginPanel;
+    /** The Panel after Login */
     private JPanel afterLogin = new JPanel(new BorderLayout());
+    /** The Homes button tabe pane - View / Add */
     private JTabbedPane homesTabPane;
+    /** The Units button tabe pane - View / Add */
     private JTabbedPane unitsTabPane;
+    /** The View tab's caption */
     String tab1 = "View";
+    /** The Add tab'e caption */
     String tab2 = "Add";
+    /** The View tab panel for the Homes button */
     private ViewPanel homesViewPanel;
+    /** The View tab panel for the Add button */
     private AddPanel homesAddPanel;
+    /** The View tab panel for the Units button */
     private ViewPanel unitsViewPanel;
+    /** The Add tab panel for the Units button */
     private AddPanel unitsAddPanel;
+    /** The right panel that that holds switching panels */
     private JPanel rightPanel = new JPanel(new CardLayout());
-    private JPanel panel1 = new JPanel(new BorderLayout()); 
+    /** The card panel that holds the User Panel and is tied to the User button */
+    private JPanel panel1 = new JPanel(new BorderLayout());
+    /** The card panel that holds the Homes View / Add tabs and is tied to the Homes button */
     private JPanel panel2 = new JPanel(new BorderLayout()); // when a home is selected
+    /** Thecard panel that holds the Homes View / Add tabs and is tied to the Units button */
     private JPanel panel3 = new JPanel(new BorderLayout());
+    /** The tracker for which card panel is currently visible */
     private Commands selectedCard;
+    /** The mapping of commands that ties the buttons to the actions, and labels */
     private Map<Commands, String[]> commands = new HashMap<>();
 
     /**
      * Default View Constructor.
-     * @param str caption for the Frame title display.
+     * @param caption for the Frame title display.
      */
     public View(String caption) {
         super(caption);
@@ -73,7 +90,6 @@ public class View extends JFrame implements IView {
 
         this.setLayout(new BorderLayout());
         //gbc.fill = GridBagConstraints.NONE;
-
     }
     
     /**

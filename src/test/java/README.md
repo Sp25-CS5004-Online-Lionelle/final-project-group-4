@@ -50,12 +50,23 @@ After:
 
 ### Testing Get Units Rows  
 - Testing the get Units rows for Jtable does not have duplicates when updates are made to the files  
-**Homes Add Tab**
 
+**Units View Tab**
+
+**Fix:** CsvLoader had a comment for the filter when loading in the UnitItems.  
 Before:   
-![alt text](test_imgs/image12.png)  
+![alt text](test_imgs/image12.png)
 After:  
 ![alt text](test_imgs/image13.png)
 
-### Testing the Sorting for the Units Rows  
+
+### Testing Get Units Rows Displays Under Correct Columns  
+- Testing the get Units rows for Jtable aligns values under correct column names
+ 
+ Before:  
+ ![alt text](test_imgs/image13.png)  
+ After:  
 ![alt text](test_imgs/image14.png)
+
+### Testing the Sorting for the Units Rows  
+![alt text](test_imgs/image15.png)
