@@ -9,7 +9,7 @@ import maintainhome.model.Utilities.Types.ColumnData;
  */
 public class UserPanel extends JPanel {
     /** The user's id display text coming from the file */
-    private JLabel usernameDisplay;
+    // private JLabel usernameDisplay;
     /** The user's name display text coming from the file */
     private JLabel nameDisplay;
     /** The user's email display text coming from the file */
@@ -69,11 +69,11 @@ public class UserPanel extends JPanel {
         
         gbc.anchor = GridBagConstraints.EAST;
         // username label
-        JLabel usernameLabel = new JLabel(ColumnData.UserData.user_id.getColumnName()+":");
-        gbc.gridx = 0;
-        gbc.gridy = 0;
-        gbc.insets = new Insets(5, 0, 5, 0);
-        panel.add(usernameLabel, gbc);
+        // JLabel usernameLabel = new JLabel(ColumnData.UserData.user_id.getColumnName()+":");
+        // gbc.gridx = 0;
+        // gbc.gridy = 0;
+        // gbc.insets = new Insets(5, 0, 5, 0);
+        // panel.add(usernameLabel, gbc);
 
         // name label
         JLabel nameLabel = new JLabel(ColumnData.UserData.name.getColumnName()+":");
@@ -92,7 +92,7 @@ public class UserPanel extends JPanel {
         usernameDisplay = new JLabel(id);
         gbc.gridx = 1;
         gbc.gridy = 0;
-        panel.add(usernameDisplay, gbc);
+        // panel.add(usernameDisplay, gbc);
 
         nameDisplay = new JLabel(name);
         gbc.gridx = 1;
