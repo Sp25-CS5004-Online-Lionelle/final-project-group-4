@@ -56,3 +56,6 @@ Before:
 ![alt text](test_imgs/image12.png)  
 After:  
 ![alt text](test_imgs/image13.png)
+
+### Testing the Sorting for the Units Rows  
+![alt text](test_imgs/image14.png)

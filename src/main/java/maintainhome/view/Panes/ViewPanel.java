@@ -1,4 +1,4 @@
-package maintainhome.view.MainPanels;
+package maintainhome.view.Panes;
 
 
 import javax.swing.*;

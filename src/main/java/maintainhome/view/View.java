@@ -11,8 +11,8 @@ import javax.swing.*;
 import maintainhome.controller.Commands;
 import maintainhome.model.Utilities.Types.ColumnData;
 import maintainhome.model.Utilities.Types.IColumnEnum;
-import maintainhome.view.MainPanels.AddPanel;
-import maintainhome.view.MainPanels.ViewPanel;
+import maintainhome.view.Panes.AddPanel;
+import maintainhome.view.Panes.ViewPanel;
 
 /**
  * The view's frame using JFrame.
@@ -26,6 +26,8 @@ public class View extends JFrame implements IView {
     private JPanel afterLogin = new JPanel(new BorderLayout());
     private JTabbedPane homesTabPane;
     private JTabbedPane unitsTabPane;
+    String tab1 = "View";
+    String tab2 = "Add";
     private ViewPanel homesViewPanel;
     private AddPanel homesAddPanel;
     private ViewPanel unitsViewPanel;
@@ -37,9 +39,10 @@ public class View extends JFrame implements IView {
     private Commands selectedCard;
     private Map<Commands, String[]> commands = new HashMap<>();
 
-    /** view's GridBagConstraints inset . */
-    // private int inset = 10; // padding
-
+    /**
+     * Default View Constructor.
+     * @param str caption for the Frame title display.
+     */
     public View(String caption) {
         super(caption);
 
@@ -102,7 +105,9 @@ public class View extends JFrame implements IView {
     }
     
     /**
-     * Sets and adds componenets to the add tab for Homes panel.
+     * Gets the user's inputs/selections from the Add pane under the Homes panel.
+     * @param exclude a list of fields associated with the file columns to exclude when getting the user's input/selections
+     * @return the String array that holds the user input texts from the Add pane under the Homes panel
      */
     private String[] homeAddFields(List<IColumnEnum> exclude) {
         List<String> fields = new ArrayList<>();
@@ -123,7 +128,9 @@ public class View extends JFrame implements IView {
 
     
     /**
-     * Sets and adds componenets to the add tab for Units panel.
+     * Gets the user's inputs/selections from the Add pane under the Units panel.
+     * @param exclude a list of fields associated with the file columns to exclude when getting the user's input/selections
+     * @return the String array that holds the user input texts from the Add pane under the Units panel
      */
     private String[] unitAddFields(List<IColumnEnum> exclude) {
         List<String> fields = new ArrayList<>();
@@ -177,19 +184,27 @@ public class View extends JFrame implements IView {
     public void updateHomesList (String[] homeNames) {
         homesViewPanel.updateJList(homeNames);
     }
+    
     @Override
     public void updateHomesTable(List<String[]> row) {
         homesViewPanel.updateTableRows(row);
     }
 
-    
+    @Override
+    public void setUnitsAddHomesDropDown(String[] list) {
+        unitsAddPanel.getHomeList().removeAllElements();
+        for (String item : list) {
+            unitsAddPanel.getHomeList().addElement(item);
+        }
+    }
+
     /**
      * Sets the add tab for Units panel.
      */
     private void setUnitsAdd() {
         List<IColumnEnum> ex = new ArrayList<>();
         ex.add(ColumnData.UnitItemData.user_id);
-        ex.add(ColumnData.UnitItemData.home_id);
+        // ex.add(ColumnData.UnitItemData.home_id);
         ex.add(ColumnData.UnitItemData.unit_id);
         // ex.add(ColumnData.UnitItemData.room_type);
         ex.add(ColumnData.UnitItemData.frequency_meas);
@@ -244,7 +259,7 @@ public class View extends JFrame implements IView {
     /**
      * Adds the componenets to the Homes panel tabs.
      */
-    private void setHomesTabs(String tab1, String tab2) {
+    private void setHomesTabs() {
         setHomesAdd();
         homesTabPane = new JTabbedPane();
         homesTabPane.add(tab1, homesViewPanel);
@@ -253,10 +268,12 @@ public class View extends JFrame implements IView {
         panel2.add(homesTabPane, BorderLayout.CENTER);
     }
 
+     @Override
     public JTabbedPane getHomesTab() {
         return homesTabPane;
     }
 
+     @Override
     public JTabbedPane getUnitsTab() {
         return unitsTabPane;
     }
@@ -264,7 +281,7 @@ public class View extends JFrame implements IView {
     /**
      * Adds the componenets to the Units panel tabs.
      */
-    private void setUnitsTabs(String tab1, String tab2) {
+    private void setUnitsTabs() {
         setUnitsAdd();
         unitsTabPane = new JTabbedPane();
         unitsTabPane.add(tab1, unitsViewPanel);
@@ -278,10 +295,8 @@ public class View extends JFrame implements IView {
      * Adds all componenets to right panel and sets the panel ready to be displayed.
      */
     private void setRightPanel() {
-        String tab1 = "View";
-        String tab2 = "Add";
-        setHomesTabs(tab1, tab2);
-        setUnitsTabs(tab1, tab2);
+        setHomesTabs();
+        setUnitsTabs();
 
         rightPanel.add(panel2, commands.get(Commands.homesButton)[0]); // Homes Button - wanted to display this first
         rightPanel.add(panel1, commands.get(Commands.userButton)[0]);
@@ -371,7 +386,7 @@ public class View extends JFrame implements IView {
 
     @Override
     public String getRoomTypeSelected() {
-    return unitsViewPanel.getJList().getSelectedValue();
+        return unitsViewPanel.getJList().getSelectedValue();
     }
 
 

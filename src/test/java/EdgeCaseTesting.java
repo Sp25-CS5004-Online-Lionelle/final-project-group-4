@@ -8,10 +8,10 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import maintainhome.model.Home.Home;
-import maintainhome.model.Filters;
-import maintainhome.model.Sorters;
 import maintainhome.model.User.User;
 import maintainhome.model.Utilities.CsvLoader;
+import maintainhome.model.Utilities.Operations.Filters;
+import maintainhome.model.Utilities.Operations.Sorters;
 
 public class EdgeCaseTesting {
     

@@ -27,16 +27,29 @@ public class Controller implements ActionListener, KeyListener {
         v.setListener(this, this);
     }
 
-    private void setUserHomes() {
+    /**
+     * Sets the user in the model after login.
+     */
+    private void setModelUser() {
+        String userString = view.getLoginUser();
+        model.setUser(userString);
+    }
+
+    /**
+     * Sets the View pane of the Homes Panel after login.
+     */
+    private void setHomesView() {
         model.setUserHomes();
-        // User Panel
-        view.setUserPanel(model.getUser().getUserId(), model.getUser().getName(), model.getUser().getEmail());
         // Homes Panel
         view.updateHomesList(model.getHomeJList());
         view.updateHomesTable(model.getHomeRows());
     }
 
-    private void setViewUnits() {
+    
+    /**
+     * Sets the View pane of the Units Panel after login.
+     */
+    private void setUnitsView() {
         
         model.setUserItems();
         String[] jList = model.getUnitsJList();
@@ -45,19 +58,22 @@ public class Controller implements ActionListener, KeyListener {
         view.updateUnitsTable(model.getUnitRows());
     }
 
-
+    /**
+     * Sets the User panel, Homes/Units View pane, and Units Add pane after login.
+     */
     private void loginClicked() {
         //try {
-        setUserHomes();
-        setViewUnits();
+        // User Panel
+        view.setUserPanel(model.getUser().getUserId(), model.getUser().getName(), model.getUser().getEmail());
+        setHomesView();
+        setUnitsView();
+        view.setUnitsAddHomesDropDown(model.getHomeJList());
         /*
         } catch(NullPointerException err) {
             throw new NullPointerException("No User Found");
         }
         */
     }
-
-    // need to set 
     
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -65,9 +81,7 @@ public class Controller implements ActionListener, KeyListener {
         Commands command = Commands.toCommand(commandText);
         switch (command) {
             case Commands.loginButton:
-
-                String userString = view.getLoginUser();
-                model.setUser(userString);
+                setModelUser();
                 loginClicked();
 
                 view.switchMainPanel("3");
@@ -118,6 +132,7 @@ public class Controller implements ActionListener, KeyListener {
                         model.saveHome();
                         view.updateHomesList(model.getHomeJList());
                         view.updateHomesTable(model.getHomeRows());
+                        view.setUnitsAddHomesDropDown(model.getHomeJList());
                         view.getHomesTab().setSelectedIndex(0);
                         break;
                     case Commands.unitsButton:
