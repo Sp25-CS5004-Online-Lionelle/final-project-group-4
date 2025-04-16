@@ -6,7 +6,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -91,7 +90,6 @@ public class CsvLoader implements ICsvSource {
      */
     private static IUnit toUnitItems(String[] columns, Map<IColumnEnum, Integer> columnMap) {
         
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("M/d/yyyy");
         // mapping for this file has both UserData and HomeData
         String userId = columns[columnMap.get(ColumnData.UnitItemData.user_id)].trim();
         String homeId = columns[columnMap.get(ColumnData.UnitItemData.home_id)].trim();
@@ -101,8 +99,8 @@ public class CsvLoader implements ICsvSource {
             .get(ColumnData.UnitItemData.unit_type)].trim());
         RoomType roomType = RoomType.toRoomType(columns[columnMap.get(ColumnData.UnitItemData.room_type)].trim());
         String roomName = columns[columnMap.get(ColumnData.UnitItemData.room_name)].trim();
-        LocalDate installDate = LocalDate.parse(columns[columnMap.get(ColumnData.UnitItemData.install_date)].trim(), formatter);
-        LocalDate maintainedDate = LocalDate.parse(columns[columnMap.get(ColumnData.UnitItemData.maintained_date)].trim(), formatter);
+        LocalDate installDate = IUnit.parseDate(columns[columnMap.get(ColumnData.UnitItemData.install_date)].trim());
+        LocalDate maintainedDate = IUnit.parseDate(columns[columnMap.get(ColumnData.UnitItemData.maintained_date)].trim());
         int maintainFreq =  Integer.parseInt(columns[columnMap.get(ColumnData.UnitItemData.maintenance_freq)].trim());
         String freqMeas = columns[columnMap.get(ColumnData.UnitItemData.frequency_meas)].trim();
         String issue = columns[columnMap.get(ColumnData.UnitItemData.issue)].trim();

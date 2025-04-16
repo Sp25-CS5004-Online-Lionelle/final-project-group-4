@@ -103,7 +103,7 @@ public class Controller implements ActionListener, KeyListener {
                 switch(panel) {
                     case Commands.homesButton:
                         model.setNewHome();
-                        model.addHome(model.getNewHome());
+                        model.addHome();
                         model.saveHome();
                         view.updateHomesList(model.getHomeJList());
                         view.updateHomesTable(model.getHomeRows());
@@ -111,8 +111,10 @@ public class Controller implements ActionListener, KeyListener {
                         break;
                     case Commands.unitsButton:
                         // need to implement saving out of units
-                        
-                        view.updateUnitsList(model.getHomeJList());
+                        model.setNewUnit();
+                        model.addUnit();
+                        model.saveUnit();
+                        view.updateUnitsList(model.getUnitsJList());
                         view.updateUnitsTable(model.getUnitRows());
                         view.getUnitsTab().setSelectedIndex(0);
                         break;
