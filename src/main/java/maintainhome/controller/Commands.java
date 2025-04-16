@@ -5,7 +5,8 @@ package maintainhome.controller;
 public enum Commands {
     /** Different command options. */
     loginButton("Login"), userButton("User"), homesButton("Homes"), unitsButton("Units"),
-    clearButton("Clear"), insertButton("Add");
+    clearButton("Clear"), insertButton("Add"), resetFilter("Reset Filter");
+
 
     /** The command. */
     private final String command;
