@@ -102,9 +102,9 @@ public interface IUnit {
     PriorityType getPriority();
 
     /**
-     * Gets the unit's value as a String array.
+     * Gets the unit's attributes as a row.
      * 
-     * @return the unit's value as a String array
+     * @return the unit's attributes as a row
      */
     String[] getUnitRow();
 

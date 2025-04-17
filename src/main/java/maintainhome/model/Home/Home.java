@@ -30,31 +30,65 @@ public class Home {
         this.zip = zip;
     }
 
+    /**
+     * Gets the home ID.
+     * 
+     * @return the home ID string
+     */
     public String getHomeId() {
         return homeId;
     }
     
+    /**
+     * Gets the home name.
+     * 
+     * @return the home name string
+     */
     public String getHomeName() {
         return homeName;
     }
 
+    /**
+     * Gets the home row number.
+     * 
+     * @return the home row as int
+     */
     public int getHomeNum() {
         return num;
     }
 
+    /**
+     * Gets the home address.
+     * 
+     * @return the home address as string
+     */
     public String getAddress() {
         return address;
     }
 
+    /**
+     * Gets the home zip.
+     * 
+     * @return the home zip as string
+     */
     public String getZip() {
         return zip;
     }
 
+    /**
+     * Gets the home's unit items.
+     * 
+     * @return the home's unit items as a list
+     */
     public List<IUnit> getUnitItems() {
         return unitItems;
     }
 
-    
+    /**
+     * Gets the home's unit items.
+     * 
+     * @return the home's unit items as a list
+     */
     public String[] getUnitJList() {
         String[] unitList = new String[getUnitItems().size()];
         for (int i = 0; i < getUnitItems().size(); i++) {
@@ -63,13 +97,15 @@ public class Home {
         return unitList;
     }
 
-
+    /**
+     * Sets a unit items to the user's home.
+     */
     public void setUnitItem(IUnit unitItem) {
         unitItems.add(unitItem);
     }
 
     /**
-     * Adds a user home's unit item to the unit items list.
+     * Sets a user home's unit item.
      */
     public void setUnitItems(List<IUnit> unitItems) {
         for (IUnit unitItem:unitItems) {
@@ -78,6 +114,11 @@ public class Home {
         // by default add kitchen, dining room, living room, bedroom, bathroom, 
     }
 
+    /**
+     * Gets the home's attributes as a row.
+     * 
+     * @return the home's attributes as a row
+     */
     public String[] getHomeRow() {
         return new String[] {
             Integer.toString(getHomeNum()), getHomeName(), getAddress(), getZip()
