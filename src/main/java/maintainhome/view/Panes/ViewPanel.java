@@ -25,6 +25,7 @@ public class ViewPanel extends JPanel {
 
         /**
          * Default View panel Constructor.
+         * 
          * @param label a String array text for the label displays.
          * @param tableHeading The String array for the column names of the JTable
          */
@@ -45,6 +46,7 @@ public class ViewPanel extends JPanel {
 
         /**
          * Gets this panel.
+         * 
          * @return this panel
          */
         public JPanel getPanel() {
@@ -53,6 +55,7 @@ public class ViewPanel extends JPanel {
 
         /**
          * List Model for the JList.
+         * 
          * @return the list model for updating
          */
         public DefaultListModel<String> getListModel() {
@@ -61,6 +64,7 @@ public class ViewPanel extends JPanel {
 
         /**
          * Gets the JList object.
+         * 
          * @return the list of the JList list
          */
         public JList<String> getJList() {
@@ -76,6 +80,7 @@ public class ViewPanel extends JPanel {
 
         /**
          * Updates the JList with the new items.
+         * 
          * @param updateItems the String array of items to update the JList
          */
         public void updateJList(String[] updateItems) {
@@ -85,6 +90,7 @@ public class ViewPanel extends JPanel {
 
         /**
          * Adds items to the List Model of the JList.
+         * 
          * @param items the items to add to the JList
          */
         public void addToJList(String[] items) {
@@ -103,6 +109,7 @@ public class ViewPanel extends JPanel {
 
         /**
          * Adds a table row to the table model of the JTable.
+         * 
          * @param row the row to update to the JTable
          */
         public void addTableRow(String[] row) {
@@ -111,6 +118,7 @@ public class ViewPanel extends JPanel {
 
         /**
          * Adds the table rows to the table model of the JTable.
+         * 
          * @param rows the rows to add to the JTable
          */
         public void addTableRows(List<String[]> rows) {
@@ -121,6 +129,7 @@ public class ViewPanel extends JPanel {
 
         /**
          * Updates the table rows to the table model of the JTable.
+         * 
          * @param rows the rows to update the JTable with
          */
         public void updateTableRows(List<String[]> rows) {
@@ -132,6 +141,7 @@ public class ViewPanel extends JPanel {
 
         /**
          * Sets by adding the objects to the top panel.
+         * 
          * @return the top panel of the View panel
          */
         private JPanel setTopPanel() {
@@ -155,6 +165,7 @@ public class ViewPanel extends JPanel {
 
         /**
          * Sets by adding the objects to the bottom panel.
+         * 
          * @return the bottom panel of the View panel
          */
         private JPanel setBottomPanel() { // String[][] tableData, String[] tableHeading

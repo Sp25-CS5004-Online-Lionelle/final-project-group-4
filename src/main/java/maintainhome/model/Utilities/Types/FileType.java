@@ -10,7 +10,7 @@ public enum FileType {
     /** Enums that are based on double values in the csv file. */
     UNIT_ITEMS("unit_items.csv");
 
-    /** stores the original csv name in the enum. */
+    /** stores the file name in the enum. */
     private final String fileName;
 
     /**
@@ -23,7 +23,7 @@ public enum FileType {
     }
 
     /**
-     * Getter for the column name.
+     * Getter for the file name.
      * 
      * @return the file name of the file type.
      */
@@ -49,7 +49,7 @@ public enum FileType {
     /**
      * Get the enum from the enum name.
      * 
-     * Can use the enum name or the column name. Useful for filters and sorts
+     * Can use the enum name or the file name. Useful for filters and sorts
      * as they can use both.
      * 
      * @param name the name of the enum.

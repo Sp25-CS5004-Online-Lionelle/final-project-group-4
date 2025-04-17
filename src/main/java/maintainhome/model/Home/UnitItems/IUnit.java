@@ -10,32 +10,102 @@ import maintainhome.model.Home.Types.UnitType;
 public interface IUnit {
     static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("M/d/yyyy");
 
+    /**
+     * Gets the user ID.
+     * 
+     * @return the user ID string
+     */
     String getUserId();
 
+    /**
+     * Gets the home ID.
+     * 
+     * @return the home ID string
+     */
     String getHomeId();
 
+    /**
+     * Gets the unit ID.
+     * 
+     * @return the unit ID string
+     */
     String getUnitId();
 
+    /**
+     * Gets the unit item name.
+     * 
+     * @return the unit item name as string
+     */
     String getItemName();
 
+    /**
+     * Gets the unit type.
+     * 
+     * @return the unit type as UnitType
+     */
     UnitType getUnitType();
-
+    
+    /**
+     * Gets the unit's room type.
+     * 
+     * @return the room type as RoomType
+     */
     RoomType getRoomType();
     
+    /**
+     * Gets the unit's room name.
+     * 
+     * @return the room name as string
+     */
     String getRoomName();
 
+    /**
+     * Gets the unit's install date.
+     * 
+     * @return the unit's install date as LocalDate
+     */
     LocalDate getInstallDate();
     
+    /**
+     * Gets the unit's maintenance date.
+     * 
+     * @return the unit's maintenance date as LocalDate
+     */
     LocalDate getMaintainedDate();
     
+    /**
+     * Gets the unit's maintenance frequency.
+     * 
+     * @return the unit's maintenance frequency as an integer
+     */
     int getMaintenanceFrequency();
 
+    /**
+     * Gets the unit's frequency measure.
+     * 
+     * @return the unit's frequency measure as a String
+     */
     String getFrequencyMeasure();
-
+    
+    /**
+     * Gets the unit's issue.
+     * 
+     * @return the unit's issue as a String
+     */
     String getIssue();
 
+    /**
+     * Gets the unit's priority.
+     * 
+     * @return the unit's priority as a PriorityType
+     */
     PriorityType getPriority();
 
+    /**
+     * Gets the unit's value as a String array.
+     * 
+     * @return the unit's value as a String array
+     */
     String[] getUnitRow();
 
     /**

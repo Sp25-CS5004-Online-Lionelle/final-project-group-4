@@ -36,6 +36,12 @@ public class CsvLoader implements ICsvSource {
     /** Standard csv delim. */
     private static final String DELIMITER = ",";
     
+    /**
+     * Trims the String array values.
+     * 
+     * @param values the String array of values to trim
+     * @return the trimmed Strings as an array
+     */
     private static String[] trimValues(String[] values) {
         String[] result = new String[values.length];
         for (int i = 0; i < values.length; i++) {

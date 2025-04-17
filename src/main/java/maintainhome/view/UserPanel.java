@@ -23,6 +23,7 @@ public class UserPanel extends JPanel {
 
     /**
      * Gets the user entered user name.
+     * 
      * @return the user entered name
      */
     public String getEnteredName() {
@@ -31,6 +32,7 @@ public class UserPanel extends JPanel {
 
     /**
      * Gets the user entered email.
+     * 
      * @return the user entered email
      */
     public String getEnteredEmail() {
@@ -47,6 +49,7 @@ public class UserPanel extends JPanel {
 
     /**
      * Gets the Login button.
+     * 
      * @return the Login button
      */
     public JButton getUpdateButton() {
@@ -55,6 +58,7 @@ public class UserPanel extends JPanel {
     
     /**
      * Default UserPanel Constructor.
+     * 
      * @param id user's id from file
      * @param name user's name from file
      * @param email user's emailfrom file
@@ -71,6 +75,7 @@ public class UserPanel extends JPanel {
 
     /**
      * Sets the top pane of the split pane with the display only of the user's information.
+     * 
      * @param id user's id from file
      * @param name user's name from file
      * @param email user's emailfrom file

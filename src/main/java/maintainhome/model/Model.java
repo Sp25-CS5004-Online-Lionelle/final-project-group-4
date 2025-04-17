@@ -151,7 +151,7 @@ public void saveUnit() {
         ColumnData.UnitItemData.unit_id.toString()
         , getNewUnit().getFrequencyMeasure());
 
-    CsvUpdater.updateCsvFile(FileType.UNIT_ITEMS, data);
+    CsvUpdater.writeCsvFile(FileType.UNIT_ITEMS, data);
 }
 
     public void setNewHome() {
@@ -247,13 +247,13 @@ public void saveUnit() {
             ColumnData.HomeData.home_num.toString()
             , Integer.toString(getNewHome().getHomeNum()));
 
-        CsvUpdater.updateCsvFile(FileType.HOMES, data);
+        CsvUpdater.writeCsvFile(FileType.HOMES, data);
 
         data.put( // home_num
             ColumnData.UserHomeData.user_id.toString()
             , getUser().getUserId());
             
-        CsvUpdater.updateCsvFile(FileType.USER_HOMES, data);
+        CsvUpdater.writeCsvFile(FileType.USER_HOMES, data);
     }
 
 }

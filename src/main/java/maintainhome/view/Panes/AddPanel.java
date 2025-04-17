@@ -50,6 +50,7 @@ public class AddPanel extends JPanel {
 
     /**
      * Default Add panel Constructor.
+     * 
      * @param displays a String array text for the label displays.
      * @param panelType the panel card that is currently visible
      */
@@ -69,12 +70,18 @@ public class AddPanel extends JPanel {
         add(clearButton, gbc);
     }
 
+    /**
+     * Gets this panel.
+     * 
+     * @return this panel
+     */
     public JPanel getPanel() {
         return this;
     }
 
     /**
      * Gets the clear button object.
+     * 
      * @return the clear button object
      */
     public JButton getClearButton() {
@@ -83,6 +90,7 @@ public class AddPanel extends JPanel {
 
     /**
      * Gets the add button object.
+     * 
      * @return the add button object
      */
     public JButton getAddButton() {
@@ -90,7 +98,8 @@ public class AddPanel extends JPanel {
     }
 
     /**
-     * Gets the values of the input and dropdown values
+     * Gets the values of the input and dropdown values.
+     * 
      * @param panelType the panel that is currently visible
      */
     public Map<String, String> getValues(Commands panelType) {
@@ -126,6 +135,7 @@ public class AddPanel extends JPanel {
 
     /**
      * Clears the input and dropdown values.
+     * 
      * @param panelType the panel card that is currently visible
      */
     public void clearFields(Commands panelType) {
@@ -151,6 +161,7 @@ public class AddPanel extends JPanel {
 
     /**
      * Sets the display labels to describe the input and dropdown fields.
+     * 
      * @param displays the String array of the display labels
      */
     private void setDisplays(String[] displays) {
@@ -166,6 +177,7 @@ public class AddPanel extends JPanel {
 
     /**
      * Sets by adding the input and dropdown fields for this panel.
+     * 
      * @param panelType the panel card that is currently visible
      */
     private void setFields(Commands panelType) {
@@ -226,6 +238,7 @@ public class AddPanel extends JPanel {
 
     /**
      * Gets the Home dropdown as a list model.
+     * 
      * @return the dropdown list model
      */
     public DefaultComboBoxModel<String> getHomeList(){

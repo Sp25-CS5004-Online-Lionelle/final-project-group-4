@@ -1,5 +1,8 @@
 package maintainhome.model.Home.UnitItems;
-// plumbing unit interface
+
+/**
+ * The interface for the Plumbing Unit.
+ */
 public interface IPlumbingUnit {
     int getPlumbingGallon();
 }

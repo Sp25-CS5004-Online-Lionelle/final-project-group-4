@@ -16,6 +16,7 @@ public class ButtonPanel extends JPanel {
 
     /**
      * Default Side Navigation panel Constructor.
+     * 
      * @param caption for the Frame title display.
      */
     public ButtonPanel(int btnNum, String[] btnText) {
@@ -36,6 +37,7 @@ public class ButtonPanel extends JPanel {
 
     /**
      * Gets the user input text.
+     * 
      * @return user input text
      */
     public JButton[] getButtons() {
@@ -44,6 +46,7 @@ public class ButtonPanel extends JPanel {
 
     /**
      * Gets the user input text.
+     * 
      * @return user input text
      */
     private void setButtons(String[] btnText) {
