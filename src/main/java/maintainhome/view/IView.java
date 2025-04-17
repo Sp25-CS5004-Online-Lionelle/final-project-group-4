@@ -134,6 +134,4 @@ public interface IView {
    */
   void refreshUserPanelLabels();
 
-
-
 }

@@ -76,7 +76,6 @@ public class View extends JFrame implements IView {
             new String[] {Commands.saveFiltered.getCommandText(), "Save Filtered"});
         
         
-
         setFramePanel();
         addToFrame();
         setBorder();
@@ -142,7 +141,6 @@ public class View extends JFrame implements IView {
 }
 
 
-    
     /**
      * Gets the user's inputs/selections from the Add pane under the Homes panel.
      * @param exclude a list of fields associated with the file columns to exclude when getting the user's input/selections

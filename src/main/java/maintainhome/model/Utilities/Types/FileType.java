@@ -2,9 +2,8 @@ package maintainhome.model.Utilities.Types;
 
 public enum FileType {
     /**
-     * Enums matching CODE(cvsname) pattern.
+     * Enums matching CODE(filenames) pattern.
      * 
-     * name and id are used for user uniqueness.
      */
     USER("user.csv"), HOMES("homes.csv"),
     USER_HOMES("user_homes.csv"),
