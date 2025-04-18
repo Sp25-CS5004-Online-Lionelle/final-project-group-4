@@ -11,7 +11,7 @@ Welcome to the Home Maintenance App! This guide walks you through all major feat
 
 Start by entering your username and password, then click the **Login** button.
 
-![alt text](https://github.com/Sp25-CS5004-Online-Lionelle/final-project-group-4/blob/main/Manual/imgs/LoginPage.png)
+![alt text](imgs/LoginPage.png)
 
 ---
 
@@ -22,7 +22,7 @@ Once logged in, you'll land on the **Home View** tab. Here you can see a list of
 - View existing homes in the table.
 - Use the right-side tab to add a new home.
 
-![alt text](https://github.com/Sp25-CS5004-Online-Lionelle/final-project-group-4/blob/main/Manual/imgs/HomeViewTab.png)
+![alt text](imgs/HomeViewTab.png)
 
 ---
 
@@ -30,7 +30,7 @@ Once logged in, you'll land on the **Home View** tab. Here you can see a list of
 
 Go to the **Add Home** tab to register a new property. Fill in the home name, address, and zip code, then click **Add**.
 
-![alt text](https://github.com/Sp25-CS5004-Online-Lionelle/final-project-group-4/blob/main/Manual/imgs/HomeAddTab.png)
+![alt text](imgs/HomeAddTab.png)
 
 ---
 
@@ -38,7 +38,7 @@ Go to the **Add Home** tab to register a new property. Fill in the home name, ad
 
 Select the **Units** tab to view all the units within a home. Use the tabs to navigate or click directly from the table.
 
-![alt text](https://github.com/Sp25-CS5004-Online-Lionelle/final-project-group-4/blob/main/Manual/imgs/UnitsViewTab.png)
+![alt text](imgs/UnitsViewTab.png)
 
 ---
 
@@ -46,7 +46,7 @@ Select the **Units** tab to view all the units within a home. Use the tabs to na
 
 Go to the **Add Unit** tab, choose the appropriate type, room and priority level, provide a name, and click **Add Unit** to save it.
 
-![alt text](https://github.com/Sp25-CS5004-Online-Lionelle/final-project-group-4/blob/main/Manual/imgs/UnitsAddTab.png)
+![alt text](imgs/UnitsAddTab.png)
 
 ---
 
@@ -57,7 +57,7 @@ Click a room type from list above to filter the units shown. Then use:
 - **Reset Filter** to clear the filter.
 - **Save Filtered to CSV** to export the filtered list.
 
-![alt text](https://github.com/Sp25-CS5004-Online-Lionelle/final-project-group-4/blob/main/Manual/imgs/Units%20Filtered.png)
+![alt text](imgs/Units%20Filtered.png)
 
 ---
 
@@ -65,7 +65,7 @@ Click a room type from list above to filter the units shown. Then use:
 
 In the **User Info** tab, you can update your personal details like name and email address by clicking the **Update** button.
 
-![!\[User Tab\](../Manual/imgs/UserTab_Annotated.png)](https://github.com/Sp25-CS5004-Online-Lionelle/final-project-group-4/blob/main/Manual/imgs/UserTab.png)
+![!\[User Tab\](../Manual/imgs/UserTab_Annotated.png)](imgs/UserTab.png)
 
 ---
 
