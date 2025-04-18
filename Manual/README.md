@@ -50,7 +50,7 @@ Go to the **Add Unit** tab, choose the appropriate type, room and priority level
 
 ---
 
-## 7. Filtering Units by RoomType
+## 6. Filtering Units by RoomType
 
 Click a room type from list above to filter the units shown. Then use:
 
@@ -61,7 +61,7 @@ Click a room type from list above to filter the units shown. Then use:
 
 ---
 
-## 6. Managing Your User Info
+## 7. Managing Your User Info
 
 In the **User Info** tab, you can update your personal details like name and email address by clicking the **Update** button.
 
