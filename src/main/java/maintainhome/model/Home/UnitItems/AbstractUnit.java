@@ -201,7 +201,7 @@ public abstract class AbstractUnit implements IUnit {
     @Override
     public String[] getUnitRow() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("M/d/yyyy");
-        return new String[] {getUnitId(), getItemName(), getUnitType().getUnitType(),
+        return new String[] {getHomeId(), getUnitId(), getItemName(), getUnitType().getUnitType(),
                 getRoomName(), getInstallDate().format(formatter), getMaintainedDate().format(formatter),
                 Integer.toString(getMaintenanceFrequency()) + " " + getFrequencyMeasure(),
                 getIssue(),

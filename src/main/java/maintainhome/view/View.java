@@ -278,7 +278,7 @@ public class View extends JFrame implements IView {
         */
         List<IColumnEnum> ex = new ArrayList<>();
         ex.add(ColumnData.UnitItemData.user_id);
-        ex.add(ColumnData.UnitItemData.home_id);
+        //ex.add(ColumnData.UnitItemData.home_id);
         ex.add(ColumnData.UnitItemData.room_type);
         ex.add(ColumnData.UnitItemData.frequency_meas);
 
