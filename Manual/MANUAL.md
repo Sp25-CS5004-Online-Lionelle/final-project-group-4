@@ -9,7 +9,7 @@ Welcome to the Home Maintenance App! This guide walks you through all major feat
 
 Start by entering your username and password, then click the **Login** button.
 
-![Login](../manual/screenshots/LoginPage_Annotated.png)
+![Login](../Manual/imgs/LoginPage_Annotated.png)
 
 ---
 
@@ -20,7 +20,7 @@ Once logged in, you'll land on the **Home View** tab. Here you can see a list of
 - View existing homes in the table.
 - Use the right-side tab to add a new home.
 
-![Post Login Home Tab](../manual/screenshots/PostLoginHomeTab_Annotated.png)
+![Post Login Home Tab](../Manual/imgs/PostLoginHomeTab_Annotated.png)
 
 ---
 
@@ -28,7 +28,7 @@ Once logged in, you'll land on the **Home View** tab. Here you can see a list of
 
 Go to the **Add Home** tab to register a new property. Fill in the home name, address, and zip code, then click **Add**.
 
-![Add Home](../manual/screenshots/HomeAddTab_Annotated.png)
+![Add Home](../Manual/imgs/HomeAddTab_Annotated.png)
 
 ---
 
@@ -36,7 +36,7 @@ Go to the **Add Home** tab to register a new property. Fill in the home name, ad
 
 Select the **Units** tab to view all the units within a home. Use the tabs to navigate or click directly from the table.
 
-![View Units](../manual/screenshots/UnitsTab_Annotated.png)
+![View Units](../Manual/imgs/UnitsTab_Annotated.png)
 
 ---
 
@@ -44,7 +44,7 @@ Select the **Units** tab to view all the units within a home. Use the tabs to na
 
 Go to the **Add Unit** tab, choose the appropriate type, room and priority level, provide a name, and click **Add Unit** to save it.
 
-![Add Unit](../manual/screenshots/UnitsAddTab_Annotated.png)
+![Add Unit](../Manual/imgs/UnitsAddTab_Annotated.png)
 
 ---
 
@@ -52,7 +52,7 @@ Go to the **Add Unit** tab, choose the appropriate type, room and priority level
 
 In the **User Info** tab, you can update your personal details like name and email address by clicking the **Update** button.
 
-![User Tab](../manual/screenshots/UserTab_Annotated.png)
+![User Tab](../Manual/imgs/UserTab_Annotated.png)
 
 ---
 
@@ -63,7 +63,7 @@ Click a room type from list above to filter the units shown. Then use:
 - **Reset Filter** to clear the filter.
 - **Save Filtered to CSV** to export the filtered list.
 
-![Filtered Units](../manual/screenshots/FilteredUnitsTab_Annotated.png)
+![Filtered Units](../Manual/imgs/FilteredUnitsTab_Annotated.png)
 
 ---
 
