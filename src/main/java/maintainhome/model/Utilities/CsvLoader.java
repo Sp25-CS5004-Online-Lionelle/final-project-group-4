@@ -35,6 +35,13 @@ public class CsvLoader implements ICsvSource {
 
     /** Standard csv delim. */
     private static final String DELIMITER = ",";
+
+    private static String filePath = new java.io.File("").getAbsolutePath() + "/src/main/resources/files/";
+
+    public static void overrideFilePath(String newPath) {
+        filePath = newPath;
+    }
+
     
     private static String[] trimValues(String[] values) {
         String[] result = new String[values.length];

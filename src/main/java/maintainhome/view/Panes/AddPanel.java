@@ -6,12 +6,6 @@ import java.awt.Insets;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
-
 import maintainhome.controller.Commands;
 import maintainhome.model.Home.Types.PriorityType;
 import maintainhome.model.Home.Types.RoomType;
@@ -70,6 +64,8 @@ public class AddPanel extends JPanel {
     }
 
     public Map<String, String> getValues(Commands panelType) {
+        System.out.println("[DEBUG] extracting value for key: ");
+
         switch(panelType) {
         case Commands.homesButton:
             for (int i = 0; i < labels.size(); i++) {

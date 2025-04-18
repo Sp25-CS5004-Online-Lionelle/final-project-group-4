@@ -428,6 +428,9 @@ public class View extends JFrame implements IView {
         return unitsViewPanel.getJList().getSelectedValue();
     }
 
+    public UserPanel getUserPanel() {
+        return userPanel;
+    }
 
     @Override
     public void setListener(ActionListener listener, KeyListener keys) {

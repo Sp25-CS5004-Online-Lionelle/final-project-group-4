@@ -23,6 +23,13 @@ public class CsvUpdater implements ICsvSource {
 
     private static final String DELIMITER = ",";
 
+    private static String filePath = new java.io.File("").getAbsolutePath() + "/src/main/resources/files/";
+
+    public static void overrideFilePath(String newPath) {
+        filePath = newPath;
+    }
+
+
     public static int getLastRow(FileType fileType) {
         List<String> lines = readCsvFile(fileType);
         
