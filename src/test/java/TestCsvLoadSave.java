@@ -82,7 +82,7 @@ public class TestCsvLoadSave {
             "Email", "alice@example.com"
         );
 
-        CsvUpdater.updateCsvFile(FileType.USER, newRow);
+        CsvUpdater.writeCsvFile(FileType.USER, newRow);
         List<String> lines = readFile(userCsv);
         assertTrue(lines.get(lines.size() - 1).contains("alice@example.com"));
     }
