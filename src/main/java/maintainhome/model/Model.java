@@ -10,6 +10,7 @@ import maintainhome.model.Home.Types.PriorityType;
 import maintainhome.model.Home.Types.RoomType;
 import maintainhome.model.Home.Types.UnitType;
 import maintainhome.model.Home.UnitItems.ApplianceUnit;
+import maintainhome.model.Home.UnitItems.ElectricUnit;
 import maintainhome.model.Home.UnitItems.IUnit;
 import maintainhome.model.User.User;
 import maintainhome.model.Utilities.CsvLoader;
@@ -51,14 +52,29 @@ public class Model {
         // empty
     }
 
+    /**
+     * Sets the filtered units in the Add tab for the Units button.
+     * 
+     * @param units the String array of values to trim
+     */
     public void setFilteredUnits(List<IUnit> units) {
         this.filteredUnits = units;
     }
     
+    /**
+     * Gets the filtered units in the Add tab for the Units button.
+     * 
+     * @return the filtered units
+     */
     public List<IUnit> getFilteredUnits() {
         return filteredUnits;
     }
 
+    /**
+     * Gets the filtered units in the Add tab for the Units button.
+     * 
+     * @param roomTypeStr the usr selected room type to filter on
+     */
     public void filterUnitsByRoomType(String roomTypeStr) {
         RoomType selectedType = RoomType.toRoomType(roomTypeStr);
         List<IUnit> filtered = Filters.filterByRoom(
@@ -68,36 +84,69 @@ public class Model {
         setFilteredUnits(filtered);
     }    
 
+    /**
+     * Sets the user information from the user file.
+     */
     public void setUser(String user) {
         // set user
         this.user = CsvLoader.loadUserFile(user);
     }
 
+    /**
+     * Gets the the user.
+     * 
+     * @return the user object
+     */
     public User getUser() {
         return user;
     }
     
+    /**
+     * Gets the new unit from the app that was input in by the user.
+     * 
+     * @return the new unit
+     */
     public IUnit getNewUnit() {
         return newUnit;
     }
 
+    /**
+     * Adds the new unit to the list of unit items of the user selected home.
+     */
     public void addUnit() {
-        // need to get the Home home object from user selection
-        getSelectedHome().setUnitItem(getNewUnit()); // placeholder: newHome - need to get user selected home need to get home by ID, address?, or some other identifier.
+        getSelectedHome().setUnitItem(getNewUnit());
     }
 
+    /**
+     * Sets the user selected home from the JComboBox.
+     */
     private void setSelectedHome(Home home) {
         selectedHome = home;
     }
 
+    /**
+     * Gets the user selected home of the JComboBox.
+     * 
+     * @return the selected home
+     */
     private Home getSelectedHome() {
         return selectedHome;
     }
 
+    /**
+     * Creates a new unit ID for the new unit that was input by the user through the app.
+     * 
+     * @param userId the user id that the new unit is associated with
+     * @param homeId the home id that the new unit is associated with
+     * @return the newly created unit id from the user input/selection
+     */
     private String newUnitId(String userId, String homeId) {
         return userId + "h" + homeId + "u" + getSelectedHome().getUnitItems().size() + 1; // placeholder: newHome - need to get user selected home
     }
     
+    /**
+     * Constructs and sets the new unit by calling the appropraite unit constructor.
+     */
     public void setNewUnit() {
         String homeName = data.get(ColumnData.UnitItemData.home_id.toString());
         setSelectedHome(getUser().findHomeByName(homeName));
@@ -131,29 +180,45 @@ public class Model {
                     issue, priority, electricWatt, height, width, depth);
                 break;
             case UnitType.ELECTRIC_UNIT:
+                this.newUnit = new ElectricUnit(
+                        userId, homeId,
+                        unitId, unitName, unitType, roomType, roomName
+                        , installDate, maintainedDate, maintenanceFrequency, frequencyMeas,
+                        issue, priority, electricWatt);
                 break;
             case UnitType.PLUMBING_UNIT:
+                this.newUnit = new ElectricUnit(
+                    userId, homeId,
+                    unitId, unitName, unitType, roomType, roomName
+                    , installDate, maintainedDate, maintenanceFrequency, frequencyMeas,
+                    issue, priority, plumbingGallon);
                 break;            
         }
     }
 
-public void saveUnit() {
-    data.put( // home_id
-        ColumnData.UnitItemData.user_id.toString()
-        , getNewUnit().getUserId()); // accounting for header
-    data.put( // home_id
-        ColumnData.UnitItemData.home_id.toString()
-        , getNewUnit().getHomeId());
-    data.put( // home_num
-        ColumnData.UnitItemData.unit_id.toString()
-        , getNewUnit().getUnitId());
-    data.put( // home_num
-        ColumnData.UnitItemData.unit_id.toString()
-        , getNewUnit().getFrequencyMeasure());
+    /**
+     * Saves the unit out to csv file.
+     */
+    public void saveUnit() {
+        data.put( // home_id
+            ColumnData.UnitItemData.user_id.toString()
+            , getNewUnit().getUserId()); // accounting for header
+        data.put( // home_id
+            ColumnData.UnitItemData.home_id.toString()
+            , getNewUnit().getHomeId());
+        data.put( // home_num
+            ColumnData.UnitItemData.unit_id.toString()
+            , getNewUnit().getUnitId());
+        data.put( // home_num
+            ColumnData.UnitItemData.unit_id.toString()
+            , getNewUnit().getFrequencyMeasure());
 
-    CsvUpdater.writeCsvFile(FileType.UNIT_ITEMS, data);
-}
+        CsvUpdater.writeCsvFile(FileType.UNIT_ITEMS, data);
+    }
 
+    /**
+     * Sets the new home.
+     */
     public void setNewHome() {
         this.newHome = new Home (
             Integer.toString(CsvUpdater.getLastRow(FileType.HOMES))
@@ -164,23 +229,42 @@ public void saveUnit() {
         );
     }
 
+    /**
+     * Gets the the new home.
+     * 
+     * @return the new home
+     */
     public Home getNewHome() {
         return newHome;
     }
 
+    /**
+     * Adds the new home to the user's homes list.
+     */
     public void addHome() {
         getUser().setHome(getNewHome());
     }
 
+    /**
+     * Sets the user's homes pulled from the csv file.
+     */
     public void setUserHomes() {
         List<Home> homes = CsvLoader.loadHomesFile(getUser().getUserId());
         getUser().setHomes(homes);
     }
 
+    /**
+     * Sets the data collected form the user to the data Map collection.
+     * 
+     * @param data the user input/selected data collected from the View
+     */
     public void setData(Map<String, String> data) {
         this.data = data;
     }
 
+    /**
+     * Sets the user items by pulling from the unit items csv file.
+     */
     public void setUserItems() {
         for (Home home:user.getHomes()) {
             List<IUnit> units = CsvLoader.loadUnitItemsFile(user.getUserId(), home.getHomeId());
@@ -190,6 +274,11 @@ public void saveUnit() {
         }
     }
     
+    /**
+     * Gets the list for the Homes JList display.
+     * 
+     * @return the JList list
+     */
     public String[] getHomeJList() {
         String[] homeList = new String[getUser().getHomes().size()];
         for (int i = 0; i < getUser().getHomes().size(); i++) {
@@ -198,6 +287,11 @@ public void saveUnit() {
         return homeList;
     }
 
+    /**
+     * Gets the user's homes as rows to display in the JTable.
+     * 
+     * @return the user's homes as rows
+     */
     public List<String[]> getHomeRows() {
         List<String[]> rows = new ArrayList<>();
         getUser().getHomes().sort(Sorters.BY_HOME_NUM);
@@ -207,6 +301,11 @@ public void saveUnit() {
         return rows;
     }
 
+    /**
+     * Gets the unit items as rows for the JTable.
+     * 
+     * @return the unit items as rows for the JTable display
+     */
     public List<String[]> getUnitRows() {
         List<String[]> rows = new ArrayList<>();
         for (Home home:getUser().getHomes()) {
@@ -217,6 +316,12 @@ public void saveUnit() {
         return rows;
     }
 
+    /**
+     * Gets the unit items as rows for the JTable.
+     * 
+     * @param units the user homes' units to display
+     * @return the rows of the unit items
+     */
     public List<String[]> getUnitRows(List<IUnit> units) {
         List<String[]> rows = new ArrayList<>();
         units.sort(Sorters.BY_MAINTAIN_DATE);
@@ -226,7 +331,11 @@ public void saveUnit() {
         return rows;
     }
     
-
+    /**
+     * Gets the unit items to display in the JList.
+     * 
+     * @return unit items JList list to display
+     */
     public String[] getUnitsJList() {
         String[] jList;
         
@@ -239,6 +348,9 @@ public void saveUnit() {
         return jList;
     }
     
+    /**
+     * Saves the home out to csv file.
+     */
     public void saveHome() {
         data.put( // home_id
             ColumnData.HomeData.home_id.toString()
