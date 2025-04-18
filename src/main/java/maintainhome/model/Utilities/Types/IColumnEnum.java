@@ -1,5 +1,8 @@
 package maintainhome.model.Utilities.Types;
 
+/**
+ * The column data enum interface.
+ */
 public interface IColumnEnum {
     /**
      * Getter for the column name.

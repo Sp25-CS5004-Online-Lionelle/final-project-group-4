@@ -5,7 +5,6 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.util.ArrayList;
 import java.util.List;
-
 import maintainhome.controller.Commands;
 import maintainhome.model.Home.Types.PriorityType;
 import maintainhome.model.Home.Types.RoomType;
@@ -22,19 +21,39 @@ import java.util.HashMap;
 import java.util.ArrayList;
 import java.util.Collections;
 
+/**
+ * The panel for the Add tab.
+ */
 public class AddPanel extends JPanel {
+    /** This panel's Grid Bag Layout constraints */
     private GridBagConstraints gbc = new GridBagConstraints();
+    /** The display labels of the input and dropdown fields */
     private List<JLabel> labels = new ArrayList<>();
+    /** The list of Objects that consist of the input and dropdown fields */
     private List<Object> fields = new ArrayList<>();
+    /** The list model for the Home dropdown field */
     private DefaultComboBoxModel<String> homeList = new DefaultComboBoxModel<>();
+    /** The Home dropdown dropdown field */
     private JComboBox<String> homeDropdown;
+    /** The Room Type dropdown field */
     private JComboBox<String> roomDropdown;
+    /** The Unit Type dropdown field */
     private JComboBox<String> unitsDropdown;
+    /** The Priority Type dropdown field */
     private JComboBox<String> priorityDropdown;
+    /** The Add button */
     private JButton addButton = new JButton("Add");
+    /** The Clear button */
     private JButton clearButton = new JButton(Commands.clearButton.getCommandText());
+    /** The map that holds the user input and selection values */
     private Map<String, String> values = new HashMap<>();
 
+    /**
+     * Default Add panel Constructor.
+     * 
+     * @param displays a String array text for the label displays.
+     * @param panelType the panel card that is currently visible
+     */
     public AddPanel(String[] displays, Commands panelType) {
     // need to make this flexible to account for Homes and UnitItems
     // need to display from the Column Data
@@ -51,18 +70,38 @@ public class AddPanel extends JPanel {
         add(clearButton, gbc);
     }
 
+    /**
+     * Gets this panel.
+     * 
+     * @return this panel
+     */
     public JPanel getPanel() {
         return this;
     }
 
+    /**
+     * Gets the clear button object.
+     * 
+     * @return the clear button object
+     */
     public JButton getClearButton() {
         return clearButton;
     }
 
+    /**
+     * Gets the add button object.
+     * 
+     * @return the add button object
+     */
     public JButton getAddButton() {
         return addButton;
     }
 
+    /**
+     * Gets the values of the input and dropdown values.
+     * 
+     * @param panelType the panel that is currently visible
+     */
     public Map<String, String> getValues(Commands panelType) {
         System.out.println("[DEBUG] extracting value for key: ");
 
@@ -96,6 +135,11 @@ public class AddPanel extends JPanel {
         return values;
     }
 
+    /**
+     * Clears the input and dropdown values.
+     * 
+     * @param panelType the panel card that is currently visible
+     */
     public void clearFields(Commands panelType) {
         switch(panelType) {
             case Commands.homesButton:
@@ -117,6 +161,11 @@ public class AddPanel extends JPanel {
         }
     }
 
+    /**
+     * Sets the display labels to describe the input and dropdown fields.
+     * 
+     * @param displays the String array of the display labels
+     */
     private void setDisplays(String[] displays) {
         gbc.anchor= GridBagConstraints.EAST;
         for (int i = 0; i < displays.length; i++) {
@@ -128,6 +177,11 @@ public class AddPanel extends JPanel {
         }
     }
 
+    /**
+     * Sets by adding the input and dropdown fields for this panel.
+     * 
+     * @param panelType the panel card that is currently visible
+     */
     private void setFields(Commands panelType) {
         gbc.anchor= GridBagConstraints.WEST;
         switch(panelType) {
@@ -184,14 +238,25 @@ public class AddPanel extends JPanel {
         }
     }
 
+    /**
+     * Gets the Home dropdown as a list model.
+     * 
+     * @return the dropdown list model
+     */
     public DefaultComboBoxModel<String> getHomeList(){
         return homeList;
     }
 
+    /**
+     * Sets the dropdown for Home Names mapped as ID for saving the unitItems.
+     */
     private void setHomeComboBox() {
         homeDropdown = new JComboBox<>(homeList);
     }
 
+    /**
+     * Sets the dropdown for Room Type.
+     */
     private void setRoomComboBox() {
         List<String> options = new ArrayList<>();
         for (RoomType val:RoomType.values()) {
@@ -201,6 +266,9 @@ public class AddPanel extends JPanel {
         roomDropdown = new JComboBox<>(options.toArray(new String[0]));
     }
 
+    /**
+     * Sets the dropdown for Unit Type.
+     */
     private void setUnitComboBox() {
         List<String> options = new ArrayList<>();
         for (UnitType val:UnitType.values()) {
@@ -209,7 +277,10 @@ public class AddPanel extends JPanel {
         Collections.sort(options);
         unitsDropdown = new JComboBox<>(options.toArray(new String[0]));
     }
-
+    
+    /**
+     * Sets the dropdown for Priority.
+     */
     private void setPriorityComboBox() {
         List<String> options = new ArrayList<>();
         for (PriorityType val:PriorityType.values()) {

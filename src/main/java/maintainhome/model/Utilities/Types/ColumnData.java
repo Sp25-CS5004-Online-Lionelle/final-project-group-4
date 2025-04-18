@@ -187,10 +187,22 @@ public class ColumnData { // https://www.geekster.in/articles/enum-class-in-java
             }
     }
 
+    /**
+     * Throws an exception when a column name does not match an enum for the fromColumnName method
+     * 
+     * @param columnName the column name to find the enum.
+     * @throw an IllegalArgumentException when there is no column name match
+     */
     private static IllegalArgumentException fromColumnNameException(String columnName) {
         throw new IllegalArgumentException("No column with name " + columnName);
     }
 
+    /**
+     * Throws an exception when a column name does not match an enum for the fromString method
+     * 
+     * @param name the column name or enum string to find the enum.
+     * @throw an IllegalArgumentException when there is no column name or enum string match
+     */
     private static IllegalArgumentException fromStringException(String name) {
         throw new IllegalArgumentException("No column with name " + name);
     }

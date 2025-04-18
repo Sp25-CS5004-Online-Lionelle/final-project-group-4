@@ -1,5 +1,13 @@
 package maintainhome.model.Home.UnitItems;
-// plumbing unit interface
+
+/**
+ * The interface for the Plumbing Unit.
+ */
 public interface IPlumbingUnit {
+    /**
+     * Gets the Plumbing Unit's measure of gallons.
+     * 
+     * @return the plumbing unit's measure of gallons
+     */
     int getPlumbingGallon();
 }

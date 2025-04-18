@@ -8,8 +8,7 @@ import maintainhome.model.Utilities.Types.ColumnData;
  * The User Panel to display and update user information.
  */
 public class UserPanel extends JPanel {
-    /** The user's id display text coming from the file */
-    // private JLabel usernameDisplay;
+    
     /** The user's name display text coming from the file */
     private JLabel nameDisplay;
     /** The user's email display text coming from the file */
@@ -22,26 +21,44 @@ public class UserPanel extends JPanel {
     /** The update button that will update the user information when clicked */
     private JButton update = new JButton("Update");
 
-    
+    /**
+     * Gets the user entered user name.
+     * 
+     * @return the user entered name
+     */
     public String getEnteredName() {
         return nameText.getText().trim();
     }
-    
+
+    /**
+     * Gets the user entered email.
+     * 
+     * @return the user entered email
+     */
     public String getEnteredEmail() {
         return emailText.getText().trim();
     }
 
+    /**
+     * Sets the updated username and email.
+     */
     public void refreshDisplayLabels() {
         nameDisplay.setText(getEnteredName());
         emailDisplay.setText(getEnteredEmail());
     }
 
+    /**
+     * Gets the Login button.
+     * 
+     * @return the Login button
+     */
     public JButton getUpdateButton() {
         return update;
     }
     
     /**
      * Default UserPanel Constructor.
+     * 
      * @param id user's id from file
      * @param name user's name from file
      * @param email user's emailfrom file
@@ -57,7 +74,8 @@ public class UserPanel extends JPanel {
     }
 
     /**
-     * Sets the top pane of the split pane with the display only of the user's information
+     * Sets the top pane of the split pane with the display only of the user's information.
+     * 
      * @param id user's id from file
      * @param name user's name from file
      * @param email user's emailfrom file

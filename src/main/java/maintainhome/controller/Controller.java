@@ -134,7 +134,7 @@ public class Controller implements ActionListener, KeyListener {
                 if (!newName.isEmpty() && !newEmail.isEmpty()) {
                     model.getUser().setName(newName);
                     model.getUser().setEmail(newEmail);
-                    CsvUpdater.updateRewriteCsvFile(FileType.USER, model.getUser());
+                    CsvUpdater.updateWriteCsvFile(FileType.USER, model.getUser());
                     view.refreshUserPanelLabels();  // ← this will call the method above from the view
                     JOptionPane.showMessageDialog(null, "User updated and saved to CSV.");
                 } else {

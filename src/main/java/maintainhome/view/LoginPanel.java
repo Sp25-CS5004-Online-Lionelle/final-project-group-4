@@ -24,6 +24,7 @@ public class LoginPanel extends JPanel {
 
     /**
      * Default View Constructor.
+     * 
      * @param caption for the Frame title display.
      */
     public LoginPanel() {
@@ -38,6 +39,7 @@ public class LoginPanel extends JPanel {
 
     /**
      * Gets the user input text.
+     * 
      * @return user input text
      */
     public String getUserInput() {
@@ -46,6 +48,7 @@ public class LoginPanel extends JPanel {
 
     /**
      * Gets the Login button.
+     * 
      * @return the Login button
      */
     public JButton getLoginBtn() {
@@ -54,6 +57,7 @@ public class LoginPanel extends JPanel {
     
     /**
      * Gets this Login panel.
+     * 
      * @return this Login panel
      */
     public JPanel getLoginPanel() {
