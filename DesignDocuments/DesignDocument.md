@@ -153,8 +153,6 @@ classDiagram
     RoomType
     UnitType
 
-    Filters
-    Sorters
     
     Model <-- Controller : instantiates
     View <-- Controller : instantiates
@@ -177,11 +175,16 @@ classDiagram
     ColumnData o-- HomeData : aggregates
     ColumnData o-- UnitItemData : aggregates
     ColumnData o-- UserHomeData : aggregates
-
+    ColumnData <-- CsvLoader : uses
+    ColumnData <-- CsvUpdater : uses
     ICsvSource *-- CsvLoader : realizes
     ICsvSource *-- CsvUpdater : realizes
+    FileType <-- CsvLoader : uses
+    FileType <-- CsvUpdater : uses
     CsvLoader <-- Model : uses
     CsvUpdater <-- Model : uses
+    Filters <-- Model : uses
+    Sorters <-- Model : uses
     User <-- Model : instantiates
     Home <-- Model : instantiates
     AbstractUnit <-- Model : instantiates
@@ -488,6 +491,19 @@ classDiagram
         + getColumnName:String
     }
 
+    class FileType {
+        <<enumeration>>
+        USER(String)
+        HOMES(String)
+        USER_HOMES(String)
+        UNIT_ITEMS(String)
+        - final fileName:String
+        + FileType(String)
+        + getFileName():String
+        + fromFileName(String)$:FileType
+        + fromString(String)$:FileType
+    }
+
     class CsvLoader {
         <<final>>
         - final DELIMITER:String$
@@ -562,11 +578,62 @@ classDiagram
         + saveHome():void
     }
 
-
-
     class View {
+        - buttonPanel:Buttonpanel
+        - userPanel:UserPanel
+        - actionListener:ActionListener
+        - container:JPanel
+        - loginPanel:LoginPanel
+        - afterLogin:JPanel
+        - homesTabPane:JTabbedPane
+        - unitsTabPane:JTabbedPane
+        + tab1:String
+        + tab2:String
+        - homesViewPanel:ViewPanel
+        - homesAddPanel:AddPanel
+        - unitsViewPanel:ViewPanel
+        - unitsAddPanel:AddPanel
+        - rightPanel:JPanel
+        - panel1:JPanel
+        - panel2:JPanel
+        - panel3:JPanel
+        - selectedCard:Commands
+        - commands:Map~Commands, String[]~
         + View(String)
-        - setFrame() : void
+        - setFramePanel() : void
+        - setLoginPanel():void
+        + getLoginUser():String
+        - setLeftPanel():void
+        + setUserPanel(String, String, String):void
+        + getUpdatedUserName():String
+        + getUpdatedUserEmail():String
+        + refreshUserPanelLabels():void
+        - homeAddFields(List~IColumnEnum~):String[]
+        - unitAddFields(List~IColumnEnum~):String[]
+        - setHomesAdd():void
+        - setHomesView():void
+        + updateHomesList(String[]):void
+        + updateHomesTable(List~String[]~):void
+        + setUnitsAddHomesDropDown(String[]):void
+        - setUnitsAdd():void
+        - setUnitsView():void
+        + updateUnitsList(String[]):void
+        + updateUnitsTable(List~String[]~):void
+        - setHomesTabs():void
+        + getHomesTab():JTabbedPane
+        + getUnitsTab():JTabbedPane
+        - setUnitsTabes():void
+        - setRightPanel():void
+        - addToFrame():void
+        - setBorder():void
+        + switchRightPanel(String):void
+        + switchMainPanel(String):void
+        + getSelectedCard():Commands
+        + setSelectedCard(Commands):void
+        + clearAddFields():void
+        + getAddValues():Map~String,String~
+        + getRoomTypeSelected():String
         + setListener(ActionListener, KeyListener) : void
+        - display():void
     }
 ```

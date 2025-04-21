@@ -33,9 +33,9 @@ public class View extends JFrame implements IView {
     /** The Units button tabe pane - View / Add */
     private JTabbedPane unitsTabPane;
     /** The View tab's caption */
-    String tab1 = "View";
+    public String tab1 = "View";
     /** The Add tab'e caption */
-    String tab2 = "Add";
+    public String tab2 = "Add";
     /** The View tab panel for the Homes button */
     private ViewPanel homesViewPanel;
     /** The View tab panel for the Add button */
@@ -427,10 +427,6 @@ public class View extends JFrame implements IView {
     @Override
     public String getRoomTypeSelected() {
         return unitsViewPanel.getJList().getSelectedValue();
-    }
-
-    public UserPanel getUserPanel() {
-        return userPanel;
     }
 
     @Override
