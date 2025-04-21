@@ -421,9 +421,18 @@ classDiagram
 
     class ColumnData {
         - ColumnData()
-        class UserData {
-            user_id(String)
-        }
+        + UserData
+        + HomeData
+        + UnitItemData
+        + UserHomeData
+        + fromColumnName(String, FileType)$:IColumnEnum
+        + fromString(String, FileType)$:IColumnEnum
+        - fromColumnNameException(String)$:IllegalArgumentException
+        - fromStringException(String)$:IllegalArgumentException
+    }
+
+    class UserData {
+        <<enumeration>>
     }
 
     class CsvLoader {
