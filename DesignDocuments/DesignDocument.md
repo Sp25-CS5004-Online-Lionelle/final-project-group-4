@@ -148,15 +148,12 @@ title: Home Maintenance
 
 classDiagram
     direction TD
-
-    PriorityType
-    RoomType
-    UnitType
-
-    
     Model <-- Controller : instantiates
     View <-- Controller : instantiates
     IUnit <|.. AbstractUnit : realizes
+    PriorityType <-- AbstractUnit : uses
+    RoomType <-- AbstractUnit : uses
+    UnitType <-- AbstractUnit : uses
     AbstractUnit <|-- ElectricUnit : inherits
     AbstractUnit <|-- ApplianceUnit : inherits
     AbstractUnit <|-- PlumbingUnit : inherits
@@ -190,9 +187,22 @@ classDiagram
     AbstractUnit <-- Model : instantiates
     Commands <-- Controller : uses
     ActionListener *-- Controller : realizes
+    JPanel <|-- UserPanel : inherits
+    JPanel <|-- LoginPanel : inherits
+    JPanel <|-- ButtonPanel : inherits
+    JPanel <|-- AddPanel : inherits
+    JPanel <|-- ViewPanel : inherits
+    UserPanel <-- View : instantiates
+    LoginPanel <-- View : instantiates
+    ButtonPanel <-- View : instantiates
+    AddPanel <-- View : instantiates
+    ViewPanel <-- View : instantiates
     Commands <-- View : uses
     JFrame <|-- View : inherits
     IView *-- View : realizes
+    Model <-- HomeUpkeep : instantiates
+    Controller <-- HomeUpkeep : instantiates
+    View <-- HomeUpkeep : instantiates
 
     class Commands {
         <<enumeration>>
@@ -578,6 +588,121 @@ classDiagram
         + saveHome():void
     }
 
+    class AddPanel {
+        - gbc:GridBagConstraints
+        - labels:List~JLabel~
+        - fields:List~Object~
+        - homeList:DefaultComboBoxModel~String~
+        - homeDropdown:JComboBox~String~
+        - roomDropdown:JComboBox~String~
+        - unitsDropdown:JComboBox~String~
+        - priorityDropdown:JComboBox~String~
+        - addButton:JButton
+        - clearButton:JButton
+        - values:Map~String,String~
+        + AddPanel(String[], Commands)
+        + getPanel():JPanel
+        + getClearButton():JButton
+        + getAddButton():JButton
+        + getValues(Commands):Map~String,String~
+        + clearFields(Commands):void
+        - setDisplays(String[]):void
+        - setFields(Commands):void
+        + getHomesList():DefaultComboBoxModel~String~
+        - setHomeComboBox():void
+        - setRoomComboBox():void
+        - setUnitComboBox():void
+        - setPriorityComboBox():void
+    }
+
+    class ViewPanel {
+        - listLabel:JLabel
+        - listModel:DefaultListModel~String~
+        - list:JList~String~
+        - tableModel:DefaultTableModel
+        - table:JTable
+        + ViewPanel(String,String[])
+        + getPanel():JPanel
+        + getListModel():DefaultListModel~String~
+        + getJList():JList~String~
+        + clearJList():void
+        + updateJList(String[]):void
+        + addToJList(String[]):void
+        + clearTable():void
+        + addTableRow(String[]):void
+        + addTableRows(List~String[]~):void
+        + updateTableRows(List~String[]~):void
+        - setTopPanel():JPanel
+        - setBottomPanel():JPanel
+    }
+
+    class ButtonPanel {
+        - gbc:GridBagConstraints
+        - buttons[]:JButton
+        - inset20:int
+        + ButtonPanel(int, String[])
+        + getButtons():JButton[]
+        - setButtons(String[]):void
+    }
+
+    class LoginPanel {
+        - gbc:GridBagConstraints
+        - userLabel:JLabel
+        - userInput:JTextField
+        - passLabel:JLabel
+        - passInput:JPasswordField
+        - loginBtn:JButton
+        - inset20:int
+        + loginPanel()
+        + getUserInput():String
+        + getLoginBtn():JButton
+        + getLoginPanel():JPanel
+        - setUserLabel():void
+        - setUserInput():void
+        - setPassLabel():void
+        - setPassInput():void
+        - setLoginBtn():void
+    }
+
+    class UserPanel {
+        - nameDisplay:JLabel
+        - emailDisplay:JLAbel
+        - nameText:JTextField
+        - emailText:JTextField
+        - update:JButton
+        + getEnteredName():String
+        + getEnteredEmail():String
+        + refreshDisplayLabels():void
+        + getUpdateButton():JButton
+        + UserPanel(String, String, String)
+        - setTopPane(String, String, String):JPanel
+        + setBottomPane():JPanel
+    }
+
+    class IView{
+        <<interface>>
+        + setSelectedCard(Commands):void
+        + getSelectedCard():Commands
+        + clearAddFields():void
+        + setUnitsAddHomesDropDown(String[]):void
+        + getAddValues():Map~String,String~
+        + getLoginUser():String
+        + getHomestab():JTabbedPane
+        + getUnitsTab():JTabbedPane
+        + setUserPanel(String, String, String):void
+        + updateHomesList(String[]):void
+        + updateHomesTable(List~String[]~):void
+        + updateUnitsList(String[]):void
+        + updateUnitsTable(List~String[]~):void
+        + setListener(ActionListener, KeyListener):void
+        + switchRightPanel(String):void
+        + switchMainPanel(String):void
+        + getRoomTypeSelected():String
+        + getUpdatedUserName():String
+        + getUpdatedUserEmail():String
+        + refreshUserPanelLabels():void
+    }
+
     class View {
         - buttonPanel:Buttonpanel
         - userPanel:UserPanel
@@ -635,5 +760,11 @@ classDiagram
         + getRoomTypeSelected():String
         + setListener(ActionListener, KeyListener) : void
         - display():void
+    }
+
+    class HomeUpkeep {
+        <<final>>
+        - HomeUpkeep()
+        + main(String[])$:void
     }
 ```
