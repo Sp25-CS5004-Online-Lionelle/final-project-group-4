@@ -158,18 +158,25 @@ classDiagram
     
     Model <-- Controller : instantiates
     View <-- Controller : instantiates
-    IUnit *-- AbstractUnit : realizes
+    IUnit <|.. AbstractUnit : realizes
     AbstractUnit <|-- ElectricUnit : inherits
     AbstractUnit <|-- ApplianceUnit : inherits
     AbstractUnit <|-- PlumbingUnit : inherits
-    IElectricUnit *-- ApplianceUnit : realizes
-    IPlumbingUnit *-- ApplianceUnit : realizes
-    IElectricUnit *-- ElectricUnit : realizes
-    IPlumbingUnit *-- PlumbingUnit : realizes
+    IElectricUnit <|.. ApplianceUnit : realizes
+    IPlumbingUnit <|.. ApplianceUnit : realizes
+    IElectricUnit <|.. ElectricUnit : realizes
+    IPlumbingUnit <|.. PlumbingUnit : realizes
     ElectricUnit *-- Home : composes
     PlumbingUnit *-- Home : composes
     ApplianceUnit *-- Home : composes
-    IColumnEnum *-- UserData : realizes
+    IColumnEnum <|.. UserData : realizes
+    IColumnEnum <|.. HomeData : realizes
+    IColumnEnum <|.. UnitItemData : realizes
+    IColumnEnum <|.. UserHomeData : realizes
+    ColumnData o-- UserData : aggregates
+    ColumnData o-- HomeData : aggregates
+    ColumnData o-- UnitItemData : aggregates
+    ColumnData o-- UserHomeData : aggregates
 
     ICsvSource *-- CsvLoader : realizes
     ICsvSource *-- CsvUpdater : realizes
@@ -433,6 +440,52 @@ classDiagram
 
     class UserData {
         <<enumeration>>
+        + user_id(String)
+        + name(String)
+        + email(String)
+        - final columnName:String
+        + UserData(String)
+        + getColumnName:String
+    }
+
+    class HomeData {
+        <<enumeration>>
+        + home_id(String)
+        + home_num(String)
+        + home_name(String)
+        + address(String)
+        + zip(String)
+        - final columnName:String
+        + HomeData(String)
+        + getColumnName:String
+    }
+
+    class UnitItemData {
+        <<enumeration>>
+        + user_id(String)
+        + home_id(String)
+        + unit_id(String)
+        + item_name(String)
+        + unit_type(String)
+        + room_type(String)
+        + room_name(String)
+        + install_date(String)
+        + maintained_date(String)
+        + frequency_meas(String)
+        + issue(String)
+        + priority(String)
+        - final columnName:String
+        + UnitItemData(String)
+        + getColumnName:String
+    }
+
+    class UserHomeData {
+        <<enumeration>>
+        + user_id(String)
+        + home_id(String)
+        - final columnName:String
+        + UserHomeData(String)
+        + getColumnName:String
     }
 
     class CsvLoader {
