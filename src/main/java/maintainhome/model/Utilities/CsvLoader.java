@@ -31,7 +31,7 @@ import maintainhome.model.Utilities.Types.IColumnEnum;
  * Loads this apps objects from a CSV file.
  * Supports unit types: ElectricUnit, PlumbingUnit, ApplianceUnit.
  */
-public class CsvLoader implements ICsvSource {
+public final class CsvLoader implements ICsvSource {
 
     /** Standard csv delim. */
     private static final String DELIMITER = ",";

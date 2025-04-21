@@ -29,7 +29,7 @@ public class Model {
     /** The User who has logged into the application */
     private User user;
 
-    /** New Home that is created form the user's inputs/selection */
+    /** New Home that is created from the user's inputs/selection */
     private Home newHome;
     
     /** New Unit that is created form the user's inputs/selection */
@@ -43,6 +43,9 @@ public class Model {
      */
     private List<IUnit> filteredUnits = new ArrayList<>();
 
+    /**
+     * Selected home for the unit items.
+     */
     private Home selectedHome;
 
     /**

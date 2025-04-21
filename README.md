@@ -25,6 +25,13 @@ Emilio Sanchez-Harris -
  
 [Manual](/Manual)
 
+The name of the project
+The names of the team members
+A brief description of the project
+How to compile and run the project
+Any other information you think is relevant
+Essentially, if we can read the README.md file, can we figure out where everything is stored. So you probably want links to the manual and design documents.
+
 ## Instructions
 
 1. Enter the application with user login information.
