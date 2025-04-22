@@ -22,7 +22,7 @@ Emilio Sanchez-Harris -
  git clone https://github.com/Sp25-CS5004-Online-Lionelle/final-project-group-4.git
 ```
 
-2. Usage:
+2. Usage:  
 To run the project, use the following command:
 ```bash
 javac .\src\main\java\maintainhome\HomeUpkeep.java
