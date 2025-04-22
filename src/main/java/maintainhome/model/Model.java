@@ -206,9 +206,11 @@ public class Model {
         data.put( // home_id
             ColumnData.UnitItemData.user_id.toString()
             , getNewUnit().getUserId()); // accounting for header
+        /*
         data.put( // home_id
             ColumnData.UnitItemData.home_id.toString()
             , getNewUnit().getHomeId());
+        */
         data.put( // home_num
             ColumnData.UnitItemData.unit_id.toString()
             , getNewUnit().getUnitId());

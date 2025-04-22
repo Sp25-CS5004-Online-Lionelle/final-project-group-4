@@ -39,3 +39,7 @@ https://stackhowto.com/how-to-update-a-row-in-jtable/
 
 Examples:
 https://request.angi.com/service-request/task/39794?postalCode=92807
+
+
+**README Guide**
+https://medium.com/@kc_clintone/the-ultimate-guide-to-writing-a-great-readme-md-for-your-project-3d49c2023357

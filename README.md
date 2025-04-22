@@ -22,6 +22,13 @@ Emilio Sanchez-Harris -
  git clone https://github.com/Sp25-CS5004-Online-Lionelle/final-project-group-4.git
 ```
 
-2. Enter the application with user login information.
+2. Usage:
+To run the project, use the following command:
+```bash
+javac .\src\main\java\maintainhome\HomeUpkeep.java
+java .\src\main\java\maintainhome\HomeUpkeep.java
+```
 
-3. Option to navigate 3 buttons to view or add to User, User's Homes, User Home's Units.
+3. Enter the application with user login information.
+
+4. Option to navigate 3 buttons to view or add Client's stored Homes, and Home's Units information.
