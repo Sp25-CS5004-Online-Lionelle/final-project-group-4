@@ -1,15 +1,4 @@
-# Final Project for CS 5004 - (Home Maintenance/Update)
-
-###
-(remove this and add your sections/elements)
-This readme should contain the following information: 
-
-* The group member's names and link to their personal githubs
-* The application name and a brief description of the application
-* Links to design documents and manuals
-* Instructions on how to run the application
-
-Ask yourself, if you started here in the readme, would you have what you need to work on this project and/or use the application?
+# Final Project for CS 5004 - (HomeUpkeep)
 
 ## Group Member Information
 Lori Kim - [lkim016](https://github.com/lkim016)  
@@ -25,17 +14,14 @@ Emilio Sanchez-Harris -
  
 [Manual](/Manual)
 
-The name of the project
-The names of the team members
-A brief description of the project
-How to compile and run the project
-Any other information you think is relevant
-Essentially, if we can read the README.md file, can we figure out where everything is stored. So you probably want links to the manual and design documents.
 
 ## Instructions
+**Installation**
+1. Clone the repository:
+```bash
+ git clone https://github.com/Sp25-CS5004-Online-Lionelle/final-project-group-4.git
+```
 
-1. Enter the application with user login information.
+2. Enter the application with user login information.
 
-2. Option to navigate 3 buttons to view or add to User, User's Homes, User Home's Units.
-
-3. 
+3. Option to navigate 3 buttons to view or add to User, User's Homes, User Home's Units.
