@@ -10,7 +10,7 @@ Emilio Sanchez-Harris -
 ## App/Document Links
 **Home Maintenance App** - An app that helps a homeowner or property manager keep track of or manage home units that need scheduled maintenance/upgrades/fixing.
 
-[Design Document](/DesignDocuments)
+[Design Document](/DesignDocuments/DesignDocument.md)
  
 [Manual](/Manual)
 
